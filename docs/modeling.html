@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modeling — Leret</title>
+  <meta name="description" content="Leret's modeling portfolio — photo gallery and video reel. Represented by Brother Models.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="site-logo" href="/">Leret</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
+           CSS alone can show/hide the menu based on :checked, so the
+           mobile nav toggle needs zero JavaScript. -->
+      <input type="checkbox" id="navToggle" class="nav-toggle-input">
+      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/modeling.html">Modeling</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/book.html">Book</a></li>
+        <li><a href="/shop.html">Shop</a></li>
+        <li><a href="/about.html">About / Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Modeling</h1>
+      <p class="lede">
+        Represented by <strong>Brother Models</strong> — for bookings contact
+        <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>.
+      </p>
+      <div class="btn-row">
+        <!-- mailto: links can pre-fill a subject (and body) via URL query
+             parameters. This opens the visitor's email client with the
+             address and subject already filled in — no form or backend
+             needed for something this simple. -->
+        <a class="btn" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+          Request comp card
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Gallery</h2>
+      <p class="lede">Click any photo to enlarge it.</p>
+
+      <h3>Portrait</h3>
+      <div class="gallery">
+        <!-- Each photo is a <button> (not a link) wrapping an <img>, so it's
+             keyboard-focusable and clicking it doesn't navigate anywhere —
+             script.js listens for clicks on these and opens the lightbox.
+             data-full would point at a larger version of the same photo for
+             the enlarged view; here it just repeats the thumbnail since
+             these are placeholder SVGs. -->
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-1.svg" data-full="/images/modeling/portrait/portrait-1.svg" alt="Portrait shoot, image 1 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-2.svg" data-full="/images/modeling/portrait/portrait-2.svg" alt="Portrait shoot, image 2 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-3.svg" data-full="/images/modeling/portrait/portrait-3.svg" alt="Portrait shoot, image 3 — placeholder">
+        </button>
+      </div>
+
+      <h3>Editorial</h3>
+      <div class="gallery">
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-1.svg" data-full="/images/modeling/editorial/editorial-1.svg" alt="Editorial shoot, image 1 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-2.svg" data-full="/images/modeling/editorial/editorial-2.svg" alt="Editorial shoot, image 2 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-3.svg" data-full="/images/modeling/editorial/editorial-3.svg" alt="Editorial shoot, image 3 — placeholder">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Video reel</h2>
+      <p class="lede">Placeholder embed below — swap the src for a real reel when ready.</p>
+      <!-- .video-embed (defined in style.css) keeps this a fixed 16:9
+           shape at any screen width. Replace the src with a real YouTube
+           or Vimeo embed URL — no video files are ever stored in this repo. -->
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+          title="Modeling reel (placeholder)"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Notable shoots</h2>
+      <div class="notice-box">
+        [Notable shoots or campaigns — to add later]
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
+    <ul class="social-links">
+      <li><a href="#" aria-label="Instagram">Instagram</a></li>
+      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      <li><a href="#" aria-label="X / Twitter">X</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<!-- The lightbox overlay: one shared element, reused for every photo.
+     It starts hidden and script.js reveals it (and fills in the image)
+     when a gallery thumbnail is clicked. -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImage" src="" alt="">
+  <p class="lightbox__caption" id="lightboxCaption"></p>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>

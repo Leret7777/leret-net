@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Leret</title>
+  <meta name="description" content="Shop — coming soon.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="site-logo" href="/">Leret</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
+           CSS alone can show/hide the menu based on :checked, so the
+           mobile nav toggle needs zero JavaScript. -->
+      <input type="checkbox" id="navToggle" class="nav-toggle-input">
+      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/modeling.html">Modeling</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/book.html">Book</a></li>
+        <li><a href="/shop.html">Shop</a></li>
+        <li><a href="/about.html">About / Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Shop</h1>
+      <p class="lede">Coming soon.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="notice-box">
+        <p>
+          I haven't decided what I'll sell here yet — this page is a
+          placeholder until I do. Check back later, or
+          <a href="/about.html">get in touch</a> if there's something
+          you'd like to see.
+        </p>
+      </div>
+
+      <!--
+        How to wire this up later without restructuring the site:
+
+        This page doesn't need a shopping cart, checkout flow, or backend
+        of its own. The simplest path is to embed a hosted checkout
+        product directly into this same HTML file:
+
+        - Stripe Payment Links: create a link in the Stripe dashboard for
+          each product, then drop a plain <a class="btn" href="...">Buy
+          now</a> pointing at it right in this section — Stripe hosts the
+          whole checkout page.
+
+        - Gumroad: same idea — create a product on Gumroad, and either
+          link to its Gumroad page with a <a>, or use Gumroad's overlay
+          embed script for an in-page "Buy" button/popup.
+
+        Either way, this stays a single static page: no server, no
+        database, no changes anywhere else in the site — you're just
+        replacing this notice-box with product cards/buttons that point
+        at Stripe or Gumroad.
+      -->
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
+    <ul class="social-links">
+      <li><a href="#" aria-label="Instagram">Instagram</a></li>
+      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      <li><a href="#" aria-label="X / Twitter">X</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

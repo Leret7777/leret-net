@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book — Leret</title>
+  <meta name="description" content="A book by Leret, currently in draft. Read an excerpt and sign up to hear when it's finished.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="site-logo" href="/">Leret</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
+           CSS alone can show/hide the menu based on :checked, so the
+           mobile nav toggle needs zero JavaScript. -->
+      <input type="checkbox" id="navToggle" class="nav-toggle-input">
+      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/modeling.html">Modeling</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/book.html">Book</a></li>
+        <li><a href="/shop.html">Shop</a></li>
+        <li><a href="/about.html">About / Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>[Book Title — TBD]</h1>
+      <p class="lede">[Genre — to be decided]</p>
+      <p class="lede">
+        I'm currently writing a book. It's still in draft, so details
+        here are placeholders for now — but you can read a short excerpt
+        below and sign up to hear when it's finished.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap post-body">
+      <h2>Excerpt</h2>
+      <div class="notice-box">
+        [Excerpt to be added once a draft is ready to share.]
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Get notified</h2>
+      <p>Leave your email and I'll let you know when there's more to read.</p>
+
+      <!--
+        Formspree (formspree.io) is a static-site-friendly form backend:
+        a plain HTML <form> POSTs directly to their endpoint and they
+        forward the submission to your email — no server code required
+        on this site at all.
+
+        To wire this up for real:
+          1. Create a free account at https://formspree.io
+          2. Create a new form there; it gives you a unique endpoint URL
+             like https://formspree.io/f/abcdwxyz
+          3. Replace the placeholder action URL below with that one.
+      -->
+      <form action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com">
+        <button type="submit" class="btn">Notify me</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
+    <ul class="social-links">
+      <li><a href="#" aria-label="Instagram">Instagram</a></li>
+      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      <li><a href="#" aria-label="X / Twitter">X</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

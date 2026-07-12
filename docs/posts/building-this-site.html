@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building This Site From Scratch, By Hand — Leret</title>
+  <meta name="description" content="Notes on building leret.net with hand-written HTML, CSS, and JavaScript instead of a site generator or framework, and the one small Python build script that ties it together.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="site-logo" href="/">Leret</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
+           CSS alone can show/hide the menu based on :checked, so the
+           mobile nav toggle needs zero JavaScript. -->
+      <input type="checkbox" id="navToggle" class="nav-toggle-input">
+      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/modeling.html">Modeling</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/book.html">Book</a></li>
+        <li><a href="/shop.html">Shop</a></li>
+        <li><a href="/about.html">About / Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="wrap post-body">
+      <p class="post-date">2 February 2026</p>
+      <h1>Building This Site From Scratch, By Hand</h1>
+
+      <p>
+        I work with data and automation professionally, but I'd never
+        actually written HTML, CSS, or JavaScript by hand before this
+        site. It would have been faster to reach for a static site
+        generator or a template engine — but the point of this project
+        was to actually learn the fundamentals, not to hide them behind
+        someone else's abstraction.
+      </p>
+
+      <p>
+        So every page on this site is a real, complete HTML file. There's
+        no Markdown getting converted, no templating language, no
+        framework. The only shortcut I allowed myself is a single small
+        Python script, <code>build.py</code>, that does two things:
+      </p>
+
+      <ul>
+        <li>
+          Swaps a couple of placeholder comments — <code>&lt;!-- NAV --&gt;</code>
+          and <code>&lt;!-- FOOTER --&gt;</code> — for the shared navigation
+          and footer markup, so I'm not hand-copying the same menu into
+          every single page.
+        </li>
+        <li>
+          Reads a small metadata comment at the top of each post file
+          (title and date) and automatically rebuilds this Writing page's
+          post list, sorted newest first.
+        </li>
+      </ul>
+
+      <p>
+        That's it. No pip installs, no build server, no CI — I just run
+        <code>python3 build.py</code> locally, check the result, and push.
+        It's a small enough mechanism that I can read the whole script in
+        a couple of minutes and know exactly what it did to my HTML.
+      </p>
+
+      <h2>What's next</h2>
+      <p>
+        Now that the mechanics are in place, most of the actual work is
+        just writing pages — which, it turns out, is a genuinely nice way
+        to actually learn CSS layout instead of copy-pasting a component
+        library.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
+    <ul class="social-links">
+      <li><a href="#" aria-label="Instagram">Instagram</a></li>
+      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      <li><a href="#" aria-label="X / Twitter">X</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

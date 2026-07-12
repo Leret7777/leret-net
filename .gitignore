@@ -1,0 +1,4 @@
+# Raw, unprocessed photos. Run scripts/resize_images.py to turn these
+# into optimized images in src/images/ before committing anything.
+incoming/*
+!incoming/.gitkeep

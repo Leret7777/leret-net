@@ -1,0 +1,603 @@
+/* =========================================================================
+   leret.net — shared stylesheet
+   One file, plain CSS, no framework. Loaded by every page via
+   <link rel="stylesheet" href="/style.css">.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. CSS custom properties ("CSS variables")
+   -------------------------------------------------------------------------
+   Defining colours/fonts/spacing once on :root means every rule below can
+   reference var(--accent) instead of repeating a hex code. Change the
+   palette in one place and the whole site updates.
+
+   Palette: warm off-white background, near-black text, one accent
+   (terracotta). Headings use a serif for an editorial feel that suits
+   both the modeling and writing sides of the site; body text uses the
+   OS's own UI font stack (fast, no external font download, and it makes
+   every visitor's copy of the site feel native to their device).
+   ------------------------------------------------------------------------- */
+:root {
+  --color-bg: #faf8f5;
+  --color-bg-alt: #f1ece5;
+  --color-text: #1c1c1c;
+  --color-text-muted: #5c5750;
+  --color-accent: #b5533c;
+  --color-accent-dark: #8f402c;
+  --color-border: #e2dcd3;
+
+  --font-heading: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+
+  --max-width: 1100px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+
+  --radius: 6px;
+}
+
+/* -------------------------------------------------------------------------
+   2. Reset / base
+   -------------------------------------------------------------------------
+   box-sizing: border-box means padding and border are counted *inside* an
+   element's declared width, instead of added on top of it — this avoids
+   a lot of accidental layout overflow, so almost every site sets it
+   globally via the universal selector (*).
+   ------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  margin: 0 0 var(--space-2);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0 0 var(--space-2);
+}
+
+a {
+  color: var(--color-accent-dark);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* A visually-hidden helper for text that should still be read by screen
+   readers (e.g. labelling icon-only controls) but shouldn't take up
+   visible space. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------------
+   3. Layout helpers
+   -------------------------------------------------------------------------
+   .wrap centers content and caps its width so lines of text don't stretch
+   uncomfortably wide on large screens. Every section reuses it instead of
+   each page inventing its own container.
+   ------------------------------------------------------------------------- */
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+main {
+  display: block;
+}
+
+section {
+  padding: var(--space-5) 0;
+}
+
+section + section {
+  border-top: 1px solid var(--color-border);
+}
+
+/* -------------------------------------------------------------------------
+   4. Header / navigation
+   ------------------------------------------------------------------------- */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+  color: var(--color-accent);
+}
+
+/* The checkbox + label pair used for the mobile menu (see nav.html).
+   On desktop widths we don't need a toggle at all, so both are hidden. */
+.nav-toggle-input {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.nav-toggle__bar {
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  display: block;
+}
+
+/* -------------------------------------------------------------------------
+   5. Buttons
+   ------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.7em 1.4em;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--color-accent);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: #fff;
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-accent-dark);
+}
+
+.btn--outline:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* -------------------------------------------------------------------------
+   6. Hero (home page intro)
+   ------------------------------------------------------------------------- */
+.hero {
+  padding: var(--space-5) 0;
+}
+
+.hero p.lede {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
+/* -------------------------------------------------------------------------
+   7. Card grid (used on Home for section links, and on Work for projects)
+   -------------------------------------------------------------------------
+   CSS Grid with auto-fit + minmax is a common "responsive grid without
+   media queries" trick: the browser fits as many columns of at least
+   260px as will comfortably fill the row, and wraps automatically on
+   narrow screens.
+   ------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: border-color 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+}
+
+.card h3 {
+  color: var(--color-accent-dark);
+  margin-bottom: var(--space-1);
+}
+
+.card p {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   8. Tag / pill list (tools, skills)
+   ------------------------------------------------------------------------- */
+.tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: 0;
+  margin: var(--space-2) 0;
+}
+
+.tag-list li {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.3em 0.9em;
+  font-size: 0.9rem;
+}
+
+/* -------------------------------------------------------------------------
+   9. Photo gallery grid + lightbox
+   -------------------------------------------------------------------------
+   The grid itself is just CSS Grid again. The lightbox (the enlarged
+   overlay view) is a single hidden <div> that script.js shows/hides and
+   fills with the clicked image — see script.js for the JavaScript half
+   of this feature.
+   ------------------------------------------------------------------------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.gallery__item {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.gallery__item:hover img {
+  transform: scale(1.04);
+}
+
+/* The lightbox overlay. It sits fixed over the whole viewport and is
+   hidden by default via the [hidden] attribute — script.js toggles that
+   attribute on click instead of adding/removing the element entirely. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-3);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: var(--radius);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox__caption {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #eee;
+  font-size: 0.9rem;
+}
+
+/* -------------------------------------------------------------------------
+   10. Responsive video embed
+   -------------------------------------------------------------------------
+   YouTube/Vimeo <iframe>s have a fixed pixel width/height by default. To
+   make one scale with the page while keeping its 16:9 shape, we wrap it
+   in a container with aspect-ratio set, and stretch the iframe to fill
+   that container completely.
+   ------------------------------------------------------------------------- */
+.video-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: var(--space-3);
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+/* -------------------------------------------------------------------------
+   11. Forms (contact, book signup)
+   ------------------------------------------------------------------------- */
+form {
+  max-width: 480px;
+  margin-top: var(--space-3);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+  margin-top: var(--space-2);
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 0.6em 0.8em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-text);
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+form .btn {
+  margin-top: var(--space-3);
+}
+
+/* -------------------------------------------------------------------------
+   12. Writing / post list
+   ------------------------------------------------------------------------- */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-3);
+}
+
+.post-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-list__item a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.post-list__item a:hover {
+  color: var(--color-accent);
+}
+
+.post-date {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.post-body {
+  max-width: 680px;
+  margin-top: var(--space-3);
+}
+
+.post-body h2 {
+  margin-top: var(--space-4);
+}
+
+/* -------------------------------------------------------------------------
+   13. Placeholder / notice boxes (Shop coming soon, "notable shoots" etc.)
+   ------------------------------------------------------------------------- */
+.notice-box {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+}
+
+/* -------------------------------------------------------------------------
+   14. Footer
+   ------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: var(--space-3);
+  padding: 0;
+  margin: 0;
+}
+
+.social-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: var(--color-accent);
+}
+
+/* -------------------------------------------------------------------------
+   15. Responsive breakpoint
+   -------------------------------------------------------------------------
+   One breakpoint is enough for this layout: below 720px, collapse the
+   nav into the checkbox-driven mobile menu.
+   ------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .nav-links li {
+    padding: var(--space-1) 0;
+  }
+
+  /* The core of the checkbox hack: when the hidden checkbox is checked
+     (because the visible label was clicked), use the sibling combinator
+     (~) to reveal the menu that comes after it in the HTML. */
+  .nav-toggle-input:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .site-header__inner {
+    position: relative;
+    flex-wrap: wrap;
+  }
+}
