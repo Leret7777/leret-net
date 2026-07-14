@@ -1,4 +1,4 @@
-# leret.net
+# leret.me
 
 Personal site for Leret — commercial/data work portfolio, modeling
 portfolio, writing, a book-in-progress, and (eventually) a shop.
@@ -34,7 +34,7 @@ docs/          the actual folder GitHub Pages serves. Fully generated —
                don't hand-edit anything in here, it gets wiped and
                rebuilt every time you run build.py.
 
-CNAME          contains "leret.net" — copied into docs/ on every build
+CNAME          contains "leret.me" — copied into docs/ on every build
                so GitHub Pages keeps serving the custom domain.
 ```
 
@@ -141,11 +141,11 @@ GitHub Pages will then serve whatever is committed in `docs/` on `main`
 — which is why `build.py`'s output has to be committed and pushed, not
 just generated locally.
 
-## Custom domain (leret.net) — DNS records
+## Custom domain (leret.me) — DNS records
 
-At your domain registrar, add these records for `leret.net`:
+At your domain registrar, add these records for `leret.me`:
 
-**Apex domain (`leret.net`) — four A records, all pointing at GitHub
+**Apex domain (`leret.me`) — four A records, all pointing at GitHub
 Pages' IPs:**
 
 | Type | Name | Value            |
@@ -164,17 +164,17 @@ Pages' IPs:**
 | AAAA | @    | 2606:50c0:8002::153     |
 | AAAA | @    | 2606:50c0:8003::153     |
 
-**`www` subdomain — one CNAME record, so `www.leret.net` also resolves:**
+**`www` subdomain — one CNAME record, so `www.leret.me` also resolves:**
 
 | Type  | Name | Value                  |
 |-------|------|------------------------|
 | CNAME | www  | leret7777.github.io    |
 
 After adding these (DNS propagation can take up to a few hours), go back
-to Settings → Pages, enter `leret.net` as the custom domain, and once
+to Settings → Pages, enter `leret.me` as the custom domain, and once
 GitHub verifies it, enable "Enforce HTTPS".
 
-The `CNAME` file at the repo root (containing just `leret.net`) is what
+The `CNAME` file at the repo root (containing just `leret.me`) is what
 tells GitHub Pages which custom domain to serve — `build.py` copies it
 into `docs/` on every run so it can't accidentally get lost when `docs/`
 is rebuilt.
