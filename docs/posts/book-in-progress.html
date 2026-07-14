@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Leret</title>
-  <meta name="description" content="About Leret — Commercial Intelligence Specialist and model based in Manchester, UK.">
+  <title>The Book, So Far — Leret</title>
+  <meta name="description" content="An update on the book Leret is writing — currently in draft. Sign up to hear when there's more to read.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -34,16 +34,38 @@
 
 <main>
   <section class="hero">
-    <div class="wrap">
-      <h1>About</h1>
-      <p class="lede">
-        I'm Leret — a Commercial Intelligence Specialist working across
-        data analytics and AI automation, and a model represented by
-        Brother Models. I write here about both, plus the book I'm slowly
-        putting together. Based in Manchester, UK.
+    <div class="wrap post-body">
+      <p class="post-date">30 May 2026</p>
+      <h1>The Book, So Far</h1>
+
+      <p>
+        I'm writing a book. It's still in draft — title and genre included
+        — so this post is a placeholder for real updates as it takes
+        shape. Future book posts (excerpts, progress notes) will all carry
+        the <em>book</em> tag, so they're easy to find from the homepage.
       </p>
-      <!-- Contact details live in the footer below — shared by every
-           page via the footer partial, so they're never out of date here. -->
+
+      <h2>Excerpt</h2>
+      <div class="notice-box">
+        [Excerpt to be added once a draft is ready to share.]
+      </div>
+
+      <h2>Get notified</h2>
+      <p>Leave your email and I'll let you know when there's more to read.</p>
+
+      <!--
+        Formspree (formspree.io) is a static-site-friendly form backend:
+        a plain HTML <form> POSTs directly to their endpoint and they
+        forward the submission to your email — no server code needed on
+        this site at all. To wire it up: create a free form at
+        https://formspree.io and replace the placeholder ID below with
+        the endpoint URL it gives you.
+      -->
+      <form action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com">
+        <button type="submit" class="btn">Notify me</button>
+      </form>
     </div>
   </section>
 </main>

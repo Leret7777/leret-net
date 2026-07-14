@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leret — Commercial Intelligence Specialist &amp; Model</title>
-  <meta name="description" content="Leret's personal site: commercial intelligence and AI automation work, modeling portfolio, writing, and an in-progress book. Based in Manchester, UK.">
+  <meta name="description" content="Leret's personal site: posts on commercial intelligence and AI automation work, modeling, writing, and an in-progress book. Based in Manchester, UK.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -15,78 +15,130 @@
       <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
       <span class="site-logo__name">Leret</span>
     </a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
-           CSS alone can show/hide the menu based on :checked, so the
-           mobile nav toggle needs zero JavaScript. -->
-      <input type="checkbox" id="navToggle" class="nav-toggle-input">
-      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </label>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/work.html">Work</a></li>
-        <li><a href="/modeling.html">Modeling</a></li>
-        <li><a href="/writing.html">Writing</a></li>
-        <li><a href="/book.html">Book</a></li>
-        <li><a href="/shop.html">Shop</a></li>
-        <li><a href="/about.html">About / Contact</a></li>
-      </ul>
-    </nav>
+    <div class="site-header__tools">
+      <!-- type="search" is a normal text input with search semantics —
+           some browsers add a little clear (x) button. script.js listens
+           to it: on the homepage it filters the post list as you type;
+           on any other page, pressing Enter jumps to the homepage with
+           the query applied. -->
+      <input type="search" class="site-search" id="siteSearch"
+             placeholder="Search posts…" aria-label="Search posts">
+      <!-- The theme toggle's icon is set by script.js based on the
+           current theme; the button itself is just an empty shell here. -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <a class="site-header__link" href="/about.html">About</a>
+    </div>
   </div>
 </header>
 
 
 <main>
-  <section class="hero">
+  <section class="hero hero--compact">
     <div class="wrap">
       <h1>Hi, I'm Leret.</h1>
       <p class="lede">
-        I work in commercial intelligence and AI automation by day, and I model
-        with Brother Models on the side. This site holds both — my portfolio
-        work, my modeling, my writing, and the book I'm slowly putting together.
-      </p>
-      <p class="lede">
-        Based in Manchester, UK.
+        Commercial intelligence and AI automation by day, modeling with
+        Brother Models on the side, and a book slowly taking shape.
+        Everything I post lives below — use the tags to narrow it down.
       </p>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <h2>Where to go</h2>
-      <div class="card-grid">
-        <a class="card" href="/work.html">
-          <h3>Work</h3>
-          <p>Commercial intelligence, AI automation, and data work.</p>
-        </a>
-        <a class="card" href="/modeling.html">
-          <h3>Modeling</h3>
-          <p>Photo gallery and video reel, represented by Brother Models.</p>
-        </a>
-        <a class="card" href="/writing.html">
-          <h3>Writing</h3>
-          <p>Articles and posts on whatever I've been thinking about.</p>
-        </a>
-        <a class="card" href="/book.html">
-          <h3>Book</h3>
-          <p>A book I'm writing — currently in draft.</p>
-        </a>
-      </div>
+      <!-- build.py fills these two placeholders in: the filter row is
+           derived from whatever tags the posts actually use, and the
+           list is every post, newest first. Nothing on this page is
+           edited by hand when a post is added. -->
+      <div class="tag-filters" id="tagFilters">
+      <button class="tag-filter is-active" data-tag="all">All</button>
+      <button class="tag-filter" data-tag="book">book</button>
+      <button class="tag-filter" data-tag="modeling">modeling</button>
+      <button class="tag-filter" data-tag="work">work</button>
+      <button class="tag-filter" data-tag="writing">writing</button>
+    </div>
+      <ul class="post-list" id="postList">
+      <li class="post-list__item" data-tags="book">
+        <div class="post-list__head">
+          <a href="/posts/book-in-progress.html">The Book, So Far</a>
+          <span class="post-date">2026-05-30</span>
+        </div>
+        <ul class="post-tags"><li>book</li></ul>
+        <p class="post-excerpt">An update on the book I'm writing — still in draft, excerpt coming when it's ready to share.</p>
+      </li>
+      <li class="post-list__item" data-tags="modeling">
+        <div class="post-list__head">
+          <a href="/posts/modeling-portfolio.html">Modeling Portfolio</a>
+          <span class="post-date">2026-04-22</span>
+        </div>
+        <ul class="post-tags"><li>modeling</li></ul>
+        <p class="post-excerpt">Photo gallery and video reel. Represented by Brother Models — comp card requests via the footer.</p>
+      </li>
+      <li class="post-list__item" data-tags="work">
+        <div class="post-list__head">
+          <a href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a>
+          <span class="post-date">2026-03-10</span>
+        </div>
+        <ul class="post-tags"><li>work</li></ul>
+        <p class="post-excerpt">Commercial planning, CVM, pricing ops — and the tools I use to make the manual parts disappear.</p>
+      </li>
+      <li class="post-list__item" data-tags="writing">
+        <div class="post-list__head">
+          <a href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a>
+          <span class="post-date">2026-02-02</span>
+        </div>
+        <ul class="post-tags"><li>writing</li></ul>
+        <p class="post-excerpt">No framework, no site generator — every page hand-written, held together by one small Python script.</p>
+      </li>
+      <li class="post-list__item" data-tags="writing">
+        <div class="post-list__head">
+          <a href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a>
+          <span class="post-date">2026-01-15</span>
+        </div>
+        <ul class="post-tags"><li>writing</li></ul>
+        <p class="post-excerpt">On doing commercial intelligence work and modeling at the same time, and why this site doesn't pretend to be two different people.</p>
+      </li>
+      <li class="post-list__item" data-tags="">
+        <div class="post-list__head">
+          <a href="/posts/hello.html">Hello</a>
+          <span class="post-date">2025-12-08</span>
+        </div>
+        <p class="post-excerpt">A first post, and what this site is for.</p>
+      </li>
+    </ul>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
-    <ul class="social-links">
-      <li><a href="#" aria-label="Instagram">Instagram</a></li>
-      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
-      <li><a href="#" aria-label="X / Twitter">X</a></li>
-    </ul>
+  <div class="wrap">
+    <div class="site-footer__contact">
+      <div>
+        <h2 class="site-footer__heading">Contact</h2>
+        <p>
+          Email <a href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
+        </p>
+        <ul class="social-links">
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="#" aria-label="X / Twitter">X</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Modeling</h2>
+        <p>
+          Represented by <strong>Brother Models</strong> — for bookings contact
+          <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>
+        </p>
+        <!-- The ?subject= query parameter pre-fills the email's subject
+             line when the visitor's mail app opens. %20 is a URL-encoded
+             space — URLs can't contain literal spaces. -->
+        <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+          Request comp card
+        </a>
+      </div>
+    </div>
+    <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
   </div>
 </footer>
 

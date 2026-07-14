@@ -9,24 +9,27 @@ whole "build step".
 What it does, in order:
   1. Wipes docs/ and starts clean, so nothing stale lingers between builds.
   2. Reads the two shared partials (nav.html, footer.html) once.
-  3. For every page in src/pages/, swaps the <!-- NAV --> and
-     <!-- FOOTER --> placeholder comments for the real partial markup,
-     and writes the result into docs/.
-  4. For every post in src/posts/, reads a small metadata comment at the
-     very top of the file (title + date), does the same nav/footer
-     injection, and writes it into docs/posts/.
-  5. Uses the metadata gathered in step 4 to auto-generate the post list
-     on the Writing page (sorted newest first) and drops it into the
-     <!-- POST_LIST --> placeholder inside writing.html.
-  6. Copies static assets (style.css, script.js, the images folder, and
-     CNAME) into docs/ untouched.
+  3. For every post in src/posts/, reads the metadata comment at the very
+     top (title, date, tags, excerpt), swaps the <!-- NAV --> and
+     <!-- FOOTER --> placeholders for the shared partial markup, and
+     writes the result into docs/posts/.
+  4. Builds the homepage post list (newest first, with tag labels and
+     excerpts) and the tag filter row, and injects them into index.html
+     at the <!-- POST_LIST --> and <!-- TAG_FILTERS --> placeholders.
+  5. Writes docs/posts-index.json — a machine-readable list of every
+     post (title, date, tags, url, excerpt) that the client-side search
+     could use, and that makes the post data easy to reuse anywhere else.
+  6. Builds every page in src/pages/ with the same nav/footer injection.
+  7. Copies static assets (style.css, script.js, images/, CNAME) into
+     docs/ untouched.
 
-Everything here uses plain string methods (str.find, str.replace,
-str.split, slicing) — no regex, no templating library, no pip installs.
-That's deliberate: you should be able to read this file top to bottom and
-know exactly what happened to your HTML.
+Everything here uses plain string methods (str.find, str.split,
+str.replace, slicing) plus the standard-library json module — no regex,
+no templating library, no pip installs. You should be able to read this
+file top to bottom and know exactly what happened to your HTML.
 """
 
+import json
 import os
 import shutil
 
@@ -46,6 +49,7 @@ POSTS_OUT_DIR = os.path.join(DOCS, "posts")
 NAV_PLACEHOLDER = "<!-- NAV -->"
 FOOTER_PLACEHOLDER = "<!-- FOOTER -->"
 POST_LIST_PLACEHOLDER = "<!-- POST_LIST -->"
+TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 
 
 def read_file(path):
@@ -62,12 +66,7 @@ def write_file(path, content):
 
 
 def inject_partials(html, nav_html, footer_html):
-    """Replace the placeholder comments with the real shared markup.
-
-    str.replace swaps *every* occurrence of the placeholder text, which is
-    exactly what we want since a page only ever has one NAV and one
-    FOOTER placeholder.
-    """
+    """Replace the placeholder comments with the real shared markup."""
     html = html.replace(NAV_PLACEHOLDER, nav_html)
     html = html.replace(FOOTER_PLACEHOLDER, footer_html)
     return html
@@ -76,73 +75,118 @@ def inject_partials(html, nav_html, footer_html):
 # ---------------------------------------------------------------------------
 # Post metadata parsing
 # ---------------------------------------------------------------------------
-# Every file in src/posts/ starts with a small HTML comment like:
+# Every file in src/posts/ starts with a single-line HTML comment holding
+# its metadata, with fields separated by pipes:
 #
-#   <!-- POST META
-#   title: Why I Started Writing
-#   date: 2026-01-15
-#   -->
+#   <!-- title: My Post Title | date: 2026-07-14 | tags: modeling, work | excerpt: One short line about the post. -->
 #   <!DOCTYPE html>
 #   ...
 #
-# We pull the title/date out of that comment for the Writing page listing,
-# then strip the comment out before injecting nav/footer, so the comment
-# never ends up in the published HTML.
+# Required fields: title, date (YYYY-MM-DD).
+# Optional fields: tags (comma-separated — a post can have several, or
+# none at all), excerpt (the one-liner shown under the title on the
+# homepage list).
+#
+# We pull these out for the homepage listing and posts-index.json, then
+# strip the comment before publishing, so it never appears in the
+# rendered HTML.
 
-META_START = "<!-- POST META"
+META_START = "<!--"
 META_END = "-->"
 
 
-def parse_post(html):
-    """Split a post file into (title, date, remaining_html).
+def parse_post(html, filename):
+    """Split a post file into (metadata_dict, remaining_html).
 
     remaining_html is everything after the metadata comment — i.e. the
     actual page, starting at <!DOCTYPE html>.
     """
     start = html.find(META_START)
-    if start == -1:
-        raise ValueError("Post is missing a <!-- POST META ... --> comment at the top")
-
     end = html.find(META_END, start)
-    if end == -1:
-        raise ValueError("Post's POST META comment is never closed with -->")
+    if start == -1 or end == -1 or "title:" not in html[start:end]:
+        raise ValueError(f"{filename}: missing metadata comment at the top "
+                         "(<!-- title: ... | date: ... -->)")
 
-    # The metadata block is the text between the start marker and "-->".
     meta_block = html[start + len(META_START):end]
     remaining_html = html[end + len(META_END):].lstrip("\n")
 
-    title = None
-    date = None
-    for line in meta_block.splitlines():
-        line = line.strip()
-        if line.startswith("title:"):
-            title = line[len("title:"):].strip()
-        elif line.startswith("date:"):
-            date = line[len("date:"):].strip()
+    # Split "title: X | date: Y | tags: a, b" into fields, then each
+    # field into key/value at its FIRST colon (str.partition), so
+    # excerpts containing colons still parse correctly.
+    meta = {}
+    for field in meta_block.split("|"):
+        field = field.strip()
+        if not field or ":" not in field:
+            continue
+        key, _, value = field.partition(":")
+        meta[key.strip().lower()] = value.strip()
 
-    if not title or not date:
-        raise ValueError("Post metadata must include both 'title:' and 'date:'")
+    if "title" not in meta or "date" not in meta:
+        raise ValueError(f"{filename}: metadata must include both 'title:' and 'date:'")
 
-    return title, date, remaining_html
+    # Normalize tags into a list: "modeling, work" -> ["modeling", "work"].
+    # Lowercased so filtering isn't case-sensitive; empty if no tags field.
+    tags_value = meta.get("tags", "")
+    meta["tags"] = [t.strip().lower() for t in tags_value.split(",") if t.strip()]
+    meta["excerpt"] = meta.get("excerpt", "")
+
+    return meta, remaining_html
 
 
 def build_post_list_html(posts):
-    """posts is a list of (title, date, slug) tuples, already sorted.
+    """posts is a list of metadata dicts (each with a 'slug' added),
+    already sorted newest-first. Returns the homepage <ul>.
 
-    Returns an <ul> of links, ready to drop straight into writing.html.
+    Each <li> carries a data-tags attribute (comma-separated) that the
+    client-side filter JS reads — data-* attributes are how HTML lets
+    you attach machine-readable info to an element without affecting
+    how it displays.
     """
     if not posts:
         return "<p>No posts yet — check back soon.</p>"
 
     items = []
-    for title, date, slug in posts:
+    for post in posts:
+        tags_attr = ",".join(post["tags"])
+
+        tag_labels = ""
+        if post["tags"]:
+            labels = "".join(f"<li>{tag}</li>" for tag in post["tags"])
+            tag_labels = f'\n        <ul class="post-tags">{labels}</ul>'
+
+        excerpt_html = ""
+        if post["excerpt"]:
+            excerpt_html = f'\n        <p class="post-excerpt">{post["excerpt"]}</p>'
+
         items.append(
-            '      <li class="post-list__item">\n'
-            f'        <a href="/posts/{slug}.html">{title}</a>\n'
-            f'        <span class="post-date">{date}</span>\n'
+            f'      <li class="post-list__item" data-tags="{tags_attr}">\n'
+            f'        <div class="post-list__head">\n'
+            f'          <a href="/posts/{post["slug"]}.html">{post["title"]}</a>\n'
+            f'          <span class="post-date">{post["date"]}</span>\n'
+            f'        </div>{tag_labels}{excerpt_html}\n'
             "      </li>"
         )
-    return "<ul class=\"post-list\">\n" + "\n".join(items) + "\n    </ul>"
+    return '<ul class="post-list" id="postList">\n' + "\n".join(items) + "\n    </ul>"
+
+
+def build_tag_filters_html(posts):
+    """Collect every tag used by any post and render the filter row.
+
+    The tag list is derived from the posts themselves — nothing is
+    hardcoded, so tagging a post with something new automatically adds
+    a filter button on the next build.
+    """
+    all_tags = set()
+    for post in posts:
+        all_tags.update(post["tags"])
+
+    buttons = ['<button class="tag-filter is-active" data-tag="all">All</button>']
+    for tag in sorted(all_tags):
+        buttons.append(f'<button class="tag-filter" data-tag="{tag}">{tag}</button>')
+
+    return ('<div class="tag-filters" id="tagFilters">\n      '
+            + "\n      ".join(buttons)
+            + "\n    </div>")
 
 
 def build():
@@ -156,49 +200,63 @@ def build():
     nav_html = read_file(os.path.join(PARTIALS_DIR, "nav.html"))
     footer_html = read_file(os.path.join(PARTIALS_DIR, "footer.html"))
 
-    # 3. Build every post first, because we need each post's title/date/slug
-    #    before we can generate the Writing page's listing in step 4.
-    posts = []  # list of (title, date, slug)
+    # 3. Build every post first — we need all the metadata before we can
+    #    generate the homepage list, filter row, and JSON index.
+    posts = []
     if os.path.isdir(POSTS_DIR):
-        for filename in os.listdir(POSTS_DIR):
+        for filename in sorted(os.listdir(POSTS_DIR)):
             if not filename.endswith(".html"):
                 continue
-            slug = filename[: -len(".html")]
             raw = read_file(os.path.join(POSTS_DIR, filename))
-            title, date, page_html = parse_post(raw)
+            meta, page_html = parse_post(raw, filename)
+            meta["slug"] = filename[: -len(".html")]
             final_html = inject_partials(page_html, nav_html, footer_html)
             write_file(os.path.join(POSTS_OUT_DIR, filename), final_html)
-            posts.append((title, date, slug))
+            posts.append(meta)
 
-    # Sort newest first. Dates are written as YYYY-MM-DD, so plain string
-    # sorting already puts them in chronological order — reverse=True
-    # flips that to newest-first.
-    posts.sort(key=lambda p: p[1], reverse=True)
+    # Sort newest first. Dates are YYYY-MM-DD, so plain string sorting is
+    # already chronological — reverse=True flips it to newest-first.
+    posts.sort(key=lambda p: p["date"], reverse=True)
+
     post_list_html = build_post_list_html(posts)
+    tag_filters_html = build_tag_filters_html(posts)
 
-    # 4. Build every regular page in src/pages/.
+    # 4/6. Build every page, injecting the post list + filter row where
+    #    the placeholders exist (only index.html has them; on other pages
+    #    replace() simply finds nothing and changes nothing).
     for filename in os.listdir(PAGES_DIR):
         if not filename.endswith(".html"):
             continue
         raw = read_file(os.path.join(PAGES_DIR, filename))
         final_html = inject_partials(raw, nav_html, footer_html)
-
-        # Only writing.html has a post list to fill in; on every other
-        # page this placeholder simply won't be present, so replace()
-        # does nothing.
         final_html = final_html.replace(POST_LIST_PLACEHOLDER, post_list_html)
-
+        final_html = final_html.replace(TAG_FILTERS_PLACEHOLDER, tag_filters_html)
         write_file(os.path.join(DOCS, filename), final_html)
 
-    # 5. Copy static assets across untouched.
+    # 5. posts-index.json: the same metadata the homepage list was built
+    #    from, as JSON. indent=2 keeps it human-readable in repo diffs.
+    index_data = [
+        {
+            "title": p["title"],
+            "date": p["date"],
+            "tags": p["tags"],
+            "url": f"/posts/{p['slug']}.html",
+            "excerpt": p["excerpt"],
+        }
+        for p in posts
+    ]
+    write_file(os.path.join(DOCS, "posts-index.json"),
+               json.dumps(index_data, indent=2) + "\n")
+
+    # 7. Copy static assets across untouched.
     shutil.copy(os.path.join(SRC, "style.css"), os.path.join(DOCS, "style.css"))
     shutil.copy(os.path.join(SRC, "script.js"), os.path.join(DOCS, "script.js"))
 
     if os.path.isdir(IMAGES_DIR):
         shutil.copytree(IMAGES_DIR, os.path.join(DOCS, "images"))
 
-    # 6. Copy CNAME so the custom domain survives every rebuild (docs/ is
-    #    wiped in step 1, so this has to happen on every run, not just once).
+    # CNAME must be re-copied on every run (docs/ was wiped in step 1) or
+    # GitHub Pages would silently lose the custom domain.
     cname_path = os.path.join(ROOT, "CNAME")
     if os.path.exists(cname_path):
         shutil.copy(cname_path, os.path.join(DOCS, "CNAME"))

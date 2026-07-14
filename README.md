@@ -1,24 +1,32 @@
 # leret.me
 
-Personal site for Leret — commercial/data work portfolio, modeling
-portfolio, writing, a book-in-progress, and (eventually) a shop.
+Personal site for Leret. Everything on it is a **post** — work,
+modeling, book updates, general writing — categorized by tags and
+listed chronologically on the homepage.
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no frontend framework. The only "build step" is a
-small standard-library-only Python script, `build.py`, that stitches the
-shared nav/footer into every page and auto-generates the Writing listing.
+small standard-library-only Python script, `build.py`, that stitches
+the shared nav/footer into every page and generates the homepage post
+list, the tag filter row, and a JSON index of all posts.
 
 ## How this is structured
 
 ```
 src/
-  pages/       one real, complete .html file per top-level section
-               (index, work, modeling, writing, book, shop, about)
-  partials/    nav.html and footer.html — shared header/footer markup
-  posts/       one .html file per blog post / article
-  images/      site images, organized by section (e.g. images/modeling/<shoot>/)
-  style.css    the one shared stylesheet
-  script.js    the one script — the modeling gallery lightbox
+  pages/       standalone pages: index.html (the homepage) and
+               about.html. Adding e.g. a Shop page later is just a new
+               file here plus a header link.
+  partials/    nav.html and footer.html — shared header/footer markup,
+               injected into every page by build.py. The footer holds
+               ALL contact info (email, socials, Brother Models comp
+               card request), so it's visible from every page.
+  posts/       one .html file per post — every piece of content on the
+               site lives here, tagged via its metadata comment
+  images/      site images (e.g. images/modeling/<shoot>/)
+  style.css    the one shared stylesheet (light + dark themes)
+  script.js    the one script: theme toggle, tag/search filtering,
+               photo lightbox
 
 scripts/
   resize_images.py   optional Pillow-based helper: shrinks/compresses
@@ -30,9 +38,9 @@ incoming/      drop raw, full-size photos here before resizing.
 build.py       reads everything in src/ and writes the finished site
                into docs/
 
-docs/          the actual folder GitHub Pages serves. Fully generated —
-               don't hand-edit anything in here, it gets wiped and
-               rebuilt every time you run build.py.
+docs/          the folder GitHub Pages serves. Fully generated — don't
+               hand-edit anything in here, it's wiped and rebuilt on
+               every run of build.py.
 
 CNAME          contains "leret.me" — copied into docs/ on every build
                so GitHub Pages keeps serving the custom domain.
@@ -40,24 +48,24 @@ CNAME          contains "leret.me" — copied into docs/ on every build
 
 ## Running the build
 
-Whenever you change anything in `src/` (or `CNAME`), regenerate `docs/`:
+Whenever you change anything in `src/` (or `CNAME`):
 
 ```
 python3 build.py
 ```
 
-This is standard-library-only — nothing to install. It will:
+Standard library only — nothing to install. It will:
 
 1. Wipe and recreate `docs/` from scratch.
-2. Read `src/partials/nav.html` and `src/partials/footer.html`.
-3. Build every post in `src/posts/` first (parsing its metadata comment,
-   injecting nav/footer, writing it to `docs/posts/`), collecting
-   title/date/slug for each.
-4. Build every page in `src/pages/` (injecting nav/footer, and — on
-   `writing.html` only — the auto-generated post list, sorted newest
-   first).
-5. Copy `src/style.css`, `src/script.js`, `src/images/`, and `CNAME` into
-   `docs/`.
+2. Read the two shared partials (nav, footer).
+3. Build every post in `src/posts/` (parse its metadata comment, inject
+   nav/footer, write it to `docs/posts/`).
+4. Generate the homepage post list (newest first, with tag labels and
+   excerpts) and the tag filter row, injected into `index.html` at the
+   `<!-- POST_LIST -->` and `<!-- TAG_FILTERS -->` placeholders.
+5. Write `docs/posts-index.json` — every post's title/date/tags/url/
+   excerpt as machine-readable JSON.
+6. Copy `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
 
 Then commit **both** `src/` and the regenerated `docs/`, and push:
 
@@ -67,57 +75,77 @@ git commit -m "..."
 git push
 ```
 
-There's no CI and no GitHub Actions — `docs/` in the repo *is* what gets
-served, so it has to be committed, not just generated locally.
+There's no CI — `docs/` in the repo *is* what gets served.
 
-## Adding a blog post / article
+## Adding a post
 
 1. Create a new file in `src/posts/`, e.g. `src/posts/my-new-post.html`.
-2. Start it with a metadata comment giving the title and date:
+2. The **first line** is a single-line metadata comment, fields
+   separated by `|`:
 
    ```html
-   <!-- POST META
-   title: My New Post
-   date: 2026-03-01
-   -->
-   <!DOCTYPE html>
-   <html lang="en">
-   ...
+   <!-- title: My New Post | date: 2026-08-01 | tags: work | excerpt: One short line shown on the homepage. -->
    ```
 
-3. Write the rest as a normal complete page — `<head>` with its own
-   `<title>`/meta description, `<!-- NAV -->` and `<!-- FOOTER -->`
-   placeholders, and your content inside `<main>`. Copy the structure of
-   an existing post in `src/posts/` as a starting point.
-4. Run `python3 build.py`. The post is written to `docs/posts/`, and it
-   automatically appears in the Writing page listing — you never edit
-   `writing.html` by hand for this.
+   - `title` and `date` (YYYY-MM-DD) are required.
+   - `tags` is optional — comma-separate for more than one
+     (`tags: modeling, work`), or leave the field out entirely for an
+     untagged post.
+   - `excerpt` is optional — it's the one-liner under the title in the
+     homepage list.
+
+3. The rest of the file is a normal complete page — copy an existing
+   post in `src/posts/` as a starting point (head with its own
+   `<title>`/meta description, `<!-- NAV -->` / `<!-- FOOTER -->`
+   placeholders, content inside `<main>`).
+4. Run `python3 build.py`. The post appears on the homepage
+   automatically, and its tags join the filter row — nothing else to
+   edit.
+
+## Tags
+
+The tag filter row on the homepage is **derived from the posts
+themselves** at build time — whatever tags exist across all posts become
+filter buttons. Using a brand-new tag in one post's metadata is all it
+takes to add a category to the site.
+
+Current convention: `work` (commercial/data), `modeling`, `book`,
+`writing` (general articles) — but nothing enforces this list.
+
+## Search, tag filtering, and themes (script.js)
+
+- **Search**: the header search box filters the homepage list as you
+  type. On any other page, pressing Enter jumps to the homepage with
+  the query applied (`/?q=...`). `/?tag=...` works the same way for tags.
+- **Tag filtering**: clicking a tag pill narrows the list to that tag.
+  Search and tag filter share one function — a post must match *both*
+  to stay visible.
+- **Theme**: colors are CSS custom properties in two sets (light/dark).
+  Default follows the visitor's OS preference; the header toggle
+  overrides it and remembers the choice in `localStorage`. No pure
+  black or pure white anywhere — soft paper tones in light mode, soft
+  charcoal in dark.
 
 ## Adding modeling photos
 
-1. Drop the raw, full-size photos into `incoming/<something>/` (any
-   subfolder name — it's gitignored, so organize it however's convenient
-   for yourself).
-2. Resize and compress them into the right place in `src/images/`:
+1. Drop raw photos into `incoming/<something>/` (gitignored).
+2. Resize/compress into place (needs `pip install Pillow` — the one
+   external dependency, isolated to this script):
 
    ```
    python3 scripts/resize_images.py incoming/<something> src/images/modeling/<shoot-or-category>
    ```
 
-   This requires Pillow (`pip install Pillow`) — the one external
-   dependency in the whole project, and it's isolated to this one script.
-   It resizes each photo so its longest edge is at most 1600px and
-   re-saves it as a compressed JPEG, so the repo doesn't fill up with
-   multi-megabyte camera originals.
 3. Add `<button class="gallery__item"><img src="..." data-full="..."
-   alt="..."></button>` entries in `src/pages/modeling.html` pointing at
-   the new files (copy an existing gallery item as a template).
+   alt="..."></button>` entries in the relevant modeling post (copy an
+   existing gallery item), keeping the `<div class="lightbox">` block at
+   the bottom of the post.
 4. Run `python3 build.py`.
 
-## Embedding a new video
+## Embedding a video
 
-In `src/pages/modeling.html`, the video reel is a responsive wrapper
-around an `<iframe>`:
+Inside a post, wrap the platform's embed URL in the responsive 16:9
+container:
 
 ```html
 <div class="video-embed">
@@ -125,28 +153,17 @@ around an `<iframe>`:
 </div>
 ```
 
-Replace the `src` with the embed URL for a YouTube or Vimeo video (use
-the platform's own "Share → Embed" link to get the correct `/embed/...`
-URL). No video files are ever stored in this repo — it's always a
-hosted embed.
+No video files are stored in the repo — always a hosted embed.
 
 ## GitHub Pages settings
 
-In the repo's Settings → Pages:
-
-- **Source:** Deploy from a branch
-- **Branch:** `main`, folder `/docs`
-
-GitHub Pages will then serve whatever is committed in `docs/` on `main`
-— which is why `build.py`'s output has to be committed and pushed, not
-just generated locally.
+Settings → Pages: **Deploy from a branch**, branch `main`, folder
+`/docs`. Custom domain: `leret.me`, with "Enforce HTTPS" ticked once
+the certificate is issued.
 
 ## Custom domain (leret.me) — DNS records
 
-At your domain registrar, add these records for `leret.me`:
-
-**Apex domain (`leret.me`) — four A records, all pointing at GitHub
-Pages' IPs:**
+At the domain registrar for `leret.me`:
 
 | Type | Name | Value            |
 |------|------|------------------|
@@ -154,39 +171,17 @@ Pages' IPs:**
 | A    | @    | 185.199.109.153  |
 | A    | @    | 185.199.110.153  |
 | A    | @    | 185.199.111.153  |
+| CNAME | www | leret7777.github.io |
 
-(Optional but recommended — IPv6 equivalents:)
-
-| Type | Name | Value                   |
-|------|------|-------------------------|
-| AAAA | @    | 2606:50c0:8000::153     |
-| AAAA | @    | 2606:50c0:8001::153     |
-| AAAA | @    | 2606:50c0:8002::153     |
-| AAAA | @    | 2606:50c0:8003::153     |
-
-**`www` subdomain — one CNAME record, so `www.leret.me` also resolves:**
-
-| Type  | Name | Value                  |
-|-------|------|------------------------|
-| CNAME | www  | leret7777.github.io    |
-
-After adding these (DNS propagation can take up to a few hours), go back
-to Settings → Pages, enter `leret.me` as the custom domain, and once
-GitHub verifies it, enable "Enforce HTTPS".
-
-The `CNAME` file at the repo root (containing just `leret.me`) is what
-tells GitHub Pages which custom domain to serve — `build.py` copies it
-into `docs/` on every run so it can't accidentally get lost when `docs/`
-is rebuilt.
+The `CNAME` file at the repo root (containing just `leret.me`) tells
+GitHub Pages which domain to serve — `build.py` copies it into `docs/`
+on every run so it can't get lost when `docs/` is rebuilt.
 
 ## Design notes
 
-- One shared stylesheet (`src/style.css`), one accent color (terracotta),
-  a serif for headings and the OS's native UI font for body text — no
-  external font downloads.
-- The mobile nav menu uses a pure-CSS "checkbox hack" (a hidden checkbox
-  + a styled `<label>`), so it needs zero JavaScript.
-- The only real JavaScript is `src/script.js`, which powers the modeling
-  gallery's click-to-enlarge lightbox. It's commented in detail — read it
-  alongside the `.gallery`/`.lightbox` rules in `style.css` to see how the
-  two work together.
+- Calm, muted sage/forest green as the single accent; softened neutrals
+  (no `#000`/`#fff` anywhere). Serif headings, native UI font for body.
+- Tag labels and filter pills are deliberately quiet — they're metadata,
+  not the focus.
+- The lightbox and the filtering logic in `script.js` are commented in
+  detail — read them alongside the matching sections of `style.css`.

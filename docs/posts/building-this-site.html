@@ -15,26 +15,19 @@
       <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
       <span class="site-logo__name">Leret</span>
     </a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
-           CSS alone can show/hide the menu based on :checked, so the
-           mobile nav toggle needs zero JavaScript. -->
-      <input type="checkbox" id="navToggle" class="nav-toggle-input">
-      <label for="navToggle" class="nav-toggle" aria-label="Toggle menu">
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </label>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/work.html">Work</a></li>
-        <li><a href="/modeling.html">Modeling</a></li>
-        <li><a href="/writing.html">Writing</a></li>
-        <li><a href="/book.html">Book</a></li>
-        <li><a href="/shop.html">Shop</a></li>
-        <li><a href="/about.html">About / Contact</a></li>
-      </ul>
-    </nav>
+    <div class="site-header__tools">
+      <!-- type="search" is a normal text input with search semantics —
+           some browsers add a little clear (x) button. script.js listens
+           to it: on the homepage it filters the post list as you type;
+           on any other page, pressing Enter jumps to the homepage with
+           the query applied. -->
+      <input type="search" class="site-search" id="siteSearch"
+             placeholder="Search posts…" aria-label="Search posts">
+      <!-- The theme toggle's icon is set by script.js based on the
+           current theme; the button itself is just an empty shell here. -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <a class="site-header__link" href="/about.html">About</a>
+    </div>
   </div>
 </header>
 
@@ -94,13 +87,34 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <p>&copy; 2026 Leret. Based in Manchester, UK.</p>
-    <ul class="social-links">
-      <li><a href="#" aria-label="Instagram">Instagram</a></li>
-      <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
-      <li><a href="#" aria-label="X / Twitter">X</a></li>
-    </ul>
+  <div class="wrap">
+    <div class="site-footer__contact">
+      <div>
+        <h2 class="site-footer__heading">Contact</h2>
+        <p>
+          Email <a href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
+        </p>
+        <ul class="social-links">
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="#" aria-label="X / Twitter">X</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Modeling</h2>
+        <p>
+          Represented by <strong>Brother Models</strong> — for bookings contact
+          <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>
+        </p>
+        <!-- The ?subject= query parameter pre-fills the email's subject
+             line when the visitor's mail app opens. %20 is a URL-encoded
+             space — URLs can't contain literal spaces. -->
+        <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+          Request comp card
+        </a>
+      </div>
+    </div>
+    <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
   </div>
 </footer>
 

@@ -5,32 +5,47 @@
    ========================================================================= */
 
 /* -------------------------------------------------------------------------
-   1. CSS custom properties ("CSS variables")
+   1. Color themes (CSS custom properties)
    -------------------------------------------------------------------------
-   Defining colours/fonts/spacing once on :root means every rule below can
-   reference var(--accent) instead of repeating a hex code. Change the
-   palette in one place and the whole site updates.
+   Every color used anywhere on the site is defined here as a CSS variable,
+   in two sets: light and dark. Which set applies is decided in three
+   layers, from weakest to strongest:
 
-   Palette: warm off-white background, near-black text, one accent
-   (terracotta). Headings use a serif for an editorial feel that suits
-   both the modeling and writing sides of the site; body text uses the
-   OS's own UI font stack (fast, no external font download, and it makes
-   every visitor's copy of the site feel native to their device).
+     a) Default: the light values on :root.
+     b) System preference: if the visitor's OS is set to dark mode, the
+        @media (prefers-color-scheme: dark) block applies the dark values
+        — unless they've manually picked light (data-theme="light").
+     c) Manual override: script.js sets data-theme="dark" or "light" on
+        the <html> element when the header toggle is clicked (and
+        remembers the choice in localStorage). An explicit attribute
+        selector like :root[data-theme="dark"] beats the media query.
+
+   The dark block is intentionally written twice (once for the manual
+   override, once inside the media query) — plain CSS has no way to say
+   "reuse that block here", and duplicating ~10 lines is simpler than
+   any workaround.
+
+   Palette: calm, muted green (sage/forest) as the single accent, with
+   softened neutrals — no pure black or pure white anywhere. Light mode
+   is warm off-white paper with dark charcoal text; dark mode is soft
+   charcoal with warm cream text and a slightly brighter version of the
+   same green so it still reads clearly on the dark background.
    ------------------------------------------------------------------------- */
 :root {
-  --color-bg: #faf8f5;
-  --color-bg-alt: #f1ece5;
-  --color-text: #1c1c1c;
-  --color-text-muted: #5c5750;
-  --color-accent: #b5533c;
-  --color-accent-dark: #8f402c;
-  --color-border: #e2dcd3;
+  --color-bg: #f4f3ec;          /* warm off-white, not stark #fff */
+  --color-bg-alt: #e9eae0;      /* slightly deeper paper tone */
+  --color-surface: #fbfaf5;     /* cards, inputs */
+  --color-text: #2b302b;        /* dark charcoal, not pure #000 */
+  --color-text-muted: #5f675f;
+  --color-accent: #4d7358;      /* muted forest/sage green */
+  --color-accent-strong: #3c5b46; /* hover/darker variant */
+  --color-border: #d8dbce;
 
   --font-heading: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
 
-  --max-width: 1100px;
+  --max-width: 820px; /* narrower than before: this is a reading site now */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -38,6 +53,33 @@
   --space-5: 4rem;
 
   --radius: 6px;
+}
+
+/* Manual dark mode (header toggle) — see layer (c) above. */
+:root[data-theme="dark"] {
+  --color-bg: #22261f;
+  --color-bg-alt: #2a2f27;
+  --color-surface: #292e26;
+  --color-text: #e7e5d8;        /* warm cream, not pure #fff */
+  --color-text-muted: #a7ae9e;
+  --color-accent: #8fb896;      /* brighter sage for dark backgrounds */
+  --color-accent-strong: #a8caae;
+  --color-border: #3a4036;
+}
+
+/* System dark mode — applies only when the visitor hasn't manually
+   chosen light. Values identical to the block above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #22261f;
+    --color-bg-alt: #2a2f27;
+    --color-surface: #292e26;
+    --color-text: #e7e5d8;
+    --color-text-muted: #a7ae9e;
+    --color-accent: #8fb896;
+    --color-accent-strong: #a8caae;
+    --color-border: #3a4036;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -65,6 +107,8 @@ body {
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.6;
+  /* Ease the swap when the theme toggles rather than snapping. */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1,
@@ -77,15 +121,15 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 2.6rem);
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 p {
@@ -93,11 +137,11 @@ p {
 }
 
 a {
-  color: var(--color-accent-dark);
+  color: var(--color-accent);
 }
 
 a:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-strong);
 }
 
 img {
@@ -106,8 +150,7 @@ img {
 }
 
 /* A visually-hidden helper for text that should still be read by screen
-   readers (e.g. labelling icon-only controls) but shouldn't take up
-   visible space. */
+   readers but shouldn't take up visible space. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -119,10 +162,6 @@ img {
 
 /* -------------------------------------------------------------------------
    3. Layout helpers
-   -------------------------------------------------------------------------
-   .wrap centers content and caps its width so lines of text don't stretch
-   uncomfortably wide on large screens. Every section reuses it instead of
-   each page inventing its own container.
    ------------------------------------------------------------------------- */
 .wrap {
   max-width: var(--max-width);
@@ -135,15 +174,11 @@ main {
 }
 
 section {
-  padding: var(--space-5) 0;
-}
-
-section + section {
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
 }
 
 /* -------------------------------------------------------------------------
-   4. Header / navigation
+   4. Header: logo, search, theme toggle, About link
    ------------------------------------------------------------------------- */
 .site-header {
   border-bottom: 1px solid var(--color-border);
@@ -151,107 +186,123 @@ section + section {
   position: sticky;
   top: 0;
   z-index: 10;
+  transition: background-color 0.2s ease;
 }
 
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--space-2);
-  padding-bottom: var(--space-2);
+  gap: var(--space-2);
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
 }
 
 .site-logo {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--color-text);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  flex-shrink: 0;
 }
 
 .site-logo__mark {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
 }
 
-.site-nav {
+.site-header__tools {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  min-width: 0; /* lets the search input shrink on small screens */
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: var(--space-3);
-  margin: 0;
-  padding: 0;
+.site-search {
+  width: 180px;
+  max-width: 40vw;
+  padding: 0.4em 0.8em;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.9rem;
 }
 
-.nav-links a {
+.site-search:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-accent);
+}
+
+.site-header__link {
   text-decoration: none;
   color: var(--color-text);
   font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
-.nav-links a:hover {
+.site-header__link:hover {
   color: var(--color-accent);
-}
-
-/* The checkbox + label pair used for the mobile menu (see nav.html).
-   On desktop widths we don't need a toggle at all, so both are hidden. */
-.nav-toggle-input {
-  display: none;
-}
-
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-  padding: var(--space-1);
-}
-
-.nav-toggle__bar {
-  width: 22px;
-  height: 2px;
-  background: var(--color-text);
-  display: block;
 }
 
 /* -------------------------------------------------------------------------
    5. Buttons
+   -------------------------------------------------------------------------
+   Button text uses var(--color-bg) rather than white: in light mode
+   that's the cream page color on a deep green button; in dark mode it
+   flips to dark charcoal on a light sage button — readable both ways
+   without any pure white.
    ------------------------------------------------------------------------- */
 .btn {
   display: inline-block;
-  padding: 0.7em 1.4em;
+  padding: 0.6em 1.3em;
   border-radius: var(--radius);
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg);
   text-decoration: none;
   font-weight: 600;
   border: 1px solid var(--color-accent);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .btn:hover {
-  background: var(--color-accent-dark);
-  border-color: var(--color-accent-dark);
-  color: #fff;
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: var(--color-bg);
 }
 
 .btn--outline {
   background: transparent;
-  color: var(--color-accent-dark);
+  color: var(--color-accent);
 }
 
 .btn--outline:hover {
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg);
 }
 
 .btn-row {
@@ -262,60 +313,142 @@ section + section {
 }
 
 /* -------------------------------------------------------------------------
-   6. Hero (home page intro)
+   6. Hero (homepage intro)
    ------------------------------------------------------------------------- */
 .hero {
-  padding: var(--space-5) 0;
+  padding: var(--space-4) 0 var(--space-2);
 }
 
 .hero p.lede {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--color-text-muted);
   max-width: 640px;
 }
 
 /* -------------------------------------------------------------------------
-   7. Card grid (used on Home for section links, and on Work for projects)
+   7. Tag filters + post list (homepage)
    -------------------------------------------------------------------------
-   CSS Grid with auto-fit + minmax is a common "responsive grid without
-   media queries" trick: the browser fits as many columns of at least
-   260px as will comfortably fill the row, and wraps automatically on
-   narrow screens.
+   The filter row is a set of small pill buttons generated by build.py.
+   script.js toggles .is-active and hides non-matching list items.
+   Tags are metadata, not the main event — so both the filter pills and
+   the per-post labels stay small and quiet.
    ------------------------------------------------------------------------- */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
 }
 
-.card {
+.tag-filter {
+  background: none;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-3);
-  background: #fff;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: border-color 0.15s ease;
-}
-
-.card:hover {
-  border-color: var(--color-accent);
-}
-
-.card h3 {
-  color: var(--color-accent-dark);
-  margin-bottom: var(--space-1);
-}
-
-.card p {
+  border-radius: 999px;
+  padding: 0.25em 0.9em;
+  font-size: 0.85rem;
+  font-family: inherit;
   color: var(--color-text-muted);
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.tag-filter:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tag-filter.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
+.post-list__item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* The [hidden] attribute is what script.js sets on filtered-out posts;
+   this rule makes sure it always wins. */
+.post-list__item[hidden] {
+  display: none;
+}
+
+.post-list__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.post-list__head a {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.post-list__head a:hover {
+  color: var(--color-accent);
+}
+
+.post-date {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.post-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0.4rem 0 0;
+}
+
+.post-tags li {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+  border-radius: 999px;
+  padding: 0.1em 0.7em;
+  text-transform: capitalize;
+}
+
+.post-excerpt {
+  color: var(--color-text-muted);
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* Shown by script.js when a search/filter combination matches nothing. */
+.no-results {
+  color: var(--color-text-muted);
+  padding: var(--space-3) 0;
+}
+
 /* -------------------------------------------------------------------------
-   8. Tag / pill list (tools, skills)
+   8. Post pages
+   ------------------------------------------------------------------------- */
+.post-body {
+  max-width: 680px;
+  margin-top: var(--space-2);
+}
+
+.post-body h2 {
+  margin-top: var(--space-4);
+}
+
+/* -------------------------------------------------------------------------
+   9. Tag/pill list used inside posts (tools, credentials)
    ------------------------------------------------------------------------- */
 .tag-list {
   list-style: none;
@@ -335,18 +468,17 @@ section + section {
 }
 
 /* -------------------------------------------------------------------------
-   9. Photo gallery grid + lightbox
+   10. Photo gallery grid + lightbox (used inside modeling posts)
    -------------------------------------------------------------------------
-   The grid itself is just CSS Grid again. The lightbox (the enlarged
-   overlay view) is a single hidden <div> that script.js shows/hides and
-   fills with the clicked image — see script.js for the JavaScript half
-   of this feature.
+   The grid is CSS Grid with auto-fill: as many 200px+ columns as fit.
+   The lightbox is one hidden overlay <div> that script.js shows and
+   fills with whichever image was clicked.
    ------------------------------------------------------------------------- */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--space-2);
-  margin-top: var(--space-3);
+  margin: var(--space-3) 0;
 }
 
 .gallery__item {
@@ -370,13 +502,10 @@ section + section {
   transform: scale(1.04);
 }
 
-/* The lightbox overlay. It sits fixed over the whole viewport and is
-   hidden by default via the [hidden] attribute — script.js toggles that
-   attribute on click instead of adding/removing the element entirely. */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(15, 18, 15, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -400,7 +529,7 @@ section + section {
   right: var(--space-3);
   background: none;
   border: none;
-  color: #fff;
+  color: #e7e5d8;
   font-size: 2rem;
   line-height: 1;
   cursor: pointer;
@@ -412,22 +541,17 @@ section + section {
   left: 0;
   right: 0;
   text-align: center;
-  color: #eee;
+  color: #cfd4c9;
   font-size: 0.9rem;
 }
 
 /* -------------------------------------------------------------------------
-   10. Responsive video embed
-   -------------------------------------------------------------------------
-   YouTube/Vimeo <iframe>s have a fixed pixel width/height by default. To
-   make one scale with the page while keeping its 16:9 shape, we wrap it
-   in a container with aspect-ratio set, and stretch the iframe to fill
-   that container completely.
+   11. Responsive video embed (16:9 iframe wrapper)
    ------------------------------------------------------------------------- */
 .video-embed {
   position: relative;
   aspect-ratio: 16 / 9;
-  margin-top: var(--space-3);
+  margin: var(--space-3) 0;
 }
 
 .video-embed iframe {
@@ -440,7 +564,7 @@ section + section {
 }
 
 /* -------------------------------------------------------------------------
-   11. Forms (contact, book signup)
+   12. Forms (book signup etc.)
    ------------------------------------------------------------------------- */
 form {
   max-width: 480px;
@@ -463,7 +587,7 @@ textarea {
   border-radius: var(--radius);
   font-family: inherit;
   font-size: 1rem;
-  background: #fff;
+  background: var(--color-surface);
   color: var(--color-text);
 }
 
@@ -483,50 +607,7 @@ form .btn {
 }
 
 /* -------------------------------------------------------------------------
-   12. Writing / post list
-   ------------------------------------------------------------------------- */
-.post-list {
-  list-style: none;
-  padding: 0;
-  margin-top: var(--space-3);
-}
-
-.post-list__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-2);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.post-list__item a {
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: var(--color-text);
-}
-
-.post-list__item a:hover {
-  color: var(--color-accent);
-}
-
-.post-date {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.post-body {
-  max-width: 680px;
-  margin-top: var(--space-3);
-}
-
-.post-body h2 {
-  margin-top: var(--space-4);
-}
-
-/* -------------------------------------------------------------------------
-   13. Placeholder / notice boxes (Shop coming soon, "notable shoots" etc.)
+   13. Placeholder / notice boxes
    ------------------------------------------------------------------------- */
 .notice-box {
   border: 1px dashed var(--color-border);
@@ -537,20 +618,26 @@ form .btn {
 }
 
 /* -------------------------------------------------------------------------
-   14. Footer
+   14. Footer — site-wide contact lives here
    ------------------------------------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--color-border);
-  padding: var(--space-3) 0;
+  padding: var(--space-4) 0 var(--space-3);
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  margin-top: var(--space-4);
 }
 
-.site-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-2);
+.site-footer__contact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+
+.site-footer__heading {
+  font-size: 1rem;
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
 }
 
 .social-links {
@@ -558,7 +645,7 @@ form .btn {
   display: flex;
   gap: var(--space-3);
   padding: 0;
-  margin: 0;
+  margin: var(--space-1) 0 0;
 }
 
 .social-links a {
@@ -570,43 +657,37 @@ form .btn {
   color: var(--color-accent);
 }
 
+.site-footer__copyright {
+  margin-top: var(--space-4);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
 /* -------------------------------------------------------------------------
-   15. Responsive breakpoint
+   15. Small screens
    -------------------------------------------------------------------------
-   One breakpoint is enough for this layout: below 720px, collapse the
-   nav into the checkbox-driven mobile menu.
+   The header is compact enough that no hamburger menu is needed — the
+   search input just shrinks, and if space is still tight the tools wrap
+   onto their own line under the logo.
    ------------------------------------------------------------------------- */
-@media (max-width: 720px) {
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-2) var(--space-3);
-  }
-
-  .nav-links li {
-    padding: var(--space-1) 0;
-  }
-
-  /* The core of the checkbox hack: when the hidden checkbox is checked
-     (because the visible label was clicked), use the sibling combinator
-     (~) to reveal the menu that comes after it in the HTML. */
-  .nav-toggle-input:checked ~ .nav-links {
-    display: flex;
-  }
-
+@media (max-width: 560px) {
   .site-header__inner {
-    position: relative;
     flex-wrap: wrap;
+  }
+
+  .site-header__tools {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .site-search {
+    flex: 1;
+    max-width: none;
+  }
+
+  .post-list__head {
+    flex-direction: column;
+    gap: 0.2rem;
   }
 }

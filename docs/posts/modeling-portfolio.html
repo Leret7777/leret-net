@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modeling Portfolio — Leret</title>
+  <meta name="description" content="Leret's modeling portfolio — photo gallery and video reel. Represented by Brother Models.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="site-logo" href="/">
+      <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
+      <span class="site-logo__name">Leret</span>
+    </a>
+    <div class="site-header__tools">
+      <!-- type="search" is a normal text input with search semantics —
+           some browsers add a little clear (x) button. script.js listens
+           to it: on the homepage it filters the post list as you type;
+           on any other page, pressing Enter jumps to the homepage with
+           the query applied. -->
+      <input type="search" class="site-search" id="siteSearch"
+             placeholder="Search posts…" aria-label="Search posts">
+      <!-- The theme toggle's icon is set by script.js based on the
+           current theme; the button itself is just an empty shell here. -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <a class="site-header__link" href="/about.html">About</a>
+    </div>
+  </div>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="post-date">22 April 2026</p>
+      <h1>Modeling Portfolio</h1>
+      <p class="lede">
+        Represented by <strong>Brother Models</strong>. Booking and comp
+        card contacts are in the footer of every page. Click any photo
+        to enlarge it.
+      </p>
+
+      <h2>Portrait</h2>
+      <div class="gallery">
+        <!-- Each photo is a <button> (not a link) wrapping an <img>, so
+             it's keyboard-focusable and clicking doesn't navigate away —
+             script.js opens the lightbox instead. data-full can point at
+             a larger version of the same image for the enlarged view. -->
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-1.svg" data-full="/images/modeling/portrait/portrait-1.svg" alt="Portrait shoot, image 1 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-2.svg" data-full="/images/modeling/portrait/portrait-2.svg" alt="Portrait shoot, image 2 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/portrait/portrait-3.svg" data-full="/images/modeling/portrait/portrait-3.svg" alt="Portrait shoot, image 3 — placeholder">
+        </button>
+      </div>
+
+      <h2>Editorial</h2>
+      <div class="gallery">
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-1.svg" data-full="/images/modeling/editorial/editorial-1.svg" alt="Editorial shoot, image 1 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-2.svg" data-full="/images/modeling/editorial/editorial-2.svg" alt="Editorial shoot, image 2 — placeholder">
+        </button>
+        <button class="gallery__item">
+          <img src="/images/modeling/editorial/editorial-3.svg" data-full="/images/modeling/editorial/editorial-3.svg" alt="Editorial shoot, image 3 — placeholder">
+        </button>
+      </div>
+
+      <h2>Video reel</h2>
+      <!-- Responsive 16:9 wrapper — swap the src for a real reel's embed
+           URL when ready. No video files are stored in the repo. -->
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+          title="Modeling reel (placeholder)"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <h2>Notable shoots</h2>
+      <div class="notice-box">
+        [Notable shoots or campaigns — to add later]
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__contact">
+      <div>
+        <h2 class="site-footer__heading">Contact</h2>
+        <p>
+          Email <a href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
+        </p>
+        <ul class="social-links">
+          <li><a href="#" aria-label="Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="#" aria-label="X / Twitter">X</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Modeling</h2>
+        <p>
+          Represented by <strong>Brother Models</strong> — for bookings contact
+          <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>
+        </p>
+        <!-- The ?subject= query parameter pre-fills the email's subject
+             line when the visitor's mail app opens. %20 is a URL-encoded
+             space — URLs can't contain literal spaces. -->
+        <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+          Request comp card
+        </a>
+      </div>
+    </div>
+    <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
+  </div>
+</footer>
+
+
+<!-- The lightbox overlay: one shared element, reused for every photo.
+     Starts hidden; script.js reveals it and fills in the clicked image. -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" aria-label="Close">&times;</button>
+  <img id="lightboxImage" src="" alt="">
+  <p class="lightbox__caption" id="lightboxCaption"></p>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>

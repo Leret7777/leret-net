@@ -1,0 +1,54 @@
+[
+  {
+    "title": "The Book, So Far",
+    "date": "2026-05-30",
+    "tags": [
+      "book"
+    ],
+    "url": "/posts/book-in-progress.html",
+    "excerpt": "An update on the book I'm writing \u2014 still in draft, excerpt coming when it's ready to share."
+  },
+  {
+    "title": "Modeling Portfolio",
+    "date": "2026-04-22",
+    "tags": [
+      "modeling"
+    ],
+    "url": "/posts/modeling-portfolio.html",
+    "excerpt": "Photo gallery and video reel. Represented by Brother Models \u2014 comp card requests via the footer."
+  },
+  {
+    "title": "What I Actually Do: AI Automation for Commercial Teams",
+    "date": "2026-03-10",
+    "tags": [
+      "work"
+    ],
+    "url": "/posts/ai-automation-for-commercial-teams.html",
+    "excerpt": "Commercial planning, CVM, pricing ops \u2014 and the tools I use to make the manual parts disappear."
+  },
+  {
+    "title": "Building This Site From Scratch, By Hand",
+    "date": "2026-02-02",
+    "tags": [
+      "writing"
+    ],
+    "url": "/posts/building-this-site.html",
+    "excerpt": "No framework, no site generator \u2014 every page hand-written, held together by one small Python script."
+  },
+  {
+    "title": "What I Do, and Why This Site Mixes Two Careers",
+    "date": "2026-01-15",
+    "tags": [
+      "writing"
+    ],
+    "url": "/posts/what-i-do-and-why.html",
+    "excerpt": "On doing commercial intelligence work and modeling at the same time, and why this site doesn't pretend to be two different people."
+  },
+  {
+    "title": "Hello",
+    "date": "2025-12-08",
+    "tags": [],
+    "url": "/posts/hello.html",
+    "excerpt": "A first post, and what this site is for."
+  }
+]

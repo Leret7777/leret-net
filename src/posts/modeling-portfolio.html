@@ -1,9 +1,10 @@
+<!-- title: Modeling Portfolio | date: 2026-04-22 | tags: modeling | excerpt: Photo gallery and video reel. Represented by Brother Models — comp card requests via the footer. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modeling — Leret</title>
+  <title>Modeling Portfolio — Leret</title>
   <meta name="description" content="Leret's modeling portfolio — photo gallery and video reel. Represented by Brother Models.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
@@ -14,36 +15,20 @@
 <main>
   <section class="hero">
     <div class="wrap">
-      <h1>Modeling</h1>
+      <p class="post-date">22 April 2026</p>
+      <h1>Modeling Portfolio</h1>
       <p class="lede">
-        Represented by <strong>Brother Models</strong> — for bookings contact
-        <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>.
+        Represented by <strong>Brother Models</strong>. Booking and comp
+        card contacts are in the footer of every page. Click any photo
+        to enlarge it.
       </p>
-      <div class="btn-row">
-        <!-- mailto: links can pre-fill a subject (and body) via URL query
-             parameters. This opens the visitor's email client with the
-             address and subject already filled in — no form or backend
-             needed for something this simple. -->
-        <a class="btn" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
-          Request comp card
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="wrap">
-      <h2>Gallery</h2>
-      <p class="lede">Click any photo to enlarge it.</p>
-
-      <h3>Portrait</h3>
+      <h2>Portrait</h2>
       <div class="gallery">
-        <!-- Each photo is a <button> (not a link) wrapping an <img>, so it's
-             keyboard-focusable and clicking it doesn't navigate anywhere —
-             script.js listens for clicks on these and opens the lightbox.
-             data-full would point at a larger version of the same photo for
-             the enlarged view; here it just repeats the thumbnail since
-             these are placeholder SVGs. -->
+        <!-- Each photo is a <button> (not a link) wrapping an <img>, so
+             it's keyboard-focusable and clicking doesn't navigate away —
+             script.js opens the lightbox instead. data-full can point at
+             a larger version of the same image for the enlarged view. -->
         <button class="gallery__item">
           <img src="/images/modeling/portrait/portrait-1.svg" data-full="/images/modeling/portrait/portrait-1.svg" alt="Portrait shoot, image 1 — placeholder">
         </button>
@@ -55,7 +40,7 @@
         </button>
       </div>
 
-      <h3>Editorial</h3>
+      <h2>Editorial</h2>
       <div class="gallery">
         <button class="gallery__item">
           <img src="/images/modeling/editorial/editorial-1.svg" data-full="/images/modeling/editorial/editorial-1.svg" alt="Editorial shoot, image 1 — placeholder">
@@ -67,16 +52,10 @@
           <img src="/images/modeling/editorial/editorial-3.svg" data-full="/images/modeling/editorial/editorial-3.svg" alt="Editorial shoot, image 3 — placeholder">
         </button>
       </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="wrap">
       <h2>Video reel</h2>
-      <p class="lede">Placeholder embed below — swap the src for a real reel when ready.</p>
-      <!-- .video-embed (defined in style.css) keeps this a fixed 16:9
-           shape at any screen width. Replace the src with a real YouTube
-           or Vimeo embed URL — no video files are ever stored in this repo. -->
+      <!-- Responsive 16:9 wrapper — swap the src for a real reel's embed
+           URL when ready. No video files are stored in the repo. -->
       <div class="video-embed">
         <iframe
           src="https://www.youtube.com/embed/aqz-KE-bpKQ"
@@ -85,11 +64,7 @@
           allowfullscreen>
         </iframe>
       </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="wrap">
       <h2>Notable shoots</h2>
       <div class="notice-box">
         [Notable shoots or campaigns — to add later]
@@ -101,10 +76,9 @@
 <!-- FOOTER -->
 
 <!-- The lightbox overlay: one shared element, reused for every photo.
-     It starts hidden and script.js reveals it (and fills in the image)
-     when a gallery thumbnail is clicked. -->
+     Starts hidden; script.js reveals it and fills in the clicked image. -->
 <div class="lightbox" id="lightbox" hidden>
-  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox__close" aria-label="Close">&times;</button>
   <img id="lightboxImage" src="" alt="">
   <p class="lightbox__caption" id="lightboxCaption"></p>
 </div>
