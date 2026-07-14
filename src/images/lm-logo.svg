@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- LM monogram: terracotta rounded square, cream serif initials.
+       Used as the nav logo and the favicon. Colors match style.css
+       (accent and background colors in style.css). -->
+  <rect width="64" height="64" rx="12" fill="#b5533c"/>
+  <text x="32" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="bold" fill="#faf8f5" text-anchor="middle" dominant-baseline="central" letter-spacing="1">LM</text>
+</svg>

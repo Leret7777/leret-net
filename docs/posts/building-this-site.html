@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Building This Site From Scratch, By Hand — Leret</title>
   <meta name="description" content="Notes on building leret.me with hand-written HTML, CSS, and JavaScript instead of a site generator or framework, and the one small Python build script that ties it together.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap site-header__inner">
-    <a class="site-logo" href="/">Leret</a>
+    <a class="site-logo" href="/">
+      <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
+      <span class="site-logo__name">Leret</span>
+    </a>
     <nav class="site-nav" aria-label="Main navigation">
       <!-- Checkbox hack: a hidden checkbox + a <label> styled as a button.
            CSS alone can show/hide the menu based on :checked, so the
