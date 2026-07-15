@@ -43,10 +43,19 @@ document.addEventListener("DOMContentLoaded", function () {
       : "light";
   }
 
+  // Inline SVG icons for the toggle, matching the 26x26 icons used
+  // elsewhere. Shown is the theme you'd switch TO: a moon while in
+  // light mode, a sun while in dark mode.
+  const MOON_SVG =
+    '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+  const SUN_SVG =
+    '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="4"/>' +
+    '<path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>';
+
   function updateToggleIcon() {
-    // Show the theme you'd switch TO: a moon while in light mode,
-    // a sun while in dark mode.
-    themeToggle.textContent = currentTheme() === "dark" ? "☀" : "☾";
+    themeToggle.innerHTML = currentTheme() === "dark" ? SUN_SVG : MOON_SVG;
   }
 
   if (themeToggle) {

@@ -16,15 +16,11 @@
       <span class="site-logo__name">Leret</span>
     </a>
     <div class="site-header__tools">
-      <!-- "Posts" duplicates where the logo goes on purpose: from About
-           or a post page, both destinations should be visible side by
-           side, not implied by the logo. -->
-      <a class="site-header__link" href="/">Posts</a>
-      <a class="site-header__link" href="/about.html">About</a>
-      <!-- Collapsed search: the input starts at zero width and the
-           magnifying-glass button toggles .is-open on the wrapper,
-           which the CSS turns into a smooth width transition. script.js
-           handles the click, focus, and Escape-to-close. -->
+      <!-- Collapsed search: only the magnifying glass is visible. The
+           input is absolutely positioned to the LEFT of the icon and
+           slides out over the header's empty middle space when the
+           icon is clicked, so the icon never moves and nothing else
+           shifts. script.js handles click, focus, and Escape. -->
       <div class="search-box" id="searchBox">
         <input type="search" class="site-search" id="siteSearch"
                placeholder="Search posts…" aria-label="Search posts" tabindex="-1">
@@ -35,9 +31,14 @@
           </svg>
         </button>
       </div>
-      <!-- The theme toggle's icon is set by script.js based on the
-           current theme. -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <!-- "Posts" duplicates where the logo goes on purpose: from About
+           or a post page, both destinations should be visible side by
+           side, not implied by the logo. -->
+      <a class="site-header__link" href="/">Posts</a>
+      <a class="site-header__link" href="/about.html">About</a>
+      <!-- Theme toggle: a bare transparent icon like the others;
+           script.js fills in the moon/sun SVG for the current theme. -->
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
     </div>
   </div>
 </header>

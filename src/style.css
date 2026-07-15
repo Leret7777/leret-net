@@ -223,20 +223,26 @@ section {
   min-width: 0; /* lets the search input shrink on small screens */
 }
 
-/* Collapsed-by-default search. The input's width animates from 0 to
-   170px when .search-box gains .is-open (toggled by script.js). Width
-   0 + opacity 0 + padding 0 means it takes no space at all until the
-   magnifying glass is clicked. */
+/* Search is just an icon. The input is absolutely positioned to the
+   LEFT of the icon (right: 100% = "my right edge sits at the parent's
+   left edge"), overlaying the header's empty middle space — so opening
+   it never moves the icon or the links next to it. It slides from
+   width 0 / invisible to a pill when .is-open lands on the wrapper. */
 .search-box {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
 }
 
 .site-search {
+  position: absolute;
+  right: calc(100% + 0.4rem);
+  top: 50%;
+  transform: translateY(-50%);
   width: 0;
   padding: 0.4em 0;
   opacity: 0;
+  pointer-events: none; /* can't be clicked while invisible */
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--color-surface);
@@ -247,10 +253,11 @@ section {
 }
 
 .search-box.is-open .site-search {
-  width: 170px;
-  max-width: 40vw;
+  width: 190px;
+  max-width: 45vw;
   padding: 0.4em 0.8em;
   opacity: 1;
+  pointer-events: auto;
   border-color: var(--color-border);
 }
 
@@ -259,7 +266,9 @@ section {
   outline-offset: 1px;
 }
 
-/* Bare icon button (the search toggle) — just the drawing, no chrome. */
+/* Bare icon button — just the drawing, transparent background, no
+   border. Every icon on the site (search, theme, socials) follows
+   this: color comes from `color` + currentColor in the SVGs. */
 .icon-btn {
   background: none;
   border: none;
@@ -267,27 +276,11 @@ section {
   cursor: pointer;
   color: var(--color-text);
   display: inline-flex;
+  flex-shrink: 0;
 }
 
 .icon-btn:hover {
   color: var(--color-accent);
-}
-
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  width: 34px;
-  height: 34px;
-  cursor: pointer;
-  font-size: 1rem;
-  line-height: 1;
-  color: var(--color-text);
-  flex-shrink: 0;
-}
-
-.theme-toggle:hover {
-  border-color: var(--color-accent);
 }
 
 .site-header__link {
@@ -351,13 +344,19 @@ section {
 }
 
 /* The shared icons + comp-card cluster (partials/contact-links.html),
-   used in the homepage intro and the footer. */
+   used in the homepage intro and the footer. nowrap keeps the icons
+   and the Comp card button on ONE line at every screen size — the
+   cluster is compact enough to fit even a small phone. */
 .contact-links {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-top: var(--space-2);
+}
+
+.contact-links .btn {
+  white-space: nowrap; /* the label itself never breaks into two lines */
 }
 
 /* -------------------------------------------------------------------------
@@ -775,11 +774,6 @@ form .btn {
   .site-header__tools {
     width: 100%;
     justify-content: flex-end;
-  }
-
-  .site-search {
-    flex: 1;
-    max-width: none;
   }
 
   .post-list__head {
