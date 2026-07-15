@@ -5,21 +5,28 @@
       <span class="site-logo__name">Leret</span>
     </a>
     <div class="site-header__tools">
-      <!-- type="search" is a normal text input with search semantics —
-           some browsers add a little clear (x) button. script.js listens
-           to it: on the homepage it filters the post list as you type;
-           on any other page, pressing Enter jumps to the homepage with
-           the query applied. -->
-      <input type="search" class="site-search" id="siteSearch"
-             placeholder="Search posts…" aria-label="Search posts">
-      <!-- The theme toggle's icon is set by script.js based on the
-           current theme; the button itself is just an empty shell here. -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
       <!-- "Posts" duplicates where the logo goes on purpose: from About
            or a post page, both destinations should be visible side by
            side, not implied by the logo. -->
       <a class="site-header__link" href="/">Posts</a>
       <a class="site-header__link" href="/about.html">About</a>
+      <!-- Collapsed search: the input starts at zero width and the
+           magnifying-glass button toggles .is-open on the wrapper,
+           which the CSS turns into a smooth width transition. script.js
+           handles the click, focus, and Escape-to-close. -->
+      <div class="search-box" id="searchBox">
+        <input type="search" class="site-search" id="siteSearch"
+               placeholder="Search posts…" aria-label="Search posts" tabindex="-1">
+        <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+          </svg>
+        </button>
+      </div>
+      <!-- The theme toggle's icon is set by script.js based on the
+           current theme. -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
     </div>
   </div>
 </header>

@@ -17,10 +17,11 @@ src/
   pages/       standalone pages: index.html (the homepage) and
                about.html. Adding e.g. a Shop page later is just a new
                file here plus a header link.
-  partials/    nav.html and footer.html — shared header/footer markup,
-               injected into every page by build.py. The footer holds
-               ALL contact info (email, socials, Brother Models comp
-               card request), so it's visible from every page.
+  partials/    shared markup injected into every page by build.py:
+               nav.html (header), footer.html (single-row footer), and
+               contact-links.html — the Instagram/LinkedIn/email icons
+               + "Comp card" button, used by BOTH the homepage intro
+               and the footer, so the icons are maintained in one file.
   posts/       one .html file per post — every piece of content on the
                site lives here, tagged via its metadata comment
   images/      site images (e.g. images/modeling/<shoot>/, and
@@ -123,9 +124,12 @@ with that tag already selected (see the search section below).
 
 ## Search, tag filtering, and themes (script.js)
 
-- **Search**: the header search box filters the homepage list as you
-  type. On any other page, pressing Enter jumps to the homepage with
-  the query applied (`/?q=...`). `/?tag=...` works the same way for tags.
+- **Search**: the header shows a magnifying-glass icon; clicking it
+  reveals the input (a CSS width transition — the input sits at width 0
+  until `.is-open` lands on its wrapper). Typing filters the homepage
+  list live; Escape clears and collapses it. On any other page,
+  pressing Enter jumps to the homepage with the query applied
+  (`/?q=...`). `/?tag=...` works the same way for tags.
 - **Tag filtering**: clicking a tag pill narrows the list to that tag.
   Search and tag filter share one function — a post must match *both*
   to stay visible.

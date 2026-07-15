@@ -50,6 +50,7 @@ NAV_PLACEHOLDER = "<!-- NAV -->"
 FOOTER_PLACEHOLDER = "<!-- FOOTER -->"
 POST_LIST_PLACEHOLDER = "<!-- POST_LIST -->"
 TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
+CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 
 
 def read_file(path):
@@ -65,10 +66,18 @@ def write_file(path, content):
         f.write(content)
 
 
-def inject_partials(html, nav_html, footer_html):
-    """Replace the placeholder comments with the real shared markup."""
+def inject_partials(html, nav_html, footer_html, contact_links_html):
+    """Replace the placeholder comments with the real shared markup.
+
+    CONTACT_LINKS is replaced *after* the footer, on purpose: the footer
+    partial itself contains a CONTACT_LINKS placeholder, so the footer
+    has to be pasted into the page first for that inner placeholder to
+    be present and get filled in. Same icons, maintained in one file,
+    appearing in both the homepage intro and every footer.
+    """
     html = html.replace(NAV_PLACEHOLDER, nav_html)
     html = html.replace(FOOTER_PLACEHOLDER, footer_html)
+    html = html.replace(CONTACT_LINKS_PLACEHOLDER, contact_links_html)
     return html
 
 
@@ -199,6 +208,7 @@ def build():
     # 2. Load the shared partials once — every page reuses the same string.
     nav_html = read_file(os.path.join(PARTIALS_DIR, "nav.html"))
     footer_html = read_file(os.path.join(PARTIALS_DIR, "footer.html"))
+    contact_links_html = read_file(os.path.join(PARTIALS_DIR, "contact-links.html"))
 
     # 3. Build every post first — we need all the metadata before we can
     #    generate the homepage list, filter row, and JSON index.
@@ -219,7 +229,7 @@ def build():
             if len(meta["tags"]) != 1:
                 print(f"  warning: {filename} has {len(meta['tags'])} tags "
                       f"(convention is exactly one)")
-            final_html = inject_partials(page_html, nav_html, footer_html)
+            final_html = inject_partials(page_html, nav_html, footer_html, contact_links_html)
             write_file(os.path.join(POSTS_OUT_DIR, filename), final_html)
             posts.append(meta)
 
@@ -237,7 +247,7 @@ def build():
         if not filename.endswith(".html"):
             continue
         raw = read_file(os.path.join(PAGES_DIR, filename))
-        final_html = inject_partials(raw, nav_html, footer_html)
+        final_html = inject_partials(raw, nav_html, footer_html, contact_links_html)
         final_html = final_html.replace(POST_LIST_PLACEHOLDER, post_list_html)
         final_html = final_html.replace(TAG_FILTERS_PLACEHOLDER, tag_filters_html)
         write_file(os.path.join(DOCS, filename), final_html)

@@ -77,6 +77,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("siteSearch");
   const tagFilterRow = document.getElementById("tagFilters");
 
+  /* ------- search reveal (the magnifying-glass button) -------
+     The input sits collapsed at width 0 until .is-open lands on its
+     wrapper; the CSS transition does the animating. tabindex switches
+     so keyboard users can't Tab into an invisible input. */
+  const searchBox = document.getElementById("searchBox");
+  const searchToggle = document.getElementById("searchToggle");
+
+  function setSearchOpen(open) {
+    searchBox.classList.toggle("is-open", open);
+    searchToggle.setAttribute("aria-expanded", String(open));
+    searchInput.tabIndex = open ? 0 : -1;
+    if (open) {
+      searchInput.focus();
+    }
+  }
+
+  if (searchBox && searchToggle && searchInput) {
+    searchToggle.addEventListener("click", function () {
+      setSearchOpen(!searchBox.classList.contains("is-open"));
+    });
+
+    // Escape while typing closes the box and clears the query, so the
+    // list returns to its unfiltered state.
+    searchInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        searchInput.value = "";
+        // "input" listeners (the live filter, below) react to this
+        // synthetic event exactly as if the user had cleared the field.
+        searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+        setSearchOpen(false);
+      }
+    });
+  }
+
   if (postList) {
     const items = Array.from(postList.querySelectorAll(".post-list__item"));
     const tagButtons = tagFilterRow
@@ -144,6 +178,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (urlQuery && searchInput) {
       searchInput.value = urlQuery;
       query = urlQuery.trim().toLowerCase();
+      // Reveal the search box so the pre-filled query is visible.
+      if (searchBox) {
+        setSearchOpen(true);
+      }
     }
     if (urlTag && tagButtons.some((b) => b.dataset.tag === urlTag)) {
       activeTag = urlTag;

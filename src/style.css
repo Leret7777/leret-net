@@ -223,21 +223,54 @@ section {
   min-width: 0; /* lets the search input shrink on small screens */
 }
 
+/* Collapsed-by-default search. The input's width animates from 0 to
+   170px when .search-box gains .is-open (toggled by script.js). Width
+   0 + opacity 0 + padding 0 means it takes no space at all until the
+   magnifying glass is clicked. */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
 .site-search {
-  width: 180px;
-  max-width: 40vw;
-  padding: 0.4em 0.8em;
-  border: 1px solid var(--color-border);
+  width: 0;
+  padding: 0.4em 0;
+  opacity: 0;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: var(--color-surface);
   color: var(--color-text);
   font-family: inherit;
   font-size: 0.9rem;
+  transition: width 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+.search-box.is-open .site-search {
+  width: 170px;
+  max-width: 40vw;
+  padding: 0.4em 0.8em;
+  opacity: 1;
+  border-color: var(--color-border);
 }
 
 .site-search:focus {
   outline: 2px solid var(--color-accent);
   outline-offset: 1px;
+}
+
+/* Bare icon button (the search toggle) — just the drawing, no chrome. */
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: var(--color-text);
+  display: inline-flex;
+}
+
+.icon-btn:hover {
+  color: var(--color-accent);
 }
 
 .theme-toggle {
@@ -305,11 +338,26 @@ section {
   color: var(--color-bg);
 }
 
+.btn--small {
+  padding: 0.35em 0.9em;
+  font-size: 0.85rem;
+}
+
 .btn-row {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-3);
+}
+
+/* The shared icons + comp-card cluster (partials/contact-links.html),
+   used in the homepage intro and the footer. */
+.contact-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
 }
 
 /* -------------------------------------------------------------------------
@@ -659,22 +707,30 @@ form .btn {
    ------------------------------------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--color-border);
-  padding: var(--space-4) 0 var(--space-3);
+  padding: var(--space-3) 0;
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-top: var(--space-4);
 }
 
-.site-footer__contact {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-3);
+/* One row: copyright on the left, icons + comp card on the right.
+   justify-content: space-between pushes the two ends apart;
+   flex-wrap lets the row break onto two lines only when a narrow
+   screen genuinely can't fit it. */
+.site-footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 
-.site-footer__heading {
-  font-size: 1rem;
-  margin-bottom: var(--space-1);
-  color: var(--color-text);
+.site-footer__row .contact-links {
+  margin-top: 0;
+}
+
+.site-footer__copyright {
+  margin: 0;
 }
 
 /* Icon-based contact links. The SVGs inside use stroke="currentColor",
@@ -684,15 +740,16 @@ form .btn {
 .social-icons {
   list-style: none;
   display: flex;
-  gap: var(--space-2);
+  align-items: center;
+  gap: var(--space-1);
   padding: 0;
-  margin: var(--space-1) 0 0;
+  margin: 0;
 }
 
 .social-icons a {
   color: var(--color-text-muted);
   display: inline-flex;
-  padding: 0.3rem;
+  padding: 0.25rem;
 }
 
 .social-icons a:hover {
@@ -701,13 +758,6 @@ form .btn {
 
 .social-icons svg {
   display: block;
-}
-
-.site-footer__copyright {
-  margin-top: var(--space-4);
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--color-border);
-  font-size: 0.85rem;
 }
 
 /* -------------------------------------------------------------------------

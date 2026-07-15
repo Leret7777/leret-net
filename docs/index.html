@@ -16,21 +16,28 @@
       <span class="site-logo__name">Leret</span>
     </a>
     <div class="site-header__tools">
-      <!-- type="search" is a normal text input with search semantics —
-           some browsers add a little clear (x) button. script.js listens
-           to it: on the homepage it filters the post list as you type;
-           on any other page, pressing Enter jumps to the homepage with
-           the query applied. -->
-      <input type="search" class="site-search" id="siteSearch"
-             placeholder="Search posts…" aria-label="Search posts">
-      <!-- The theme toggle's icon is set by script.js based on the
-           current theme; the button itself is just an empty shell here. -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
       <!-- "Posts" duplicates where the logo goes on purpose: from About
            or a post page, both destinations should be visible side by
            side, not implied by the logo. -->
       <a class="site-header__link" href="/">Posts</a>
       <a class="site-header__link" href="/about.html">About</a>
+      <!-- Collapsed search: the input starts at zero width and the
+           magnifying-glass button toggles .is-open on the wrapper,
+           which the CSS turns into a smooth width transition. script.js
+           handles the click, focus, and Escape-to-close. -->
+      <div class="search-box" id="searchBox">
+        <input type="search" class="site-search" id="siteSearch"
+               placeholder="Search posts…" aria-label="Search posts" tabindex="-1">
+        <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+          </svg>
+        </button>
+      </div>
+      <!-- The theme toggle's icon is set by script.js based on the
+           current theme. -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
     </div>
   </div>
 </header>
@@ -46,6 +53,53 @@
         Brother Models on the side. Everything I post lives below — use
         the tags to narrow it down.
       </p>
+      <!-- Same contact cluster as the footer, injected by build.py from
+           partials/contact-links.html — visible here without scrolling. -->
+      <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
+     comp card CTA. Injected wherever a page (or the footer partial)
+     contains the CONTACT_LINKS placeholder — the homepage intro and the
+     footer both use it, so the icons only have to be maintained here.
+
+     The SVGs are inline (no icon font, no CDN) and use
+     stroke="currentColor" — "whatever CSS color this element has" — so
+     the .social-icons rules recolor them on hover and across themes. -->
+<div class="contact-links">
+  <ul class="social-icons">
+    <li>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
+          <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
+          <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
+          <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+          <path d="m3.5 7 8.5 6 8.5-6"/>
+        </svg>
+      </a>
+    </li>
+  </ul>
+  <!-- Short label so the footer's single row stays a single row; the
+       mailto still pre-fills the full "Comp Card Request" subject. -->
+  <a class="btn btn--outline btn--small" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+    Comp card
+  </a>
+</div>
+
     </div>
   </section>
 
@@ -107,61 +161,55 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <div class="site-footer__contact">
-      <div>
-        <h2 class="site-footer__heading">Contact</h2>
-        <!-- Inline SVG icons: the vector shapes live right here in the
-             HTML, so there's no icon font or CDN involved. Each icon
-             uses stroke="currentColor", which means "whatever CSS color
-             this element currently has" — so the icons recolor
-             themselves on hover and when the theme toggles, purely via
-             the CSS .social-icons rules. aria-label on the link tells
-             screen readers what the icon means; aria-hidden on the SVG
-             stops them describing the drawing itself. -->
-        <ul class="social-icons">
-          <li>
-            <a href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-                <circle cx="12" cy="12" r="4.5"/>
-                <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="#" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-                <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-                <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-                <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-                <path d="m3.5 7 8.5 6 8.5-6"/>
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="site-footer__heading">Modelling</h2>
-        <p>
-          Represented by <strong>Brother Models</strong>
-        </p>
-        <!-- The ?subject= query parameter pre-fills the email's subject
-             line; %20 is a URL-encoded space. -->
-        <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
-          Request comp card
-        </a>
-      </div>
-    </div>
+  <div class="wrap site-footer__row">
     <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
+    <!-- The shared icon cluster (see partials/contact-links.html) —
+         build.py fills this in after pasting the footer into the page. -->
+    <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
+     comp card CTA. Injected wherever a page (or the footer partial)
+     contains the CONTACT_LINKS placeholder — the homepage intro and the
+     footer both use it, so the icons only have to be maintained here.
+
+     The SVGs are inline (no icon font, no CDN) and use
+     stroke="currentColor" — "whatever CSS color this element has" — so
+     the .social-icons rules recolor them on hover and across themes. -->
+<div class="contact-links">
+  <ul class="social-icons">
+    <li>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
+          <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
+          <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
+          <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
+        </svg>
+      </a>
+    </li>
+    <li>
+      <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+          <path d="m3.5 7 8.5 6 8.5-6"/>
+        </svg>
+      </a>
+    </li>
+  </ul>
+  <!-- Short label so the footer's single row stays a single row; the
+       mailto still pre-fills the full "Comp Card Request" subject. -->
+  <a class="btn btn--outline btn--small" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
+    Comp card
+  </a>
+</div>
+
   </div>
 </footer>
 
