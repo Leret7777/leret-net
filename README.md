@@ -18,10 +18,11 @@ src/
                about.html. Adding e.g. a Shop page later is just a new
                file here plus a header link.
   partials/    shared markup injected into every page by build.py:
-               nav.html (header), footer.html (single-row footer), and
-               contact-links.html — the Instagram/LinkedIn/email icons
-               + "Comp card" button, used by BOTH the homepage intro
-               and the footer, so the icons are maintained in one file.
+               nav.html (header), footer.html (single-row footer),
+               contact-links.html (Instagram/LinkedIn/email icons +
+               "Comp card" button — used by the homepage intro AND the
+               footer), and newsletter.html (the signup box — used on
+               pages and in every post's generated ending).
   posts/       one .html file per post — every piece of content on the
                site lives here, tagged via its metadata comment
   images/      site images (e.g. images/modeling/<shoot>/, and
@@ -102,8 +103,12 @@ There's no CI — `docs/` in the repo *is* what gets served.
    `<title>`/meta description, `<!-- NAV -->` / `<!-- FOOTER -->`
    placeholders, content inside `<main>`).
 4. Run `python3 build.py`. The post appears on the homepage
-   automatically, and its tags join the filter row — nothing else to
-   edit.
+   automatically, its tags join the filter row, and it gets an
+   auto-generated ending block — newsletter signup, its tags as filter
+   links, share buttons (X, LinkedIn, WhatsApp, Facebook, email),
+   a back-to-top link, and previous/next post navigation. All of that
+   comes from build.py, because it needs things a single post file
+   can't know (like which posts are its date-order neighbours).
 
 ## Tags
 
@@ -121,6 +126,15 @@ row is generated dynamically rather than hardcoded.
 
 Links can pre-apply a filter too: `/?tag=modelling` opens the homepage
 with that tag already selected (see the search section below).
+
+## Bookings page
+
+`src/pages/bookings.html` is the modelling-work contact hub, following
+the pattern professional models use on personal sites: a representation
+card (Brother Models, booker contact, comp card + digitals on request
+via the agency), guidance on what to include in an enquiry, and a
+direct enquiry form (Formspree — replace the placeholder form ID, same
+as the newsletter). It's linked from the header on every page.
 
 ## Search, tag filtering, and themes (script.js)
 
