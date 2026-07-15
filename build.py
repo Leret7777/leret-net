@@ -264,7 +264,7 @@ def build_post_ending_html(post, prev_post, next_post, newsletter_html):
         nav_parts.append(
             '      <a class="post-nav__link post-nav__link--prev" '
             f'href="/posts/{prev_post["slug"]}.html">\n'
-            '        <span class="post-nav__label">&larr; Previous post</span>\n'
+            '        <span class="post-nav__label">&larr; Previous Post</span>\n'
             f'        <span class="post-nav__title">{prev_post["title"]}</span>\n'
             "      </a>"
         )
@@ -272,7 +272,7 @@ def build_post_ending_html(post, prev_post, next_post, newsletter_html):
         nav_parts.append(
             '      <a class="post-nav__link post-nav__link--next" '
             f'href="/posts/{next_post["slug"]}.html">\n'
-            '        <span class="post-nav__label">Next post &rarr;</span>\n'
+            '        <span class="post-nav__label">Next Post &rarr;</span>\n'
             f'        <span class="post-nav__title">{next_post["title"]}</span>\n'
             "      </a>"
         )
@@ -286,11 +286,11 @@ def build_post_ending_html(post, prev_post, next_post, newsletter_html):
     {newsletter_html}
     <p class="post-ending__tags">{tag_links}</p>
     <div class="share-row">
-      <p class="share-row__label">Share this post:</p>
+      <p class="share-row__label">Share this post on:</p>
       <ul class="share-row__icons">
         {share_items}
       </ul>
-      <a class="back-to-top" href="#top">&uarr; Back to top</a>
+      <a class="back-to-top" href="#top">&uarr; Back to Top</a>
     </div>{post_nav}
   </div>
 </aside>
