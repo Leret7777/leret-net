@@ -221,13 +221,14 @@ def build_tag_filters_html(posts):
 # pre-filled. urllib.parse.quote percent-encodes the title/URL so
 # spaces and punctuation survive being embedded inside another URL.
 
+# Share targets are limited to the platforms Leret actually uses:
+# LinkedIn and email. (Instagram is a contact icon elsewhere on the
+# site, but it has no share-by-URL endpoint, so it can't be a share
+# target.)
 SHARE_ICONS = {
-    # Solid brand glyphs (Simple Icons, CC0), drawn with fill rather
-    # than stroke so the marks stay recognisable at 26px.
-    "x": '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zm-1.29 19.5h2.04L6.48 3.24H4.3z"/></svg>',
+    # LinkedIn is the official solid glyph (Simple Icons, CC0); the
+    # envelope matches the stroke-style contact icons.
     "linkedin": '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg>',
-    "whatsapp": '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.21 5.1 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.13-.28-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.45-4.44 9.87-9.89 9.87M20.5 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.6 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.44-8.4"/></svg>',
-    "facebook": '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.55-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.87v2.25h3.32l-.53 3.49h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg>',
     "email": '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>',
 }
 
@@ -243,14 +244,8 @@ def build_post_ending_html(post, prev_post, next_post, newsletter_html):
     quoted_title = urllib.parse.quote(post["title"])
 
     share_links = [
-        ("x", "Share on X",
-         f"https://twitter.com/intent/tweet?url={quoted_url}&text={quoted_title}"),
         ("linkedin", "Share on LinkedIn",
          f"https://www.linkedin.com/sharing/share-offsite/?url={quoted_url}"),
-        ("whatsapp", "Share on WhatsApp",
-         f"https://wa.me/?text={quoted_title}%20{quoted_url}"),
-        ("facebook", "Share on Facebook",
-         f"https://www.facebook.com/sharer/sharer.php?u={quoted_url}"),
         ("email", "Share by email",
          f"mailto:?subject={quoted_title}&body={quoted_url}"),
     ]
