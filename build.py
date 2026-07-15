@@ -233,7 +233,7 @@ SHARE_ICONS = {
 }
 
 
-def build_post_ending_html(post, prev_post, next_post, newsletter_html):
+def build_post_ending_html(post, prev_post, next_post):
     """The block appended to every post, before the footer.
 
     prev_post is the older neighbour, next_post the newer one (either
@@ -283,7 +283,6 @@ def build_post_ending_html(post, prev_post, next_post, newsletter_html):
 
     return f"""<aside class="post-ending">
   <div class="wrap">
-    {newsletter_html}
     <p class="post-ending__tags">{tag_links}</p>
     <div class="share-row">
       <p class="share-row__label">Share this post on:</p>
@@ -346,8 +345,7 @@ def build():
     for i, post in enumerate(posts):
         next_post = posts[i - 1] if i > 0 else None
         prev_post = posts[i + 1] if i + 1 < len(posts) else None
-        ending = build_post_ending_html(post, prev_post, next_post,
-                                        newsletter_html)
+        ending = build_post_ending_html(post, prev_post, next_post)
         page_html = post.pop("page_html")
         page_html = page_html.replace(FOOTER_PLACEHOLDER,
                                       ending + FOOTER_PLACEHOLDER)

@@ -385,8 +385,8 @@ section {
 /* Small round profile picture beside the homepage intro. The source
    image is square; border-radius: 50% clips it into a circle. */
 .avatar {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-border);
