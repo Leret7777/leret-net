@@ -49,16 +49,21 @@
 <main>
   <section class="hero hero--compact">
     <div class="wrap">
-      <img class="avatar" src="/images/profile/avatar.svg" alt="Leret" width="76" height="76">
-      <h1>Hi, I'm Leret.</h1>
-      <p class="lede">
-        Commercial intelligence and AI automation by day, modelling with
-        Brother Models on the side. Everything I post lives below — use
-        the tags to narrow it down.
-      </p>
-      <!-- Same contact cluster as the footer, injected by build.py from
-           partials/contact-links.html — visible here without scrolling. -->
-      <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
+      <!-- Avatar sits BESIDE the intro text (flex row, see .hero-intro
+           in style.css), not above it. -->
+      <div class="hero-intro">
+        <img class="avatar" src="/images/profile/avatar.svg" alt="Leret" width="80" height="80">
+        <div>
+          <h1>Hi, I'm Leret.</h1>
+          <p class="lede">
+            Commercial intelligence and AI automation by day, modelling
+            with Brother Models on the side. Everything I post lives
+            below — use the tags to narrow it down.
+          </p>
+          <!-- Same contact cluster as the footer, injected by build.py
+               from partials/contact-links.html — visible without
+               scrolling. -->
+          <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
      comp card CTA. Injected wherever a page (or the footer partial)
      contains the CONTACT_LINKS placeholder — the homepage intro and the
      footer both use it, so the icons only have to be maintained here.
@@ -103,6 +108,8 @@
   </a>
 </div>
 
+        </div>
+      </div>
     </div>
   </section>
 

@@ -372,15 +372,31 @@ section {
   max-width: 640px;
 }
 
-/* Small round profile picture at the top of the homepage. The source
+/* Homepage intro: avatar on the left, greeting + contact links on the
+   right. align-items: flex-start keeps the avatar level with the top
+   of the heading rather than vertically centering against the whole
+   text block. */
+.hero-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Small round profile picture beside the homepage intro. The source
    image is square; border-radius: 50% clips it into a circle. */
 .avatar {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: var(--space-2);
   border: 2px solid var(--color-border);
+  flex-shrink: 0; /* never squashed by the text beside it */
+}
+
+@media (max-width: 560px) {
+  .hero-intro {
+    flex-direction: column;
+  }
 }
 
 /* About-page bio layout: portrait beside the text on wide screens.
