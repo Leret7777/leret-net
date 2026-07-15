@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Building This Site From Scratch, By Hand — Leret</title>
-  <meta name="description" content="Notes on building leret.me with hand-written HTML, CSS, and JavaScript instead of a site generator or framework, and the one small Python build script that ties it together.">
+  <title>Notes From a Test Shoot — Leret</title>
+  <meta name="description" content="What actually happens at a modelling test shoot — call time, looks, and how the final selects come together.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -39,52 +39,21 @@
 <main>
   <section class="hero">
     <div class="wrap post-body">
-      <p class="post-date">2 February 2026</p>
-      <h1>Building This Site From Scratch, By Hand</h1>
+      <p class="post-date">12 June 2026</p>
+      <h1>Notes From a Test Shoot</h1>
 
       <p>
-        I work with data and automation professionally, but I'd never
-        actually written HTML, CSS, or JavaScript by hand before this
-        site. It would have been faster to reach for a static site
-        generator or a template engine — but the point of this project
-        was to actually learn the fundamentals, not to hide them behind
-        someone else's abstraction.
+        Test shoots are where a lot of the real work in modelling
+        happens — no client brief, just a photographer, a couple of
+        looks, and time to try things. This is a placeholder post to
+        carry the <em>modelling</em> tag; I'll replace it with notes
+        from an actual shoot (and photos, once they've been through the
+        resize script).
       </p>
 
       <p>
-        So every page on this site is a real, complete HTML file. There's
-        no Markdown getting converted, no templating language, no
-        framework. The only shortcut I allowed myself is a single small
-        Python script, <code>build.py</code>, that does two things:
-      </p>
-
-      <ul>
-        <li>
-          Swaps a couple of placeholder comments — <code>&lt;!-- NAV --&gt;</code>
-          and <code>&lt;!-- FOOTER --&gt;</code> — for the shared navigation
-          and footer markup, so I'm not hand-copying the same menu into
-          every single page.
-        </li>
-        <li>
-          Reads a small metadata comment at the top of each post file
-          (title and date) and automatically rebuilds this Writing page's
-          post list, sorted newest first.
-        </li>
-      </ul>
-
-      <p>
-        That's it. No pip installs, no build server, no CI — I just run
-        <code>python3 build.py</code> locally, check the result, and push.
-        It's a small enough mechanism that I can read the whole script in
-        a couple of minutes and know exactly what it did to my HTML.
-      </p>
-
-      <h2>What's next</h2>
-      <p>
-        Now that the mechanics are in place, most of the actual work is
-        just writing pages — which, it turns out, is a genuinely nice way
-        to actually learn CSS layout instead of copy-pasting a component
-        library.
+        For the portfolio itself — gallery and video reel — see the
+        <a href="/posts/modelling-portfolio.html">Modelling Portfolio</a> post.
       </p>
     </div>
   </section>

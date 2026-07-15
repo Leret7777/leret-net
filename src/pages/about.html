@@ -15,14 +15,22 @@
   <section class="hero">
     <div class="wrap">
       <h1>About</h1>
-      <p class="lede">
-        I'm Leret — a Commercial Intelligence Specialist working across
-        data analytics and AI automation, and a model represented by
-        Brother Models. I write here about both, plus the book I'm slowly
-        putting together. Based in Manchester, UK.
-      </p>
-      <!-- Contact details live in the footer below — shared by every
-           page via the footer partial, so they're never out of date here. -->
+      <!-- Two-column bio layout: photo beside text on wide screens,
+           stacked on narrow ones (see .bio-grid in style.css). -->
+      <div class="bio-grid">
+        <img class="bio-grid__photo" src="/images/profile/portrait.svg"
+             alt="Leret" width="600" height="800">
+        <div>
+          <p class="lede">
+            I'm Leret — a Commercial Intelligence Specialist working
+            across data analytics and AI automation, and a model
+            represented by Brother Models. I write here about both.
+            Based in Manchester, UK.
+          </p>
+          <!-- Contact lives in the footer below — shared by every page
+               via the footer partial. -->
+        </div>
+      </div>
     </div>
   </section>
 </main>

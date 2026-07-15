@@ -325,6 +325,43 @@ section {
   max-width: 640px;
 }
 
+/* Small round profile picture at the top of the homepage. The source
+   image is square; border-radius: 50% clips it into a circle. */
+.avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: var(--space-2);
+  border: 2px solid var(--color-border);
+}
+
+/* About-page bio layout: portrait beside the text on wide screens.
+   The 220px column is the photo; 1fr gives the text the rest. */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  margin-top: var(--space-2);
+}
+
+.bio-grid__photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+@media (max-width: 560px) {
+  .bio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-grid__photo {
+    max-width: 260px;
+  }
+}
+
 /* -------------------------------------------------------------------------
    7. Tag filters + post list (homepage)
    -------------------------------------------------------------------------
@@ -640,21 +677,30 @@ form .btn {
   color: var(--color-text);
 }
 
-.social-links {
+/* Icon-based contact links. The SVGs inside use stroke="currentColor",
+   so setting `color` here (and on :hover) recolors the drawings —
+   including automatically in dark mode, since these values are theme
+   variables. */
+.social-icons {
   list-style: none;
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
   padding: 0;
   margin: var(--space-1) 0 0;
 }
 
-.social-links a {
+.social-icons a {
   color: var(--color-text-muted);
-  text-decoration: none;
+  display: inline-flex;
+  padding: 0.3rem;
 }
 
-.social-links a:hover {
+.social-icons a:hover {
   color: var(--color-accent);
+}
+
+.social-icons svg {
+  display: block;
 }
 
 .site-footer__copyright {

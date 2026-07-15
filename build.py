@@ -210,6 +210,15 @@ def build():
             raw = read_file(os.path.join(POSTS_DIR, filename))
             meta, page_html = parse_post(raw, filename)
             meta["slug"] = filename[: -len(".html")]
+
+            # Current convention: every post carries exactly one tag.
+            # This is a warning, not an error — the site still builds,
+            # because the mechanism deliberately supports any number of
+            # tags (that's what lets a new category appear just by
+            # using it in a post).
+            if len(meta["tags"]) != 1:
+                print(f"  warning: {filename} has {len(meta['tags'])} tags "
+                      f"(convention is exactly one)")
             final_html = inject_partials(page_html, nav_html, footer_html)
             write_file(os.path.join(POSTS_OUT_DIR, filename), final_html)
             posts.append(meta)

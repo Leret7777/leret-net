@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>What I Do, and Why This Site Mixes Two Careers — Leret</title>
-  <meta name="description" content="Why leret.me covers both commercial intelligence work and modeling on the same site, rather than keeping them separate.">
+  <meta name="description" content="Why leret.me covers both commercial intelligence work and modelling on the same site, rather than keeping them separate.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -26,6 +26,10 @@
       <!-- The theme toggle's icon is set by script.js based on the
            current theme; the button itself is just an empty shell here. -->
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+      <!-- "Posts" duplicates where the logo goes on purpose: from About
+           or a post page, both destinations should be visible side by
+           side, not implied by the logo. -->
+      <a class="site-header__link" href="/">Posts</a>
       <a class="site-header__link" href="/about.html">About</a>
     </div>
   </div>
@@ -40,7 +44,7 @@
 
       <p>
         People are sometimes surprised that I do both commercial
-        intelligence work and modeling. I get why — on paper they don't
+        intelligence work and modelling. I get why — on paper they don't
         have much in common. One is spreadsheets, automation pipelines,
         and pricing workflows. The other is photo shoots and video reels.
       </p>
@@ -51,8 +55,8 @@
         to how something is put together — a commercial process, a shot,
         a narrative — and making deliberate choices about it. I didn't
         want a site that pretended to be two different people, so this one
-        just holds all of it: the <a href="/work.html">work</a>, the
-        <a href="/modeling.html">modeling</a>, and everything I end up
+        just holds all of it: the <a href="/?tag=commercial">work</a>, the
+        <a href="/?tag=modelling">modelling</a>, and everything I end up
         writing about along the way.
       </p>
 
@@ -75,24 +79,51 @@
     <div class="site-footer__contact">
       <div>
         <h2 class="site-footer__heading">Contact</h2>
-        <p>
-          Email <a href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
-        </p>
-        <ul class="social-links">
-          <li><a href="#" aria-label="Instagram">Instagram</a></li>
-          <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
-          <li><a href="#" aria-label="X / Twitter">X</a></li>
+        <!-- Inline SVG icons: the vector shapes live right here in the
+             HTML, so there's no icon font or CDN involved. Each icon
+             uses stroke="currentColor", which means "whatever CSS color
+             this element currently has" — so the icons recolor
+             themselves on hover and when the theme toggles, purely via
+             the CSS .social-icons rules. aria-label on the link tells
+             screen readers what the icon means; aria-hidden on the SVG
+             stops them describing the drawing itself. -->
+        <ul class="social-icons">
+          <li>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                <circle cx="12" cy="12" r="4.5"/>
+                <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
+                <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
+                <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
+                <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+                <path d="m3.5 7 8.5 6 8.5-6"/>
+              </svg>
+            </a>
+          </li>
         </ul>
       </div>
       <div>
-        <h2 class="site-footer__heading">Modeling</h2>
+        <h2 class="site-footer__heading">Modelling</h2>
         <p>
-          Represented by <strong>Brother Models</strong> — for bookings contact
-          <a href="mailto:francesca@brothermodels.com">francesca@brothermodels.com</a>
+          Represented by <strong>Brother Models</strong>
         </p>
         <!-- The ?subject= query parameter pre-fills the email's subject
-             line when the visitor's mail app opens. %20 is a URL-encoded
-             space — URLs can't contain literal spaces. -->
+             line; %20 is a URL-encoded space. -->
         <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
           Request comp card
         </a>

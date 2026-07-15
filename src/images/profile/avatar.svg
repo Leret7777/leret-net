@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <!-- Placeholder homepage avatar (1:1). Replace with a real photo:
+       run scripts/resize_images.py on it, save as avatar.jpg in this
+       folder, and update the src in src/pages/index.html. -->
+  <rect width="240" height="240" fill="#4d7358"/>
+  <circle cx="120" cy="92" r="42" fill="#f4f3ec" opacity="0.85"/>
+  <path d="M48 214c0-40 32-66 72-66s72 26 72 66v26H48z" fill="#f4f3ec" opacity="0.85"/>
+</svg>
