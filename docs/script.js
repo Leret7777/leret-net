@@ -1,10 +1,11 @@
 /**
  * script.js — all the site's JavaScript, in three small parts:
  *
- *   1. Theme toggle  — dark/light override, remembered in localStorage
- *   2. Post filtering — tag filter buttons + the header search box,
- *                       sharing ONE filtering function
- *   3. Lightbox      — click-to-enlarge for photo galleries in posts
+ *   1. Theme toggle    — dark/light override, remembered in localStorage
+ *   2. Post filtering  — tag filter buttons + the header search box,
+ *                        sharing ONE filtering function
+ *   3. Reading progress— a thin bar that fills as you scroll a post
+ *   4. Lightbox        — click-to-enlarge for photo galleries in posts
  *
  * Each part checks whether the elements it needs exist on the current
  * page and quietly does nothing if not, so the same file is safe to
@@ -208,7 +209,41 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* ---------------------------------------------------------------------
-     3. LIGHTBOX (photo galleries inside posts)
+     3. READING PROGRESS BAR (post pages only)
+     ---------------------------------------------------------------------
+     A thin accent bar across the top of the window that fills as you
+     scroll, so a reader can see how far through a post they are. Every
+     post has the generated .post-ending block, so its presence is how we
+     know we're on a post — no per-post markup needed.
+
+     Progress = how far the page is scrolled out of its total scrollable
+     height. requestAnimationFrame batches the update so we're not doing
+     layout work on every single scroll event.
+  --------------------------------------------------------------------- */
+  if (document.querySelector(".post-ending")) {
+    const bar = document.createElement("div");
+    bar.className = "read-progress";
+    document.body.appendChild(bar);
+
+    let ticking = false;
+    function updateProgress() {
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      bar.style.width = pct + "%";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    });
+    updateProgress();
+  }
+
+  /* ---------------------------------------------------------------------
+     4. LIGHTBOX (photo galleries inside posts)
      ---------------------------------------------------------------------
      Clicking a gallery thumbnail opens the image large in an overlay —
      the single hidden <div class="lightbox"> at the bottom of any post

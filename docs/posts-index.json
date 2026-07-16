@@ -6,7 +6,8 @@
       "modelling"
     ],
     "url": "/posts/test-shoot-notes.html",
-    "excerpt": "What actually happens at a test shoot, from call time to final selects."
+    "excerpt": "What actually happens at a test shoot, from call time to final selects.",
+    "read_minutes": 1
   },
   {
     "title": "Modelling Portfolio",
@@ -15,7 +16,8 @@
       "modelling"
     ],
     "url": "/posts/modelling-portfolio.html",
-    "excerpt": "Photo gallery and video reel. Represented by Brother Models \u2014 bookings via the About page."
+    "excerpt": "Photo gallery and video reel. Represented by Brother Models \u2014 bookings via the About page.",
+    "read_minutes": 1
   },
   {
     "title": "What I Actually Do: AI Automation for Commercial Teams",
@@ -24,7 +26,8 @@
       "commercial"
     ],
     "url": "/posts/ai-automation-for-commercial-teams.html",
-    "excerpt": "Commercial planning, CVM, pricing ops \u2014 and the tools I use to make the manual parts disappear."
+    "excerpt": "Commercial planning, CVM, pricing ops \u2014 and the tools I use to make the manual parts disappear.",
+    "read_minutes": 1
   },
   {
     "title": "Building This Site From Scratch, By Hand",
@@ -33,7 +36,8 @@
       "commercial"
     ],
     "url": "/posts/building-this-site.html",
-    "excerpt": "No framework, no site generator \u2014 every page hand-written, held together by one small Python script."
+    "excerpt": "No framework, no site generator \u2014 every page hand-written, held together by one small Python script.",
+    "read_minutes": 1
   },
   {
     "title": "What I Do, and Why This Site Mixes Two Careers",
@@ -42,6 +46,7 @@
       "commercial"
     ],
     "url": "/posts/what-i-do-and-why.html",
-    "excerpt": "On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people."
+    "excerpt": "On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people.",
+    "read_minutes": 1
   }
 ]

@@ -519,6 +519,25 @@ section {
   white-space: nowrap;
 }
 
+/* "· N min read" — same quiet muted styling as the date it sits next to. */
+.read-time {
+  color: var(--color-text-muted);
+}
+
+/* Reading-progress bar: a thin accent line fixed across the very top of
+   the window that fills left-to-right as you scroll a post. script.js
+   creates it (only on post pages) and sets its width. */
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--color-accent);
+  z-index: 20; /* above the sticky header */
+  transition: width 0.05s linear;
+}
+
 .post-tags {
   list-style: none;
   display: flex;

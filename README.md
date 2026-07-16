@@ -136,6 +136,15 @@ via the agency), guidance on what to include in an enquiry, and a
 direct enquiry form (Formspree — replace the placeholder form ID, same
 as the newsletter). It's linked from the header on every page.
 
+## Reading time & progress
+
+Each post shows an estimated reading time (`· N min read`) next to its
+date — on the homepage list and at the top of the post. build.py counts
+the words inside the post's `<main>` and divides by ~200 words/minute;
+it's fully automatic, so new posts get it with no extra work. Post pages
+also show a thin accent progress bar across the top that fills as you
+scroll (script.js, post pages only).
+
 ## Search, tag filtering, and themes (script.js)
 
 - **Search**: the header shows a magnifying-glass icon; clicking it

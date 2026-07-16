@@ -151,6 +151,35 @@ def parse_post(html, filename):
     return meta, remaining_html
 
 
+def strip_tags(html):
+    """Return the visible text of an HTML fragment — no regex, just a
+    scan that copies everything except the bits between < and >."""
+    out = []
+    inside_tag = False
+    for ch in html:
+        if ch == "<":
+            inside_tag = True
+        elif ch == ">":
+            inside_tag = False
+        elif not inside_tag:
+            out.append(ch)
+    return "".join(out)
+
+
+def reading_minutes(page_html):
+    """Estimate reading time from the post's <main> text.
+
+    We count words only inside <main>...</main> (so the head, nav, and
+    footer don't inflate it), strip the tags, and divide by an average
+    adult reading speed of ~200 words per minute. Always at least 1.
+    """
+    start = page_html.find("<main")
+    end = page_html.find("</main>")
+    body = page_html[start:end] if start != -1 and end != -1 else page_html
+    words = len(strip_tags(body).split())
+    return max(1, round(words / 200))
+
+
 def build_post_list_html(posts):
     """posts is a list of metadata dicts (each with a 'slug' added),
     already sorted newest-first. Returns the homepage <ul>.
@@ -176,11 +205,16 @@ def build_post_list_html(posts):
         if post["excerpt"]:
             excerpt_html = f'\n        <p class="post-excerpt">{post["excerpt"]}</p>'
 
+        # Reading time sits next to the date as a quiet second line of
+        # metadata, so a visitor can see at a glance how long each post is.
+        read = post.get("read_minutes")
+        read_html = f' <span class="read-time">· {read} min read</span>' if read else ""
+
         items.append(
             f'      <li class="post-list__item" data-tags="{tags_attr}">\n'
             f'        <div class="post-list__head">\n'
             f'          <a href="/posts/{post["slug"]}.html">{post["title"]}</a>\n'
-            f'          <span class="post-date">{post["date"]}</span>\n'
+            f'          <span class="post-date">{post["date"]}{read_html}</span>\n'
             f'        </div>{tag_labels}{excerpt_html}\n'
             "      </li>"
         )
@@ -333,6 +367,7 @@ def build():
             meta, page_html = parse_post(raw, filename)
             meta["slug"] = filename[: -len(".html")]
             meta["page_html"] = page_html
+            meta["read_minutes"] = reading_minutes(page_html)
 
             # Current convention: every post carries exactly one tag.
             # This is a warning, not an error — the site still builds,
@@ -357,6 +392,18 @@ def build():
         prev_post = posts[i + 1] if i + 1 < len(posts) else None
         ending = build_post_ending_html(post, prev_post, next_post)
         page_html = post.pop("page_html")
+
+        # Show reading time next to the post's date. Every post opens
+        # with <p class="post-date">…</p>; we append the estimate just
+        # inside that first paragraph, so no per-post editing is needed.
+        read_badge = f' <span class="read-time">· {post["read_minutes"]} min read</span>'
+        anchor = '<p class="post-date">'
+        pos = page_html.find(anchor)
+        if pos != -1:
+            close = page_html.find("</p>", pos)
+            if close != -1:
+                page_html = page_html[:close] + read_badge + page_html[close:]
+
         page_html = page_html.replace(FOOTER_PLACEHOLDER,
                                       ending + FOOTER_PLACEHOLDER)
         final_html = inject_partials(page_html, nav_html, footer_html,
@@ -388,6 +435,7 @@ def build():
             "tags": p["tags"],
             "url": f"/posts/{p['slug']}.html",
             "excerpt": p["excerpt"],
+            "read_minutes": p["read_minutes"],
         }
         for p in posts
     ]
