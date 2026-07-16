@@ -36,8 +36,50 @@
            or a post page, both destinations should be visible side by
            side, not implied by the logo. -->
       <a class="site-header__link" href="/">Posts</a>
-      <a class="site-header__link" href="/bookings.html">Bookings</a>
       <a class="site-header__link" href="/about.html">About</a>
+      <!-- Contact icons (Instagram / LinkedIn / email), injected from
+           partials/contact-links.html — same markup the post endings
+           use, so they're maintained in one place. -->
+      <div class="site-header__social">
+        <!-- Shared social-icon cluster: Instagram / LinkedIn / email. Injected
+     wherever a page (or a generated block) contains the CONTACT_LINKS
+     placeholder — the header and every post's ending both use it, so
+     the icons are maintained in exactly one file.
+
+     The SVGs are inline (no icon font, no CDN) and use
+     stroke="currentColor" — "whatever CSS color this element has" — so
+     the .social-icons rules recolor them on hover and across themes. -->
+<ul class="social-icons">
+  <li>
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a href="#" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
+        <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
+        <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
+        <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
+        <path d="m3.5 7 8.5 6 8.5-6"/>
+      </svg>
+    </a>
+  </li>
+</ul>
+
+      </div>
       <!-- Theme toggle: a bare transparent icon like the others;
            script.js fills in the moon/sun SVG for the current theme. -->
       <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
@@ -46,79 +88,29 @@
 </header>
 
 
-<main>
-  <section class="hero hero--compact">
-    <div class="wrap">
-      <!-- Avatar sits BESIDE the intro text (flex row, see .hero-intro
-           in style.css), not above it. -->
-      <div class="hero-intro">
-        <img class="avatar" src="/images/profile/avatar.svg" alt="Leret" width="90" height="90">
-        <div>
-          <h1>Hi, I'm Leret.</h1>
-          <p class="lede">
-            Commercial intelligence and AI automation by day, modelling
-            with Brother Models on the side. Everything I post lives
-            below — use the tags to narrow it down.
-          </p>
-          <!-- Same contact cluster as the footer, injected by build.py
-               from partials/contact-links.html — visible without
-               scrolling. -->
-          <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
-     comp card CTA. Injected wherever a page (or the footer partial)
-     contains the CONTACT_LINKS placeholder — the homepage intro and the
-     footer both use it, so the icons only have to be maintained here.
+<!-- Split-screen home: a full-height portrait on the left that stays put
+     (position: sticky) while the posts column on the right scrolls past
+     it. Collapses to a single column on narrow screens — see .home-split
+     in style.css. -->
+<main class="home-split">
+  <div class="home-split__photo">
+    <img src="/images/profile/portrait.svg" alt="Leret" width="600" height="800">
+  </div>
 
-     The SVGs are inline (no icon font, no CDN) and use
-     stroke="currentColor" — "whatever CSS color this element has" — so
-     the .social-icons rules recolor them on hover and across themes. -->
-<div class="contact-links">
-  <ul class="social-icons">
-    <li>
-      <a href="#" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-          <circle cx="12" cy="12" r="4.5"/>
-          <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-    </li>
-    <li>
-      <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-          <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-          <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-          <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-        </svg>
-      </a>
-    </li>
-    <li>
-      <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-          <path d="m3.5 7 8.5 6 8.5-6"/>
-        </svg>
-      </a>
-    </li>
-  </ul>
-  <!-- Short label so the footer's single row stays a single row; the
-       mailto still pre-fills the full "Comp Card Request" subject. -->
-  <a class="btn btn--outline btn--small" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
-    Comp card
-  </a>
-</div>
+  <div class="home-split__content">
+    <section class="hero hero--compact">
+      <h1>Hi, I'm Leret.</h1>
+      <p class="lede">
+        Commercial intelligence and AI automation by day, modelling with
+        Brother Models on the side. Everything I post lives below — use
+        the tags to narrow it down.
+      </p>
+    </section>
 
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
+    <section>
       <!-- build.py fills these two placeholders in: the filter row is
            derived from whatever tags the posts actually use, and the
-           list is every post, newest first. Nothing on this page is
-           edited by hand when a post is added. -->
+           list is every post, newest first. -->
       <div class="tag-filters" id="tagFilters">
       <button class="tag-filter is-active" data-tag="all">All</button>
       <button class="tag-filter" data-tag="commercial">commercial</button>
@@ -139,7 +131,7 @@
           <span class="post-date">2026-04-22</span>
         </div>
         <ul class="post-tags"><li>modelling</li></ul>
-        <p class="post-excerpt">Photo gallery and video reel. Represented by Brother Models — comp card requests via the footer.</p>
+        <p class="post-excerpt">Photo gallery and video reel. Represented by Brother Models — bookings via the About page.</p>
       </li>
       <li class="post-list__item" data-tags="commercial">
         <div class="post-list__head">
@@ -166,60 +158,13 @@
         <p class="post-excerpt">On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people.</p>
       </li>
     </ul>
-    </div>
-  </section>
+    </section>
+  </div>
 </main>
 
 <footer class="site-footer">
   <div class="wrap site-footer__row">
     <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
-    <!-- The shared icon cluster (see partials/contact-links.html) —
-         build.py fills this in after pasting the footer into the page. -->
-    <!-- Shared contact cluster: Instagram / LinkedIn / email icons + the
-     comp card CTA. Injected wherever a page (or the footer partial)
-     contains the CONTACT_LINKS placeholder — the homepage intro and the
-     footer both use it, so the icons only have to be maintained here.
-
-     The SVGs are inline (no icon font, no CDN) and use
-     stroke="currentColor" — "whatever CSS color this element has" — so
-     the .social-icons rules recolor them on hover and across themes. -->
-<div class="contact-links">
-  <ul class="social-icons">
-    <li>
-      <a href="#" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-          <circle cx="12" cy="12" r="4.5"/>
-          <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-    </li>
-    <li>
-      <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-          <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-          <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-          <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-        </svg>
-      </a>
-    </li>
-    <li>
-      <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-          <path d="m3.5 7 8.5 6 8.5-6"/>
-        </svg>
-      </a>
-    </li>
-  </ul>
-  <!-- Short label so the footer's single row stays a single row; the
-       mailto still pre-fills the full "Comp Card Request" subject. -->
-  <a class="btn btn--outline btn--small" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">
-    Comp card
-  </a>
-</div>
-
   </div>
 </footer>
 

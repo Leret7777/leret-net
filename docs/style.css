@@ -46,6 +46,7 @@
     Helvetica, Arial, sans-serif;
 
   --max-width: 820px; /* narrower than before: this is a reading site now */
+  --header-h: 3.4rem; /* approx sticky-header height; used by the split home */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -223,6 +224,12 @@ section {
   min-width: 0; /* lets the search input shrink on small screens */
 }
 
+/* Contact icons living in the header. The .social-icons rules (further
+   down) size and color them; this just spaces them from the links. */
+.site-header__social ul.social-icons {
+  gap: 0.15rem;
+}
+
 /* Search is just an icon. The input is absolutely positioned to the
    LEFT of the icon (right: 100% = "my right edge sits at the parent's
    left edge"), overlaying the header's empty middle space — so opening
@@ -343,24 +350,8 @@ section {
   margin-top: var(--space-3);
 }
 
-/* The shared icons + comp-card cluster (partials/contact-links.html),
-   used in the homepage intro and the footer. nowrap keeps the icons
-   and the Comp card button on ONE line at every screen size — the
-   cluster is compact enough to fit even a small phone. */
-.contact-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: nowrap;
-  margin-top: var(--space-2);
-}
-
-.contact-links .btn {
-  white-space: nowrap; /* the label itself never breaks into two lines */
-}
-
 /* -------------------------------------------------------------------------
-   6. Hero (homepage intro)
+   6. Hero (page intros)
    ------------------------------------------------------------------------- */
 .hero {
   padding: var(--space-4) 0 var(--space-2);
@@ -372,30 +363,53 @@ section {
   max-width: 640px;
 }
 
-/* Homepage intro: avatar on the left, greeting + contact links on the
-   right. align-items: flex-start keeps the avatar level with the top
-   of the heading rather than vertically centering against the whole
-   text block. */
-.hero-intro {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
+/* -------------------------------------------------------------------------
+   6b. Split-screen homepage
+   -------------------------------------------------------------------------
+   A two-column grid: a tall portrait on the left that stays in place
+   while the posts on the right scroll past it. The photo is roughly
+   40% of the width, the posts 60%.
+
+   position: sticky is the key: the photo scrolls with the page until
+   its top hits `top`, then it "sticks" there for the rest of the
+   scroll — no JavaScript. `top` and `height` subtract the sticky
+   header's height so the photo sits just below it and fills the rest
+   of the viewport.
+   ------------------------------------------------------------------------- */
+.home-split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--space-4);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+  align-items: start;
 }
 
-/* Small round profile picture beside the homepage intro. The source
-   image is square; border-radius: 50% clips it into a circle. */
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-border);
-  flex-shrink: 0; /* never squashed by the text beside it */
+.home-split__photo {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
 }
 
-@media (max-width: 560px) {
-  .hero-intro {
-    flex-direction: column;
+.home-split__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills the column, cropping rather than stretching */
+  border-radius: var(--radius);
+}
+
+/* Below this width the two columns stack: the photo becomes a banner
+   at the top (no longer sticky) and the posts follow underneath. */
+@media (max-width: 760px) {
+  .home-split {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .home-split__photo {
+    position: static;
+    height: 52vh;
   }
 }
 
@@ -942,8 +956,25 @@ form .btn {
   color: var(--color-accent-strong);
 }
 
+/* Contact icons at the very end of a post — "Find me:" + the shared
+   social icons. */
+.post-ending__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-accent);
+}
+
+.post-ending__contact-label {
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-right: var(--space-1);
+}
+
 /* -------------------------------------------------------------------------
-   14d. Booking cards (bookings.html)
+   14d. Booking cards (About page)
    ------------------------------------------------------------------------- */
 .booking-card {
   border: 1px solid var(--color-border);

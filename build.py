@@ -281,8 +281,14 @@ def build_post_ending_html(post, prev_post, next_post):
         post_nav = ('\n    <nav class="post-nav" aria-label="More posts">\n'
                     + "\n".join(nav_parts) + "\n    </nav>")
 
+    # The NEWSLETTER and CONTACT_LINKS placeholders below are filled by
+    # inject_partials after this block is spliced into the page — so the
+    # "mailing box" and contact icons appear at the end of every post
+    # (they were deliberately removed from the homepage and footer, but
+    # kept here for readers who reach the bottom of a post).
     return f"""<aside class="post-ending">
   <div class="wrap">
+    <!-- NEWSLETTER -->
     <p class="post-ending__tags">{tag_links}</p>
     <div class="share-row">
       <p class="share-row__label">Share this post on:</p>
@@ -291,6 +297,10 @@ def build_post_ending_html(post, prev_post, next_post):
       </ul>
       <a class="back-to-top" href="#top">&uarr; Back to Top</a>
     </div>{post_nav}
+    <div class="post-ending__contact">
+      <span class="post-ending__contact-label">Find me:</span>
+      <!-- CONTACT_LINKS -->
+    </div>
   </div>
 </aside>
 """

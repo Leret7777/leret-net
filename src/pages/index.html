@@ -11,39 +11,33 @@
 <body>
 <!-- NAV -->
 
-<main>
-  <section class="hero hero--compact">
-    <div class="wrap">
-      <!-- Avatar sits BESIDE the intro text (flex row, see .hero-intro
-           in style.css), not above it. -->
-      <div class="hero-intro">
-        <img class="avatar" src="/images/profile/avatar.svg" alt="Leret" width="90" height="90">
-        <div>
-          <h1>Hi, I'm Leret.</h1>
-          <p class="lede">
-            Commercial intelligence and AI automation by day, modelling
-            with Brother Models on the side. Everything I post lives
-            below — use the tags to narrow it down.
-          </p>
-          <!-- Same contact cluster as the footer, injected by build.py
-               from partials/contact-links.html — visible without
-               scrolling. -->
-          <!-- CONTACT_LINKS -->
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- Split-screen home: a full-height portrait on the left that stays put
+     (position: sticky) while the posts column on the right scrolls past
+     it. Collapses to a single column on narrow screens — see .home-split
+     in style.css. -->
+<main class="home-split">
+  <div class="home-split__photo">
+    <img src="/images/profile/portrait.svg" alt="Leret" width="600" height="800">
+  </div>
 
-  <section>
-    <div class="wrap">
+  <div class="home-split__content">
+    <section class="hero hero--compact">
+      <h1>Hi, I'm Leret.</h1>
+      <p class="lede">
+        Commercial intelligence and AI automation by day, modelling with
+        Brother Models on the side. Everything I post lives below — use
+        the tags to narrow it down.
+      </p>
+    </section>
+
+    <section>
       <!-- build.py fills these two placeholders in: the filter row is
            derived from whatever tags the posts actually use, and the
-           list is every post, newest first. Nothing on this page is
-           edited by hand when a post is added. -->
+           list is every post, newest first. -->
       <!-- TAG_FILTERS -->
       <!-- POST_LIST -->
-    </div>
-  </section>
+    </section>
+  </div>
 </main>
 
 <!-- FOOTER -->
