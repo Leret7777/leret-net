@@ -1,204 +1,148 @@
 # leret.me
 
-Personal site for Leret. Everything on it is a **post** — work,
-modeling, book updates, general writing — categorized by tags and
-listed chronologically on the homepage.
+Personal site for Leret. Everything on it is a **post** — commercial /
+data work and modelling — tagged and listed on the homepage. Plus an
+About page (bio + modelling bookings).
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
-templating engine, no frontend framework. The only "build step" is a
-small standard-library-only Python script, `build.py`, that stitches
-the shared nav/footer into every page and generates the homepage post
-list, the tag filter row, and a JSON index of all posts.
+templating engine, no framework. The only "build step" is a small
+standard-library-only Python script, `build.py`.
+
+## The 30-second version (how to make a change)
+
+1. Edit files in **`src/`** (never in `docs/`).
+2. Run **`python3 build.py`**.
+3. Commit **both `src/` and `docs/`**, then push. GitHub Pages serves
+   what's in `docs/`.
+
+To write a new post: copy `src/posts/_TEMPLATE.html`, follow the
+checklist inside it, and run the build. Every post file also has a
+"HOW TO EDIT THIS POST" comment at the top.
 
 ## How this is structured
 
 ```
 src/
-  pages/       standalone pages: index.html (the homepage) and
-               about.html. Adding e.g. a Shop page later is just a new
-               file here plus a header link.
+  pages/       standalone pages: index.html (homepage) and about.html
   partials/    shared markup injected into every page by build.py:
-               nav.html (header), footer.html (single-row footer),
-               contact-links.html (Instagram/LinkedIn/email icons +
-               "Comp card" button — used by the homepage intro AND the
-               footer), and newsletter.html (the signup box — used on
-               pages and in every post's generated ending).
-  posts/       one .html file per post — every piece of content on the
-               site lives here, tagged via its metadata comment
-  images/      site images (e.g. images/modeling/<shoot>/, and
-               images/profile/ for the homepage avatar + About portrait)
+                 nav.html          header (logo, search, Posts, About,
+                                   contact icons, theme toggle)
+                 footer.html       the copyright line
+                 contact-links.html  the Instagram / LinkedIn / email
+                                   icons (used in the header and at the
+                                   bottom of each post)
+                 newsletter.html   the email signup box (About page +
+                                   the end of each post)
+  posts/       one .html file per post — ALL content lives here.
+                 _TEMPLATE.html    commented starter (ignored by build)
+  images/      site images:
+                 profile/          homepage portrait + About portrait
+                 modeling/<shoot>/ modelling gallery photos
   style.css    the one shared stylesheet (light + dark themes)
-  script.js    the one script: theme toggle, tag/search filtering,
+  script.js    theme toggle, search + tag filtering, reading progress,
                photo lightbox
 
 scripts/
-  resize_images.py   optional Pillow-based helper: shrinks/compresses
-                      raw photos from incoming/ into src/images/
+  resize_images.py   optional Pillow helper: shrinks/compresses raw
+                     photos from incoming/ into src/images/
 
-incoming/      drop raw, full-size photos here before resizing.
-               Gitignored — nothing in here ever gets committed.
+incoming/      drop raw, full-size photos here before resizing
+               (gitignored — never committed)
 
-build.py       reads everything in src/ and writes the finished site
-               into docs/
-
-docs/          the folder GitHub Pages serves. Fully generated — don't
-               hand-edit anything in here, it's wiped and rebuilt on
-               every run of build.py.
-
-CNAME          contains "leret.me" — copied into docs/ on every build
-               so GitHub Pages keeps serving the custom domain.
+build.py       reads src/ and writes the finished site into docs/
+docs/          what GitHub Pages serves. GENERATED — never hand-edit.
+CNAME          "leret.me" — copied into docs/ on every build.
 ```
 
-## Running the build
+## What `build.py` does
 
-Whenever you change anything in `src/` (or `CNAME`):
+Run it after any change in `src/`:
 
 ```
 python3 build.py
 ```
 
-Standard library only — nothing to install. It will:
+Standard library only — nothing to install. It:
 
-1. Wipe and recreate `docs/` from scratch.
-2. Read the two shared partials (nav, footer).
-3. Build every post in `src/posts/` (parse its metadata comment, inject
-   nav/footer, write it to `docs/posts/`).
-4. Generate the homepage post list (newest first, with tag labels and
-   excerpts) and the tag filter row, injected into `index.html` at the
-   `<!-- POST_LIST -->` and `<!-- TAG_FILTERS -->` placeholders.
-5. Write `docs/posts-index.json` — every post's title/date/tags/url/
-   excerpt as machine-readable JSON.
-6. Copy `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
+1. Wipes and recreates `docs/`.
+2. Reads each post in `src/posts/` (files starting with `_` are
+   skipped, e.g. the template), parses its metadata comment, works out
+   its reading time, injects the shared nav/footer + a generated ending
+   (newsletter, tags, share links, previous/next), and writes it to
+   `docs/posts/`.
+3. Generates the homepage post list (newest first, with tag labels,
+   excerpts, and reading time) and the tag filter row, and injects them
+   into `index.html`.
+4. Writes `docs/posts-index.json` (title/date/tags/url/excerpt/reading
+   time for every post).
+5. Copies `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
 
-Then commit **both** `src/` and the regenerated `docs/`, and push:
+## Adding or editing a post
 
+Every post is one file in `src/posts/`. The **first line** is its
+settings, fields separated by `|`:
+
+```html
+<!-- title: My New Post | date: 2026-08-01 | tags: commercial | excerpt: One short line shown on the homepage. -->
 ```
-git add src build.py docs CNAME
-git commit -m "..."
-git push
-```
 
-There's no CI — `docs/` in the repo *is* what gets served.
+- `title` and `date` (YYYY-MM-DD) are required. `date` sets the order on
+  the homepage.
+- `tags` — one per post: `commercial` or `modelling`. (The build
+  supports several comma-separated, or none, but warns if a post doesn't
+  have exactly one.)
+- `excerpt` — optional one-line teaser for the homepage list.
 
-## Adding a post
+The rest of the file is normal HTML; write the article inside `<main>`.
+The quickest start is to **copy `src/posts/_TEMPLATE.html`** — it has a
+step-by-step checklist and every post already carries a "HOW TO EDIT
+THIS POST" comment pointing at these same things.
 
-1. Create a new file in `src/posts/`, e.g. `src/posts/my-new-post.html`.
-2. The **first line** is a single-line metadata comment, fields
-   separated by `|`:
-
-   ```html
-   <!-- title: My New Post | date: 2026-08-01 | tags: commercial | excerpt: One short line shown on the homepage. -->
-   ```
-
-   - `title` and `date` (YYYY-MM-DD) are required.
-   - `tags`: current convention is **exactly one tag per post** —
-     `commercial` or `modelling`. (The mechanism supports several,
-     comma-separated, or none; build.py prints a warning when a post
-     doesn't have exactly one, but still builds.)
-   - `excerpt` is optional — it's the one-liner under the title in the
-     homepage list.
-
-3. The rest of the file is a normal complete page — copy an existing
-   post in `src/posts/` as a starting point (head with its own
-   `<title>`/meta description, `<!-- NAV -->` / `<!-- FOOTER -->`
-   placeholders, content inside `<main>`).
-4. Run `python3 build.py`. The post appears on the homepage
-   automatically, its tags join the filter row, and it gets an
-   auto-generated ending block — newsletter signup, its tags as filter
-   links, share buttons (X, LinkedIn, WhatsApp, Facebook, email),
-   a back-to-top link, and previous/next post navigation. All of that
-   comes from build.py, because it needs things a single post file
-   can't know (like which posts are its date-order neighbours).
+Run `python3 build.py` and the post appears on the homepage with its
+reading time, tag, share links, newsletter, and previous/next links —
+all added automatically.
 
 ## Tags
 
-The tag filter row on the homepage is **derived from the posts
-themselves** at build time — whatever tags exist across all posts become
-filter buttons. Using a brand-new tag in one post's metadata is all it
-takes to add a category to the site.
+The tag filter row on the homepage is **derived from the posts** at
+build time — whatever `tags:` values exist become filter buttons.
+Right now that's `commercial` and `modelling`; writing `tags: book` on a
+future post would add a "Book" button on the next build, no code change.
+A link like `/?tag=modelling` opens the homepage pre-filtered.
 
-Only two tags are in use right now: `commercial` (commercial/data/AI
-automation work) and `modelling`. But that list lives in the posts, not
-the code — the filter row is generated by scanning every post's `tags:`
-field, so writing `tags: book` on a future post would add a "Book"
-filter button on the next build with zero code changes. That's why the
-row is generated dynamically rather than hardcoded.
+## Photos
 
-Links can pre-apply a filter too: `/?tag=modelling` opens the homepage
-with that tag already selected (see the search section below).
+**Profile pictures** — the homepage portrait and the About portrait are
+placeholder SVGs in `src/images/profile/`. To use real photos:
 
-## Bookings page
+1. Shrink each with the resize script (below) into `src/images/profile/`.
+2. Point the `src` at them: the `.home-split__photo img` in
+   `src/pages/index.html`, and the `.bio-grid__photo` in
+   `src/pages/about.html`.
+3. `python3 build.py`.
 
-`src/pages/bookings.html` is the modelling-work contact hub, following
-the pattern professional models use on personal sites: a representation
-card (Brother Models, booker contact, comp card + digitals on request
-via the agency), guidance on what to include in an enquiry, and a
-direct enquiry form (Formspree — replace the placeholder form ID, same
-as the newsletter). It's linked from the header on every page.
-
-## Reading time & progress
-
-Each post shows an estimated reading time (`· N min read`) next to its
-date — on the homepage list and at the top of the post. build.py counts
-the words inside the post's `<main>` and divides by ~200 words/minute;
-it's fully automatic, so new posts get it with no extra work. Post pages
-also show a thin accent progress bar across the top that fills as you
-scroll (script.js, post pages only).
-
-## Search, tag filtering, and themes (script.js)
-
-- **Search**: the header shows a magnifying-glass icon; clicking it
-  reveals the input (a CSS width transition — the input sits at width 0
-  until `.is-open` lands on its wrapper). Typing filters the homepage
-  list live; Escape clears and collapses it. On any other page,
-  pressing Enter jumps to the homepage with the query applied
-  (`/?q=...`). `/?tag=...` works the same way for tags.
-- **Tag filtering**: clicking a tag pill narrows the list to that tag.
-  Search and tag filter share one function — a post must match *both*
-  to stay visible.
-- **Theme**: colors are CSS custom properties in two sets (light/dark).
-  Default follows the visitor's OS preference; the header toggle
-  overrides it and remembers the choice in `localStorage`. No pure
-  black or pure white anywhere — soft paper tones in light mode, soft
-  charcoal in dark.
-
-## Replacing the profile picture placeholders
-
-The homepage avatar and the About-page portrait are placeholder SVGs in
-`src/images/profile/`. To swap in real photos:
-
-1. Run each photo through the resize script (see below) into
-   `src/images/profile/` — a square-ish crop for the avatar, a 3:4
-   portrait for About.
-2. Update the two `src` attributes: the `.avatar` img in
-   `src/pages/index.html` and the `.bio-grid__photo` img in
-   `src/pages/about.html` (e.g. point them at `avatar.jpg` /
-   `portrait.jpg`).
-3. Run `python3 build.py`.
-
-The CSS crops the avatar into a circle (`border-radius: 50%`) whatever
-its exact dimensions, so a clean square crop is all it needs.
-
-## Adding modelling photos
+**Modelling gallery photos** — in `src/posts/modelling-portfolio.html`
+(look for the "ADD GALLERY PHOTOS HERE" comment):
 
 1. Drop raw photos into `incoming/<something>/` (gitignored).
-2. Resize/compress into place (needs `pip install Pillow` — the one
-   external dependency, isolated to this script):
+2. Resize into place (needs `pip install Pillow`, the one external
+   dependency, isolated to this script):
 
    ```
-   python3 scripts/resize_images.py incoming/<something> src/images/modeling/<shoot-or-category>
+   python3 scripts/resize_images.py incoming/<something> src/images/modeling/<shoot>
    ```
 
-3. Add `<button class="gallery__item"><img src="..." data-full="..."
-   alt="..."></button>` entries in the relevant modeling post (copy an
-   existing gallery item), keeping the `<div class="lightbox">` block at
-   the bottom of the post.
-4. Run `python3 build.py`.
+3. Copy a `<button class="gallery__item">…</button>` block per photo and
+   point its `src`/`data-full` at the new files.
+4. `python3 build.py`.
+
+**A photo inside any post** — put the file in `src/images/`, then add
+`<img src="/images/my-photo.jpg" alt="description">` wherever you want
+it inside `<main>`.
 
 ## Embedding a video
 
-Inside a post, wrap the platform's embed URL in the responsive 16:9
-container:
+Inside a post, wrap the platform's embed URL in the 16:9 container:
 
 ```html
 <div class="video-embed">
@@ -208,37 +152,71 @@ container:
 
 No video files are stored in the repo — always a hosted embed.
 
+## Features in `script.js`
+
+- **Search** — the header magnifying glass reveals an input; typing
+  filters the homepage list live (Escape clears + closes). On other
+  pages, Enter jumps to the homepage with the query (`/?q=...`).
+- **Tag filtering** — clicking a tag pill narrows the list. Search and
+  tags share one function: a post must match both to stay visible.
+- **Theme** — light/dark via CSS custom properties; follows the OS by
+  default, the header toggle overrides and remembers the choice in
+  `localStorage`. No pure black/white anywhere.
+- **Reading time** — `· N min read` shown on the homepage list and each
+  post header. build.py counts words in the post's `<main>` (~200 wpm);
+  fully automatic.
+- **Reading progress** — a thin accent bar fills across the top of a
+  post as you scroll.
+- **Lightbox** — click a gallery photo to enlarge it.
+
+## Homepage layout
+
+The homepage is a split screen: a full-height portrait sticks in place
+(`position: sticky`) on the left while the posts scroll on the right
+(~40/60). It stacks to a single column on narrow screens.
+
+## Contact & bookings
+
+- Contact icons (Instagram / LinkedIn / email) live in the **header** on
+  every page, and at the end of every post. They currently point at `#`
+  — put your real Instagram/LinkedIn URLs into
+  `src/partials/contact-links.html` (one file updates them everywhere).
+- Modelling bookings live on the **About page**: Brother Models,
+  Francesca's email, and "Request comp card" / "Request digitals"
+  buttons.
+- The newsletter Subscribe button and any Formspree-based form need a
+  real form ID from https://formspree.io in place of
+  `REPLACE_WITH_YOUR_FORM_ID`.
+
 ## GitHub Pages settings
 
 Settings → Pages: **Deploy from a branch**, branch `main`, folder
-`/docs`. Custom domain: `leret.me`, with "Enforce HTTPS" ticked once
-the certificate is issued.
+`/docs`. Custom domain `leret.me`, "Enforce HTTPS" ticked once the
+certificate is issued.
 
 ## Custom domain (leret.me) — DNS records
 
-At the domain registrar for `leret.me`:
+At the registrar for `leret.me`:
 
-| Type | Name | Value            |
-|------|------|------------------|
-| A    | @    | 185.199.108.153  |
-| A    | @    | 185.199.109.153  |
-| A    | @    | 185.199.110.153  |
-| A    | @    | 185.199.111.153  |
-| CNAME | www | leret7777.github.io |
+| Type  | Name | Value               |
+|-------|------|---------------------|
+| A     | @    | 185.199.108.153     |
+| A     | @    | 185.199.109.153     |
+| A     | @    | 185.199.110.153     |
+| A     | @    | 185.199.111.153     |
+| CNAME | www  | leret7777.github.io |
 
-The `CNAME` file at the repo root (containing just `leret.me`) tells
-GitHub Pages which domain to serve — `build.py` copies it into `docs/`
-on every run so it can't get lost when `docs/` is rebuilt.
+The root `CNAME` file (just `leret.me`) tells Pages which domain to
+serve; build.py copies it into `docs/` on every run.
 
 ## Design notes
 
 - Calm, muted sage/forest green as the single accent; softened neutrals
-  (no `#000`/`#fff` anywhere). Serif headings, native UI font for body.
-- Tag labels and filter pills are deliberately quiet — they're metadata,
-  not the focus.
-- The footer's Instagram/LinkedIn/email icons are **inline SVGs** drawn
-  with `stroke="currentColor"` — "current CSS text color" — so the
-  `.social-icons` color rules (and therefore the theme toggle and hover
-  state) recolor them with no extra code. No icon font, no CDN.
-- The lightbox and the filtering logic in `script.js` are commented in
-  detail — read them alongside the matching sections of `style.css`.
+  (no `#000`/`#fff`). Serif headings, native UI font for body.
+- Tag labels and filter pills are deliberately quiet — metadata, not the
+  focus.
+- The contact/share icons are **inline SVGs** using
+  `stroke="currentColor"`, so the CSS color rules (and the theme toggle)
+  recolor them with no extra code — no icon font, no CDN.
+- `script.js` and `style.css` are commented section by section; read
+  them together.

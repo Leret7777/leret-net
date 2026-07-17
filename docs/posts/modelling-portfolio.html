@@ -9,6 +9,25 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<!--
+  ===================================================================
+   HOW TO EDIT THIS POST   (afterwards run  python3 build.py  then push)
+  ===================================================================
+   1. SETTINGS: the very FIRST line at the top of this file controls
+      how the post shows up. Edit the text between the pipe symbols ( | ):
+        title    the headline  (also update the <title> and <h1> below)
+        date     YYYY-MM-DD, e.g. 2026-08-01  (sets the order on the homepage)
+        tags     commercial  OR  modelling   (CHANGE THE CATEGORY HERE)
+        excerpt  the one-line teaser shown under the title on the homepage
+   2. WRITE THE ARTICLE inside the <main> block below. Each paragraph
+      goes in its own <p> ... </p>; add a sub-heading with <h2> ... </h2>.
+   3. ADD A PICTURE where you want it inside <main>, like this:
+        <img src="/images/my-photo.jpg" alt="short description of the photo">
+      Put the file in  src/images/  first, and shrink large photos with
+      scripts/resize_images.py  (details in the README).
+   4. DO NOT edit the files in docs/  they are regenerated on every build.
+  ===================================================================
+-->
 <!-- id="top" is the anchor the posts' "Back to top" links point at. -->
 <header class="site-header" id="top">
   <div class="wrap site-header__inner">
@@ -100,11 +119,16 @@
       </p>
 
       <h2>Portrait</h2>
+      <!--
+        ADD GALLERY PHOTOS HERE.
+        1. Put your images in  src/images/modeling/portrait/  (shrink big
+           files first with scripts/resize_images.py).
+        2. For each photo, copy ONE <button> block below and change the two
+           file names and the alt text. Delete any placeholder blocks you
+           don't need. "src" is the thumbnail; "data-full" is the big
+           version shown when the photo is clicked (they can be the same).
+      -->
       <div class="gallery">
-        <!-- Each photo is a <button> (not a link) wrapping an <img>, so
-             it's keyboard-focusable and clicking doesn't navigate away —
-             script.js opens the lightbox instead. data-full can point at
-             a larger version of the same image for the enlarged view. -->
         <button class="gallery__item">
           <img src="/images/modeling/portrait/portrait-1.svg" data-full="/images/modeling/portrait/portrait-1.svg" alt="Portrait shoot, image 1 — placeholder">
         </button>
@@ -117,6 +141,9 @@
       </div>
 
       <h2>Editorial</h2>
+      <!-- Same as the Portrait gallery above: drop files in
+           src/images/modeling/editorial/ and copy a <button> block per
+           photo. Add more <h2> + gallery sections for other shoots. -->
       <div class="gallery">
         <button class="gallery__item">
           <img src="/images/modeling/editorial/editorial-1.svg" data-full="/images/modeling/editorial/editorial-1.svg" alt="Editorial shoot, image 1 — placeholder">

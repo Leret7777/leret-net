@@ -153,16 +153,39 @@ def parse_post(html, filename):
 
 def strip_tags(html):
     """Return the visible text of an HTML fragment — no regex, just a
-    scan that copies everything except the bits between < and >."""
+    scan that copies everything except tags and comments. Skipping
+    comments matters here: the posts carry explanatory <!-- ... -->
+    notes, and we don't want their words counted toward reading time."""
     out = []
-    inside_tag = False
-    for ch in html:
-        if ch == "<":
-            inside_tag = True
-        elif ch == ">":
-            inside_tag = False
-        elif not inside_tag:
-            out.append(ch)
+    i = 0
+    n = len(html)
+    while i < n:
+        if html.startswith("<!--", i):
+            end = html.find("-->", i + 4)
+            i = end + 3 if end != -1 else n
+        elif html[i] == "<":
+            end = html.find(">", i + 1)
+            i = end + 1 if end != -1 else n
+        else:
+            out.append(html[i])
+            i += 1
+    return "".join(out)
+
+
+def strip_comments(html):
+    """Remove every <!-- ... --> block. Done before locating <main> so
+    that a comment which merely *mentions* "<main>" (like the editing
+    guide at the top of each post) can't be mistaken for the real tag."""
+    out = []
+    i = 0
+    n = len(html)
+    while i < n:
+        if html.startswith("<!--", i):
+            end = html.find("-->", i + 4)
+            i = end + 3 if end != -1 else n
+        else:
+            out.append(html[i])
+            i += 1
     return "".join(out)
 
 
@@ -173,9 +196,10 @@ def reading_minutes(page_html):
     footer don't inflate it), strip the tags, and divide by an average
     adult reading speed of ~200 words per minute. Always at least 1.
     """
-    start = page_html.find("<main")
-    end = page_html.find("</main>")
-    body = page_html[start:end] if start != -1 and end != -1 else page_html
+    clean = strip_comments(page_html)
+    start = clean.find("<main")
+    end = clean.find("</main>")
+    body = clean[start:end] if start != -1 and end != -1 else clean
     words = len(strip_tags(body).split())
     return max(1, round(words / 200))
 
@@ -362,6 +386,10 @@ def build():
     if os.path.isdir(POSTS_DIR):
         for filename in sorted(os.listdir(POSTS_DIR)):
             if not filename.endswith(".html"):
+                continue
+            # Files starting with "_" are ignored — that's how the
+            # commented starter, _TEMPLATE.html, stays out of the site.
+            if filename.startswith("_"):
                 continue
             raw = read_file(os.path.join(POSTS_DIR, filename))
             meta, page_html = parse_post(raw, filename)

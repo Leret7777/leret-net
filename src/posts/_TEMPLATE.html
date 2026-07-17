@@ -1,0 +1,67 @@
+<!-- title: Your Post Title Here | date: 2026-08-01 | tags: commercial | excerpt: One short line that shows under the title on the homepage. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Update these two lines to match your post (they're for the browser
+       tab and Google, not shown on the page itself): -->
+  <title>Your Post Title Here — Leret</title>
+  <meta name="description" content="One or two sentences describing the post, for search engines.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!--
+  ===================================================================
+   NEW POST CHECKLIST
+  ===================================================================
+   THIS IS A TEMPLATE. It is ignored by the build (its name starts with
+   an underscore), so it never appears on the site. To write a new post:
+
+   1. COPY this file to a new name, e.g.  src/posts/my-new-post.html
+      (the file name becomes the web address: /posts/my-new-post.html)
+   2. EDIT the very FIRST line at the top. Between the pipe symbols ( | ):
+        title    the headline  (also update the <title> and <h1>)
+        date     YYYY-MM-DD  (sets the order posts appear on the homepage)
+        tags     commercial  OR  modelling   (pick the category)
+        excerpt  the one-line teaser shown under the title on the homepage
+   3. UPDATE the <title>, meta description, and <h1> and date below.
+   4. WRITE the article inside <main>: one <p> ... </p> per paragraph,
+      <h2> ... </h2> for a sub-heading.
+   5. ADD A PICTURE anywhere inside <main>:
+        <img src="/images/my-photo.jpg" alt="short description">
+      Put the file in  src/images/  first; shrink big photos with
+      scripts/resize_images.py.
+   6. RUN  python3 build.py , then commit and push.
+      (The date, reading time, tags row, share links, newsletter and
+       previous/next links are all added automatically — don't hand-write
+       them, and never edit anything in docs/.)
+  ===================================================================
+-->
+<!-- NAV -->
+
+<main>
+  <section class="hero">
+    <div class="wrap post-body">
+      <p class="post-date">1 August 2026</p>
+      <h1>Your Post Title Here</h1>
+
+      <p>
+        Your first paragraph goes here. Write as many paragraphs as you
+        like, each wrapped in its own p tag.
+      </p>
+
+      <h2>A sub-heading</h2>
+      <p>
+        More writing here. To add a photo, paste an img tag like the one
+        described in the checklist above, right where you want it to sit.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<script src="/script.js"></script>
+</body>
+</html>
