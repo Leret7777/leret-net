@@ -761,24 +761,18 @@ form .btn {
   margin-top: var(--space-4);
 }
 
-/* One row: copyright on the left, icons + comp card on the right.
-   justify-content: space-between pushes the two ends apart;
-   flex-wrap lets the row break onto two lines only when a narrow
-   screen genuinely can't fit it. */
+/* The footer holds just the copyright line now — centered. */
 .site-footer__row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: var(--space-2);
   flex-wrap: wrap;
 }
 
-.site-footer__row .contact-links {
-  margin-top: 0;
-}
-
 .site-footer__copyright {
   margin: 0;
+  text-align: center;
 }
 
 /* Icon-based contact links. The SVGs inside use stroke="currentColor",
