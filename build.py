@@ -204,6 +204,73 @@ def reading_minutes(page_html):
     return max(1, round(words / 200))
 
 
+def extract_main_inner(page_html):
+    """Return the HTML *inside* a post's <main> ... </main> (the article
+    itself — its date line, heading, and body), without the <main> tags.
+    Used to inline each post's full content into the homepage feed.
+
+    Comments are stripped first, for two reasons: the editing-hint
+    comments shouldn't appear in the feed anyway, and — importantly —
+    the "HOW TO EDIT" comment literally contains the text "<main>", which
+    would otherwise be mistaken for the real opening tag."""
+    page_html = strip_comments(page_html)
+    start = page_html.find("<main")
+    if start == -1:
+        return ""
+    open_end = page_html.find(">", start)
+    end = page_html.find("</main>")
+    if open_end == -1 or end == -1:
+        return ""
+    return page_html[open_end + 1:end]
+
+
+def build_feed_html(posts):
+    """The homepage feed: every post's FULL content, newest first, one
+    after another on a single scrolling page. Each post is still its own
+    page too — the heading links to that permalink.
+
+    Each article carries class="post-list__item" and data-tags, so the
+    same client-side tag filter + search that drove the old compact list
+    now filters these full articles instead (search matches full text)."""
+    if not posts:
+        return "<p>No posts yet — check back soon.</p>"
+
+    articles = []
+    for post in posts:
+        inner = post.get("feed_inner", "")
+        slug = post["slug"]
+
+        # Turn the article's own <h1>Title</h1> into a link to its
+        # permalink, so a reader can jump to the standalone page.
+        h1 = inner.find("<h1")
+        if h1 != -1:
+            h1_open_end = inner.find(">", h1)
+            h1_close = inner.find("</h1>", h1)
+            if h1_open_end != -1 and h1_close != -1:
+                title_text = inner[h1_open_end + 1:h1_close]
+                linked = (f'<h1><a class="feed-post__permalink" '
+                          f'href="/posts/{slug}.html">{title_text}</a></h1>')
+                # A tag row + "open on its own page" hint, right after the title.
+                tag_row = ""
+                if post["tags"]:
+                    labels = "".join(f"<li>{t}</li>" for t in post["tags"])
+                    tag_row = f'<ul class="post-tags">{labels}</ul>'
+                inner = (inner[:h1] + linked + tag_row
+                         + inner[h1_close + len("</h1>"):])
+
+        tags_attr = ",".join(post["tags"])
+        articles.append(
+            f'<article class="feed-post post-list__item" id="post-{slug}" '
+            f'data-tags="{tags_attr}">\n{inner}\n'
+            '        <p class="feed-post__more">'
+            f'<a href="/posts/{slug}.html">Open this post on its own page &rarr;</a></p>\n'
+            "      </article>"
+        )
+    return ('<div class="post-list" id="postList">\n      '
+            + "\n      ".join(articles)
+            + "\n    </div>")
+
+
 def build_post_list_html(posts):
     """posts is a list of metadata dicts (each with a 'slug' added),
     already sorted newest-first. Returns the homepage <ul>.
@@ -432,6 +499,11 @@ def build():
             if close != -1:
                 page_html = page_html[:close] + read_badge + page_html[close:]
 
+        # Capture the article's <main> content (now including the read
+        # badge, still without the ending) for the homepage feed, which
+        # inlines every post's full text on one scrolling page.
+        post["feed_inner"] = extract_main_inner(page_html)
+
         page_html = page_html.replace(FOOTER_PLACEHOLDER,
                                       ending + FOOTER_PLACEHOLDER)
         final_html = inject_partials(page_html, nav_html, footer_html,
@@ -439,7 +511,8 @@ def build():
         write_file(os.path.join(POSTS_OUT_DIR, post["slug"] + ".html"),
                    final_html)
 
-    post_list_html = build_post_list_html(posts)
+    # The homepage shows every post's FULL content as one scrolling feed.
+    post_list_html = build_feed_html(posts)
     tag_filters_html = build_tag_filters_html(posts)
 
     # 4/6. Build every page, injecting the post list + filter row where

@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
-  <!-- Placeholder About-page portrait (3:4). Replace with a real photo:
-       run scripts/resize_images.py on it, save as portrait.jpg in this
-       folder, and update the src in src/pages/about.html. -->
+  <!-- Placeholder homepage portrait (3:4) — the big photo on the left of
+       the one-page site. Replace with a real photo: run
+       scripts/resize_images.py on it, save as portrait.jpg in this
+       folder, and update the src in src/pages/index.html. -->
   <rect width="600" height="800" fill="#4d7358"/>
   <circle cx="300" cy="280" r="110" fill="#f4f3ec" opacity="0.85"/>
   <path d="M110 640c0-105 85-172 190-172s190 67 190 172v160H110z" fill="#f4f3ec" opacity="0.85"/>

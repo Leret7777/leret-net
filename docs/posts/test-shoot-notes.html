@@ -51,11 +51,11 @@
           </svg>
         </button>
       </div>
-      <!-- "Posts" duplicates where the logo goes on purpose: from About
-           or a post page, both destinations should be visible side by
-           side, not implied by the logo. -->
-      <a class="site-header__link" href="/">Posts</a>
-      <a class="site-header__link" href="/about.html">About</a>
+      <!-- The site is one scrolling page: these jump to the #posts and
+           #about sections on the homepage. Written as /#... so they work
+           from a standalone post page too (go home, then scroll). -->
+      <a class="site-header__link" href="/#posts">Posts</a>
+      <a class="site-header__link" href="/#about">About</a>
       <!-- Contact icons (Instagram / LinkedIn / email), injected from
            partials/contact-links.html — same markup the post endings
            use, so they're maintained in one place. -->

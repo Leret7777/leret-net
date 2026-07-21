@@ -1,8 +1,9 @@
 # leret.me
 
-Personal site for Leret. Everything on it is a **post** — commercial /
-data work and modelling — tagged and listed on the homepage. Plus an
-About page (bio + modelling bookings).
+Personal site for Leret. It's a **single scrolling page**: an intro, a
+feed of every post's full content (tagged, filterable), and an About
+section (bio + modelling bookings). Each post also has its **own page**
+(a permalink you can share) that the feed links to.
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no framework. The only "build step" is a small
@@ -23,7 +24,8 @@ checklist inside it, and run the build. Every post file also has a
 
 ```
 src/
-  pages/       standalone pages: index.html (homepage) and about.html
+  pages/       standalone pages: index.html — the whole one-page site
+               (intro + post feed + About section)
   partials/    shared markup injected into every page by build.py:
                  nav.html          header (logo, search, Posts, About,
                                    contact icons, theme toggle)
@@ -112,13 +114,12 @@ A link like `/?tag=modelling` opens the homepage pre-filtered.
 
 ## Photos
 
-**Profile pictures** — the homepage portrait and the About portrait are
-placeholder SVGs in `src/images/profile/`. To use real photos:
+**Profile picture** — the big portrait on the left of the one-page site
+is a placeholder SVG in `src/images/profile/`. To use a real photo:
 
-1. Shrink each with the resize script (below) into `src/images/profile/`.
-2. Point the `src` at them: the `.home-split__photo img` in
-   `src/pages/index.html`, and the `.bio-grid__photo` in
-   `src/pages/about.html`.
+1. Shrink it with the resize script (below) into `src/images/profile/`.
+2. Point the `.home-split__photo img` `src` in `src/pages/index.html`
+   at it (e.g. `portrait.jpg`).
 3. `python3 build.py`.
 
 **Modelling gallery photos** — in `src/posts/modelling-portfolio.html`
@@ -169,11 +170,20 @@ No video files are stored in the repo — always a hosted embed.
   post as you scroll.
 - **Lightbox** — click a gallery photo to enlarge it.
 
-## Homepage layout
+## One-page layout
 
-The homepage is a split screen: a full-height portrait sticks in place
-(`position: sticky`) on the left while the posts scroll on the right
-(~40/60). It stacks to a single column on narrow screens.
+The whole site is one scrolling page (`src/pages/index.html`): a
+full-height portrait sticks in place (`position: sticky`) on the left
+while the right side scrolls through the intro, the full-text post feed,
+and the About section (~40/60, stacks to one column on mobile). The
+header's **Posts** / **About** links jump to the `#posts` / `#about`
+sections (written `/#…` so they also work from a standalone post page).
+
+`build.py` inlines each post's full `<main>` content into the feed as a
+filterable article whose heading links to that post's own page — so the
+post exists both in the feed and at its own shareable URL. The shared
+lightbox lives at the bottom of `index.html` so the inlined modelling
+gallery works.
 
 ## Contact & bookings
 
@@ -181,9 +191,9 @@ The homepage is a split screen: a full-height portrait sticks in place
   every page, and at the end of every post. They currently point at `#`
   — put your real Instagram/LinkedIn URLs into
   `src/partials/contact-links.html` (one file updates them everywhere).
-- Modelling bookings live on the **About page**: Brother Models,
-  Francesca's email, and "Request comp card" / "Request digitals"
-  buttons.
+- Modelling bookings live in the **About section** of the one page:
+  Brother Models, Francesca's email, and "Request comp card" / "Request
+  digitals" buttons.
 - The newsletter Subscribe button and any Formspree-based form need a
   real form ID from https://formspree.io in place of
   `REPLACE_WITH_YOUR_FORM_ID`.

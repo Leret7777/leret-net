@@ -494,6 +494,83 @@ section {
   display: none;
 }
 
+/* -------------------------------------------------------------------------
+   7b. Homepage feed — each post's FULL content inlined on the one page.
+   ------------------------------------------------------------------------- */
+.feed-post {
+  padding: var(--space-4) 0;
+}
+
+/* Each inlined post still carries its own <section class="hero"> and
+   <div class="wrap"> wrappers; inside the feed column we don't want
+   their extra padding/width — the .feed-post spacing handles it. */
+.feed-post .hero {
+  padding: 0;
+}
+
+.feed-post .wrap {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A little breathing room around each post's date line and heading. */
+.feed-post .post-date {
+  white-space: normal;
+}
+
+.feed-post h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+  margin: 0.2rem 0 var(--space-1);
+}
+
+/* The post's own title links to its standalone page. */
+.feed-post__permalink {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.feed-post__permalink:hover {
+  color: var(--color-accent);
+}
+
+/* The tag row build.py drops in right under the title. */
+.feed-post > .post-tags {
+  margin: 0 0 var(--space-2);
+}
+
+/* Quiet "open on its own page" link at the end of each feed post. */
+.feed-post__more {
+  margin-top: var(--space-3);
+  font-size: 0.9rem;
+}
+
+.feed-post__more a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.feed-post__more a:hover {
+  color: var(--color-accent);
+}
+
+/* Anchor targets (#posts, #about, and each #post-… ) should stop below
+   the sticky header rather than under it when jumped to. */
+:target,
+#posts,
+#about {
+  scroll-margin-top: calc(var(--header-h) + var(--space-2));
+}
+
+/* The About section that closes the one-page site. */
+.about-section {
+  padding-top: var(--space-5);
+}
+
+.about-section h2 {
+  margin-bottom: var(--space-2);
+}
+
 .post-list__head {
   display: flex;
   justify-content: space-between;
