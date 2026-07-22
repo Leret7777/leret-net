@@ -71,6 +71,49 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* ---------------------------------------------------------------------
+     1b. ALL POSTS overlay (homepage)
+     ---------------------------------------------------------------------
+     The overlay is a normal element that lives in the page the whole
+     time — opening it is just adding a CSS class, not loading a new
+     page. That class flips it from invisible/non-interactive to visible
+     (the fade is a CSS opacity transition). This "toggle a class on a
+     persistent element" pattern is how most modals/overlays work.
+  --------------------------------------------------------------------- */
+  const overlay = document.getElementById("allPostsOverlay");
+  const openOverlay = document.getElementById("seeAllPosts");
+  const closeOverlay = document.getElementById("overlayClose");
+
+  if (overlay && openOverlay) {
+    function setOverlay(open) {
+      overlay.classList.toggle("is-open", open);
+      overlay.setAttribute("aria-hidden", String(!open));
+      // Stop the page behind from scrolling while the overlay is up.
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+
+    openOverlay.addEventListener("click", function (event) {
+      event.preventDefault();
+      setOverlay(true);
+    });
+    if (closeOverlay) {
+      closeOverlay.addEventListener("click", function () {
+        setOverlay(false);
+      });
+    }
+    // Click the dark backdrop (outside the inner panel) to close.
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) {
+        setOverlay(false);
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && overlay.classList.contains("is-open")) {
+        setOverlay(false);
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------------------
      2. POST FILTERING (tags + search together)
      ---------------------------------------------------------------------
      Two inputs, one output: the visible set of posts.
@@ -214,14 +257,14 @@ document.addEventListener("DOMContentLoaded", function () {
      ---------------------------------------------------------------------
      A thin accent bar across the top of the window that fills as you
      scroll, so a reader can see how far through a post they are. Every
-     post has the generated .post-ending block, so its presence is how we
-     know we're on a post — no per-post markup needed.
+     post ends with the generated .subscribe box, so its presence is how
+     we know we're on a post — no per-post markup needed.
 
      Progress = how far the page is scrolled out of its total scrollable
      height. requestAnimationFrame batches the update so we're not doing
      layout work on every single scroll event.
   --------------------------------------------------------------------- */
-  if (document.querySelector(".post-ending")) {
+  if (document.querySelector(".subscribe")) {
     const bar = document.createElement("div");
     bar.className = "read-progress";
     document.body.appendChild(bar);

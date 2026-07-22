@@ -19,7 +19,7 @@
         date     YYYY-MM-DD, e.g. 2026-08-01  (sets the order on the homepage)
         tags     commercial  OR  modelling   (CHANGE THE CATEGORY HERE)
         excerpt  the one-line teaser shown under the title on the homepage
-   2. WRITE THE ARTICLE inside the <main> block below. Each paragraph
+   2. WRITE THE ARTICLE inside the <main class="post-main"> block below. Each paragraph
       goes in its own <p> ... </p>; add a sub-heading with <h2> ... </h2>.
    3. ADD A PICTURE where you want it inside <main>, like this:
         <img src="/images/my-photo.jpg" alt="short description of the photo">
@@ -37,7 +37,8 @@
 <main>
   <section class="hero">
     <div class="wrap post-body">
-      <p class="post-date">2 February 2026 <span class="read-time">· 1 min read</span></p>
+      <p class="post-back"><a href="/">&larr; Back</a></p>
+      <p class="post-meta"><span class="post-cat">commercial</span> &middot; <span class="read-time">1 min read</span> &middot; <span class="post-date-text">2 February 2026</span></p>
       <h1>Building This Site From Scratch, By Hand</h1>
 
       <p>
@@ -88,87 +89,16 @@
   </section>
 </main>
 
-<aside class="post-ending">
-  <div class="wrap">
-    <!-- Newsletter signup box. Injected wherever a page (or the generated
-     post ending) contains the NEWSLETTER placeholder.
-
-     Like the book form, this uses Formspree: the form POSTs straight to
-     their endpoint and they email you each submission — no server code.
-     Create a form at https://formspree.io and replace the placeholder
-     ID below with your real endpoint. -->
-<div class="newsletter">
-  <p class="newsletter__lede">New posts — commercial, modelling, and everything in between — straight to your inbox.</p>
-  <form class="newsletter__form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
-    <input type="text" name="name" placeholder="Your name" aria-label="Your name">
-    <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
-    <button type="submit" class="btn">Subscribe</button>
-  </form>
-  <p class="newsletter__note">Occasional. No spam.</p>
-</div>
-
-    <p class="post-ending__tags"><a class="post-ending__tag" href="/?tag=commercial">#commercial</a></p>
-    <div class="share-row">
-      <p class="share-row__label">Share this post on:</p>
-      <ul class="share-row__icons">
-        <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fleret.me%2Fposts%2Fbuilding-this-site.html" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a></li>
-        <li><a href="mailto:?subject=Building%20This%20Site%20From%20Scratch%2C%20By%20Hand&body=https%3A%2F%2Fleret.me%2Fposts%2Fbuilding-this-site.html" target="_blank" rel="noopener" aria-label="Share by email"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></a></li>
-      </ul>
-      <a class="back-to-top" href="#top">&uarr; Back to Top</a>
-    </div>
-    <nav class="post-nav" aria-label="More posts">
-      <a class="post-nav__link post-nav__link--prev" href="/posts/what-i-do-and-why.html">
-        <span class="post-nav__label">&larr; Previous Post</span>
-        <span class="post-nav__title">What I Do, and Why This Site Mixes Two Careers</span>
-      </a>
-      <a class="post-nav__link post-nav__link--next" href="/posts/ai-automation-for-commercial-teams.html">
-        <span class="post-nav__label">Next Post &rarr;</span>
-        <span class="post-nav__title">What I Actually Do: AI Automation for Commercial Teams</span>
-      </a>
-    </nav>
-    <div class="post-ending__contact">
-      <span class="post-ending__contact-label">Find me:</span>
-      <!-- Shared social-icon cluster: Instagram / LinkedIn / email. Injected
-     wherever a page (or a generated block) contains the CONTACT_LINKS
-     placeholder — the header and every post's ending both use it, so
-     the icons are maintained in exactly one file.
-
-     The SVGs are inline (no icon font, no CDN) and use
-     stroke="currentColor" — "whatever CSS color this element has" — so
-     the .social-icons rules recolor them on hover and across themes. -->
-<ul class="social-icons">
-  <li>
-    <a href="#" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="#" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-        <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-        <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-        <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-        <path d="m3.5 7 8.5 6 8.5-6"/>
-      </svg>
-    </a>
-  </li>
-</ul>
-
-    </div>
-  </div>
-</aside>
+<aside class="subscribe">
+    <p class="subscribe__eyebrow">Subscribe to Leret</p>
+    <p class="subscribe__byline">By Leret &middot; Notes, shoots and systems</p>
+    <p class="subscribe__body">New posts on commercial systems and modelling work, now and then.</p>
+    <form class="subscribe__form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email" required>
+      <button type="submit" class="subscribe__btn">Subscribe</button>
+    </form>
+    <p class="subscribe__fine">Your email is used only to send updates on new posts and projects. Leret is not responsible for any risk associated with email security.</p>
+  </aside>
 <!-- Footer intentionally empty: the homepage contact strip carries the
      copyright and links, and post/About pages don't need a footer. -->
 

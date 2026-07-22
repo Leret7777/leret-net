@@ -59,6 +59,61 @@
   </section>
 </main>
 
+<!-- ALL POSTS overlay: a full-screen panel that fades in when
+     "See all posts →" is clicked. It's a normal DOM element (always in
+     the page) that script.js shows/hides via the .is-open class — NOT a
+     separate page. build.py fills the grid with every post. -->
+<div class="overlay" id="allPostsOverlay" aria-hidden="true">
+  <div class="overlay__inner">
+    <div class="overlay__head">
+      <h2 class="overlay__title">All Posts</h2>
+      <button class="overlay__close" id="overlayClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="overlay__grid">
+      <a class="pcard" href="/posts/test-shoot-notes.html">
+        <span class="pcard__img"></span>
+        <span class="pcard__body">
+          <span class="pcard__cat">modelling</span>
+          <span class="pcard__title">Notes From a Test Shoot</span>
+          <span class="pcard__meta">#modelling &middot; 1 min read</span>
+        </span>
+      </a>
+      <a class="pcard" href="/posts/modelling-portfolio.html">
+        <span class="pcard__img"></span>
+        <span class="pcard__body">
+          <span class="pcard__cat">modelling</span>
+          <span class="pcard__title">Modelling Portfolio</span>
+          <span class="pcard__meta">#modelling &middot; 1 min read</span>
+        </span>
+      </a>
+      <a class="pcard" href="/posts/ai-automation-for-commercial-teams.html">
+        <span class="pcard__img"></span>
+        <span class="pcard__body">
+          <span class="pcard__cat">commercial</span>
+          <span class="pcard__title">What I Actually Do: AI Automation for Commercial Teams</span>
+          <span class="pcard__meta">#commercial &middot; 1 min read</span>
+        </span>
+      </a>
+      <a class="pcard" href="/posts/building-this-site.html">
+        <span class="pcard__img"></span>
+        <span class="pcard__body">
+          <span class="pcard__cat">commercial</span>
+          <span class="pcard__title">Building This Site From Scratch, By Hand</span>
+          <span class="pcard__meta">#commercial &middot; 1 min read</span>
+        </span>
+      </a>
+      <a class="pcard" href="/posts/what-i-do-and-why.html">
+        <span class="pcard__img"></span>
+        <span class="pcard__body">
+          <span class="pcard__cat">commercial</span>
+          <span class="pcard__title">What I Do, and Why This Site Mixes Two Careers</span>
+          <span class="pcard__meta">#commercial &middot; 1 min read</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- Footer intentionally empty: the homepage contact strip carries the
      copyright and links, and post/About pages don't need a footer. -->
 

@@ -54,6 +54,7 @@ TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
 PAPER_PILE_PLACEHOLDER = "<!-- PAPER_PILE -->"
+ALL_POSTS_GRID_PLACEHOLDER = "<!-- ALL_POSTS_GRID -->"
 
 # The site's public address — used to build absolute URLs for the
 # social share links (a share link has to tell X/LinkedIn/WhatsApp the
@@ -74,20 +75,11 @@ def write_file(path, content):
         f.write(content)
 
 
-def inject_partials(html, nav_html, footer_html, contact_links_html,
-                    newsletter_html):
-    """Replace the placeholder comments with the real shared markup.
-
-    CONTACT_LINKS is replaced *after* the footer, on purpose: the footer
-    partial itself contains a CONTACT_LINKS placeholder, so the footer
-    has to be pasted into the page first for that inner placeholder to
-    be present and get filled in. Same icons, maintained in one file,
-    appearing in both the homepage intro and every footer.
-    """
+def inject_partials(html, nav_html, footer_html):
+    """Replace the NAV and FOOTER placeholder comments with the shared
+    header (theme toggle) and footer markup."""
     html = html.replace(NAV_PLACEHOLDER, nav_html)
     html = html.replace(FOOTER_PLACEHOLDER, footer_html)
-    html = html.replace(CONTACT_LINKS_PLACEHOLDER, contact_links_html)
-    html = html.replace(NEWSLETTER_PLACEHOLDER, newsletter_html)
     return html
 
 
@@ -295,6 +287,46 @@ def build_paper_pile_html(posts):
     return "\n      ".join(cards)
 
 
+def build_all_posts_grid_html(posts):
+    """The grid of ALL posts inside the "All Posts" overlay. Each card is
+    a 3:4 image tile with a dark gradient and the post's category, title,
+    and tag/read-time over it."""
+    cards = []
+    for post in posts:
+        cat = post["tags"][0] if post["tags"] else ""
+        tag = ("#" + post["tags"][0]) if post["tags"] else ""
+        style = f" style=\"background-image:url('{post['image']}')\"" if post["image"] else ""
+        cards.append(
+            f'<a class="pcard" href="/posts/{post["slug"]}.html">\n'
+            f'        <span class="pcard__img"{style}></span>\n'
+            f'        <span class="pcard__body">\n'
+            f'          <span class="pcard__cat">{cat}</span>\n'
+            f'          <span class="pcard__title">{post["title"]}</span>\n'
+            f'          <span class="pcard__meta">{tag} &middot; {post["read_minutes"]} min read</span>\n'
+            f'        </span>\n'
+            "      </a>"
+        )
+    return "\n      ".join(cards)
+
+
+def build_subscribe_html():
+    """The mailing signup box that ends every post (the design's one
+    place for it). Formspree — replace the placeholder form ID."""
+    return (
+        '<aside class="subscribe">\n'
+        '    <p class="subscribe__eyebrow">Subscribe to Leret</p>\n'
+        '    <p class="subscribe__byline">By Leret &middot; Notes, shoots and systems</p>\n'
+        '    <p class="subscribe__body">New posts on commercial systems and modelling work, now and then.</p>\n'
+        '    <form class="subscribe__form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">\n'
+        '      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email" required>\n'
+        '      <button type="submit" class="subscribe__btn">Subscribe</button>\n'
+        '    </form>\n'
+        '    <p class="subscribe__fine">Your email is used only to send updates on new posts and projects. '
+        'Leret is not responsible for any risk associated with email security.</p>\n'
+        '  </aside>\n'
+    )
+
+
 def build_post_list_html(posts):
     """posts is a list of metadata dicts (each with a 'slug' added),
     already sorted newest-first. Returns the homepage <ul>.
@@ -465,8 +497,6 @@ def build():
     # 2. Load the shared partials once — every page reuses the same string.
     nav_html = read_file(os.path.join(PARTIALS_DIR, "nav.html"))
     footer_html = read_file(os.path.join(PARTIALS_DIR, "footer.html"))
-    contact_links_html = read_file(os.path.join(PARTIALS_DIR, "contact-links.html"))
-    newsletter_html = read_file(os.path.join(PARTIALS_DIR, "newsletter.html"))
 
     # 3. Build every post first — we need all the metadata before we can
     #    generate the homepage list, filter row, and JSON index.
@@ -502,45 +532,55 @@ def build():
     # already chronological — reverse=True flips it to newest-first.
     posts.sort(key=lambda p: p["date"], reverse=True)
 
-    # Now write each post, appending its generated ending (newsletter,
-    # tag links, share row, previous/next navigation) just before the
-    # footer. posts[i-1] is the NEWER neighbour ("next"), posts[i+1]
-    # the OLDER one ("previous"), because the list is newest-first.
-    for i, post in enumerate(posts):
-        next_post = posts[i - 1] if i > 0 else None
-        prev_post = posts[i + 1] if i + 1 < len(posts) else None
-        ending = build_post_ending_html(post, prev_post, next_post)
+    # Now write each post in the new reading layout: a "← Back" link, a
+    # meta row (category · read time · date), an optional hero image, the
+    # body, and the subscribe box at the end.
+    subscribe_html = build_subscribe_html()
+    for post in posts:
         page_html = post.pop("page_html")
 
-        # Show reading time next to the post's date. Every post opens
-        # with <p class="post-date">…</p>; we append the estimate just
-        # inside that first paragraph, so no per-post editing is needed.
-        read_badge = f' <span class="read-time">· {post["read_minutes"]} min read</span>'
+        # Scope the reading-layout CSS: give the post's <main> a class.
+        page_html = page_html.replace("<main>", '<main class="post-main">', 1)
+
+        # Replace the hand-written <p class="post-date">DATE</p> with the
+        # back link + meta row. We keep the DATE text the author wrote and
+        # add the category and reading time around it — so no per-post
+        # editing is needed.
         anchor = '<p class="post-date">'
         pos = page_html.find(anchor)
         if pos != -1:
             close = page_html.find("</p>", pos)
-            if close != -1:
-                page_html = page_html[:close] + read_badge + page_html[close:]
+            date_text = page_html[pos + len(anchor):close]
+            cat = post["tags"][0] if post["tags"] else ""
+            cat_html = f'<span class="post-cat">{cat}</span> &middot; ' if cat else ""
+            meta = (
+                '<p class="post-back"><a href="/">&larr; Back</a></p>\n'
+                f'      <p class="post-meta">{cat_html}'
+                f'<span class="read-time">{post["read_minutes"]} min read</span> '
+                f'&middot; <span class="post-date-text">{date_text}</span></p>'
+            )
+            page_html = page_html[:pos] + meta + page_html[close + len("</p>"):]
 
-        # Capture the article's <main> content (now including the read
-        # badge, still without the ending) for the homepage feed, which
-        # inlines every post's full text on one scrolling page.
-        post["feed_inner"] = extract_main_inner(page_html)
+            # Hero image (if the post declares one) goes AFTER the title.
+            if post["image"]:
+                h1_close = page_html.find("</h1>", pos)
+                if h1_close != -1:
+                    insert_at = h1_close + len("</h1>")
+                    hero = (f'\n      <img class="post-hero" '
+                            f'src="{post["image"]}" alt="">')
+                    page_html = page_html[:insert_at] + hero + page_html[insert_at:]
 
+        # The subscribe box goes just before the footer.
         page_html = page_html.replace(FOOTER_PLACEHOLDER,
-                                      ending + FOOTER_PLACEHOLDER)
-        final_html = inject_partials(page_html, nav_html, footer_html,
-                                     contact_links_html, newsletter_html)
+                                      subscribe_html + FOOTER_PLACEHOLDER)
+        final_html = inject_partials(page_html, nav_html, footer_html)
         write_file(os.path.join(POSTS_OUT_DIR, post["slug"] + ".html"),
                    final_html)
 
-    # Homepage bits: the paper pile (3 newest posts). The full feed and
-    # tag filters are still generated so any page that references them
-    # keeps working, but the new homepage doesn't use them.
+    # Homepage bits: the paper pile (3 newest posts) and the full
+    # All-Posts grid (every post) rendered into the overlay.
     paper_pile_html = build_paper_pile_html(posts)
-    post_list_html = build_feed_html(posts)
-    tag_filters_html = build_tag_filters_html(posts)
+    all_posts_grid_html = build_all_posts_grid_html(posts)
 
     # 4/6. Build every page, filling whichever placeholders it contains.
     #    replace() is a no-op when a placeholder isn't present, so each
@@ -549,10 +589,9 @@ def build():
         if not filename.endswith(".html"):
             continue
         raw = read_file(os.path.join(PAGES_DIR, filename))
-        final_html = inject_partials(raw, nav_html, footer_html, contact_links_html, newsletter_html)
+        final_html = inject_partials(raw, nav_html, footer_html)
         final_html = final_html.replace(PAPER_PILE_PLACEHOLDER, paper_pile_html)
-        final_html = final_html.replace(POST_LIST_PLACEHOLDER, post_list_html)
-        final_html = final_html.replace(TAG_FILTERS_PLACEHOLDER, tag_filters_html)
+        final_html = final_html.replace(ALL_POSTS_GRID_PLACEHOLDER, all_posts_grid_html)
         write_file(os.path.join(DOCS, filename), final_html)
 
     # 5. posts-index.json: the same metadata the homepage list was built

@@ -1,9 +1,11 @@
 # leret.me
 
-Personal site for Leret. It's a **single scrolling page**: an intro, a
-feed of every post's full content (tagged, filterable), and an About
-section (bio + modelling bookings). Each post also has its **own page**
-(a permalink you can share) that the feed links to.
+Personal site for Leret. The **homepage** is a single, no-scroll hero: the
+**LERET** wordmark and tagline on the left, a rotated "paper pile" of the
+three newest posts on the right, and a contact strip below. **See all
+posts →** opens a full-screen overlay listing every post. Each post has
+its **own reading page** (a shareable permalink) with a meta row, optional
+hero image, and a subscribe box. There's also a standalone **About** page.
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no framework. The only "build step" is a small
@@ -24,25 +26,21 @@ checklist inside it, and run the build. Every post file also has a
 
 ```
 src/
-  pages/       standalone pages: index.html — the whole one-page site
-               (intro + post feed + About section)
+  pages/       standalone pages:
+                 index.html   the homepage (wordmark hero + paper pile +
+                              contact strip + the All-Posts overlay markup)
+                 about.html   bio + modelling representation
   partials/    shared markup injected into every page by build.py:
-                 nav.html          header (logo, search, Posts, About,
-                                   contact icons, theme toggle)
-                 footer.html       the copyright line
-                 contact-links.html  the Instagram / LinkedIn / email
-                                   icons (used in the header and at the
-                                   bottom of each post)
-                 newsletter.html   the email signup box (About page +
-                                   the end of each post)
+                 nav.html      just the round theme toggle (top-right)
+                 footer.html   currently empty (kept as an injection point)
   posts/       one .html file per post — ALL content lives here.
                  _TEMPLATE.html    commented starter (ignored by build)
   images/      site images:
-                 profile/          homepage portrait + About portrait
+                 profile/          portrait art
                  modeling/<shoot>/ modelling gallery photos
-  style.css    the one shared stylesheet (light + dark themes)
-  script.js    theme toggle, search + tag filtering, reading progress,
-               photo lightbox
+  style.css    the one shared stylesheet (dark default + light theme)
+  script.js    theme toggle, All-Posts overlay, search + tag filtering,
+               reading progress, photo lightbox
 
 scripts/
   resize_images.py   optional Pillow helper: shrinks/compresses raw
@@ -69,14 +67,14 @@ Standard library only — nothing to install. It:
 1. Wipes and recreates `docs/`.
 2. Reads each post in `src/posts/` (files starting with `_` are
    skipped, e.g. the template), parses its metadata comment, works out
-   its reading time, injects the shared nav/footer + a generated ending
-   (newsletter, tags, share links, previous/next), and writes it to
-   `docs/posts/`.
-3. Generates the homepage post list (newest first, with tag labels,
-   excerpts, and reading time) and the tag filter row, and injects them
-   into `index.html`.
-4. Writes `docs/posts-index.json` (title/date/tags/url/excerpt/reading
-   time for every post).
+   its reading time, and rewrites it as a **reading page**: a `← Back`
+   link, a meta row (`category · N min read · date`), an optional hero
+   image after the title, and a subscribe box before the footer.
+3. Builds the homepage **paper pile** from the three newest posts (each a
+   rotated "polaroid" card linking to its page) and the **All-Posts
+   overlay grid** from every post, and injects both into `index.html`.
+4. Writes `docs/posts-index.json` (title/date/tags/category/url/excerpt/
+   image/reading time for every post).
 5. Copies `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
 
 ## Adding or editing a post
@@ -85,45 +83,74 @@ Every post is one file in `src/posts/`. The **first line** is its
 settings, fields separated by `|`:
 
 ```html
-<!-- title: My New Post | date: 2026-08-01 | tags: commercial | excerpt: One short line shown on the homepage. -->
+<!-- title: My New Post | date: 2026-08-01 | tags: commercial | excerpt: One short line. | image: /images/my-hero.jpg -->
 ```
 
-- `title` and `date` (YYYY-MM-DD) are required. `date` sets the order on
-  the homepage.
-- `tags` — one per post: `commercial` or `modelling`. (The build
-  supports several comma-separated, or none, but warns if a post doesn't
-  have exactly one.)
-- `excerpt` — optional one-line teaser for the homepage list.
+- `title` and `date` (YYYY-MM-DD) are required. `date` sets the order
+  everywhere (newest first).
+- `tags` — one per post: `commercial` or `modelling`. The first tag is
+  shown as the post's **category** in the meta row and overlay card.
+- `excerpt` — optional one-line teaser.
+- `image` — optional. A path like `/images/my-hero.jpg`. When set, it
+  becomes the post's hero image, the polaroid photo on the homepage, and
+  the tile in the All-Posts overlay. Leave it empty and those fall back
+  to a neutral placeholder tile.
 
 The rest of the file is normal HTML; write the article inside `<main>`.
-The quickest start is to **copy `src/posts/_TEMPLATE.html`** — it has a
-step-by-step checklist and every post already carries a "HOW TO EDIT
-THIS POST" comment pointing at these same things.
+The quickest start is to **copy `src/posts/_TEMPLATE.html`**.
 
-Run `python3 build.py` and the post appears on the homepage with its
-reading time, tag, share links, newsletter, and previous/next links —
-all added automatically.
+Run `python3 build.py` and the post appears in the paper pile (if it's
+one of the three newest) and the All-Posts overlay, with its reading
+time, category, subscribe box, and reading page — all added
+automatically.
 
-## Tags
+## The design system
 
-The tag filter row on the homepage is **derived from the posts** at
-build time — whatever `tags:` values exist become filter buttons.
-Right now that's `commercial` and `modelling`; writing `tags: book` on a
-future post would add a "Book" button on the next build, no code change.
-A link like `/?tag=modelling` opens the homepage pre-filtered.
+**Palette** (dark is the default; light is a full theme, no pure
+black/white anywhere):
+
+| Role          | Dark      | Light     |
+|---------------|-----------|-----------|
+| Background    | `#1c211c` | `#eeeae0` |
+| Text          | `#ebe8df` | `#2a2f27` |
+| Muted text    | `#b0aca2` | `#5f6459` |
+| Surface       | `#252a25` | `#e4dfd2` |
+| Border        | `#3a4239` | `#c9c4b5` |
+| Accent        | `#8fbc95` | `#3a6d4a` |
+
+The polaroid cards use a warm paper tone (`#f5f0e4`) in both themes.
+
+**Fonts** (Google Fonts, loaded via one `@import` at the top of
+`style.css`):
+
+- **Bungee** — the display face. Used *only* for the `LERET` wordmark and
+  the contact email. Deliberately loud, so it's rationed.
+- **Public Sans** — all body text and headings.
+- **IBM Plex Mono** — small labels, eyebrows, and post meta.
+
+**Theme toggle** — the round button top-right (from `nav.html`). Dark is
+the default; the toggle overrides and remembers the choice in
+`localStorage`.
+
+## Features in `script.js`
+
+- **Theme** — dark/light via CSS custom properties. Dark by default;
+  the top-right toggle flips it and persists the choice in `localStorage`.
+- **All-Posts overlay** — **See all posts →** fades in a full-screen
+  panel listing every post; closes on the ✕, a backdrop click, or
+  Escape. It's a normal DOM element in `index.html` toggled by the
+  `.is-open` class — not a separate page.
+- **Search + tag filtering** — retained from before; filters lists live.
+- **Reading time** — `N min read` in each post's meta row. build.py
+  counts words in the post's `<main>` (~200 wpm); fully automatic.
+- **Reading progress** — a thin accent bar fills across the top of a
+  post as you scroll.
+- **Lightbox** — click a gallery photo to enlarge it.
 
 ## Photos
 
-**Profile picture** — the big portrait on the left of the one-page site
-is a placeholder SVG in `src/images/profile/`. To use a real photo:
-
-1. Shrink it with the resize script (below) into `src/images/profile/`.
-2. Point the `.home-split__photo img` `src` in `src/pages/index.html`
-   at it (e.g. `portrait.jpg`).
-3. `python3 build.py`.
-
-**Modelling gallery photos** — in `src/posts/modelling-portfolio.html`
-(look for the "ADD GALLERY PHOTOS HERE" comment):
+Set a post's hero/thumbnail with the `image:` metadata field (see
+"Adding or editing a post"). To shrink raw photos first:
 
 1. Drop raw photos into `incoming/<something>/` (gitignored).
 2. Resize into place (needs `pip install Pillow`, the one external
@@ -133,13 +160,8 @@ is a placeholder SVG in `src/images/profile/`. To use a real photo:
    python3 scripts/resize_images.py incoming/<something> src/images/modeling/<shoot>
    ```
 
-3. Copy a `<button class="gallery__item">…</button>` block per photo and
-   point its `src`/`data-full` at the new files.
-4. `python3 build.py`.
-
-**A photo inside any post** — put the file in `src/images/`, then add
-`<img src="/images/my-photo.jpg" alt="description">` wherever you want
-it inside `<main>`.
+3. Point the post's `image:` field (or an inline `<img>` in `<main>`) at
+   the new file, then `python3 build.py`.
 
 ## Embedding a video
 
@@ -153,50 +175,17 @@ Inside a post, wrap the platform's embed URL in the 16:9 container:
 
 No video files are stored in the repo — always a hosted embed.
 
-## Features in `script.js`
-
-- **Search** — the header magnifying glass reveals an input; typing
-  filters the homepage list live (Escape clears + closes). On other
-  pages, Enter jumps to the homepage with the query (`/?q=...`).
-- **Tag filtering** — clicking a tag pill narrows the list. Search and
-  tags share one function: a post must match both to stay visible.
-- **Theme** — light/dark via CSS custom properties; follows the OS by
-  default, the header toggle overrides and remembers the choice in
-  `localStorage`. No pure black/white anywhere.
-- **Reading time** — `· N min read` shown on the homepage list and each
-  post header. build.py counts words in the post's `<main>` (~200 wpm);
-  fully automatic.
-- **Reading progress** — a thin accent bar fills across the top of a
-  post as you scroll.
-- **Lightbox** — click a gallery photo to enlarge it.
-
-## One-page layout
-
-The whole site is one scrolling page (`src/pages/index.html`): a
-full-height portrait sticks in place (`position: sticky`) on the left
-while the right side scrolls through the intro, the full-text post feed,
-and the About section (~40/60, stacks to one column on mobile). The
-header's **Posts** / **About** links jump to the `#posts` / `#about`
-sections (written `/#…` so they also work from a standalone post page).
-
-`build.py` inlines each post's full `<main>` content into the feed as a
-filterable article whose heading links to that post's own page — so the
-post exists both in the feed and at its own shareable URL. The shared
-lightbox lives at the bottom of `index.html` so the inlined modelling
-gallery works.
-
 ## Contact & bookings
 
-- Contact icons (Instagram / LinkedIn / email) live in the **header** on
-  every page, and at the end of every post. They currently point at `#`
-  — put your real Instagram/LinkedIn URLs into
-  `src/partials/contact-links.html` (one file updates them everywhere).
-- Modelling bookings live in the **About section** of the one page:
-  Brother Models, Francesca's email, and "Request comp card" / "Request
-  digitals" buttons.
-- The newsletter Subscribe button and any Formspree-based form need a
-  real form ID from https://formspree.io in place of
-  `REPLACE_WITH_YOUR_FORM_ID`.
+- The homepage **contact strip** has the email (Bungee), Instagram /
+  LinkedIn links, and a "Comp card" mailto. The Instagram/LinkedIn links
+  currently point at `#` — put your real URLs into `src/pages/index.html`.
+- Modelling bookings live on the **About page**: Brother Models,
+  Francesca's email, and "Request comp card" / "Request digitals"
+  buttons.
+- The Subscribe box on each post uses Formspree — replace
+  `REPLACE_WITH_YOUR_FORM_ID` in `build.py` (`build_subscribe_html`) with
+  a real form ID from https://formspree.io.
 
 ## GitHub Pages settings
 
@@ -218,15 +207,3 @@ At the registrar for `leret.me`:
 
 The root `CNAME` file (just `leret.me`) tells Pages which domain to
 serve; build.py copies it into `docs/` on every run.
-
-## Design notes
-
-- Calm, muted sage/forest green as the single accent; softened neutrals
-  (no `#000`/`#fff`). Serif headings, native UI font for body.
-- Tag labels and filter pills are deliberately quiet — metadata, not the
-  focus.
-- The contact/share icons are **inline SVGs** using
-  `stroke="currentColor"`, so the CSS color rules (and the theme toggle)
-  recolor them with no extra code — no icon font, no CDN.
-- `script.js` and `style.css` are commented section by section; read
-  them together.
