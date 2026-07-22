@@ -28,83 +28,10 @@
    4. DO NOT edit the files in docs/  they are regenerated on every build.
   ===================================================================
 -->
-<!-- id="top" is the anchor the posts' "Back to top" links point at. -->
-<header class="site-header" id="top">
-  <div class="wrap site-header__inner">
-    <a class="site-logo" href="/">
-      <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
-      <span class="site-logo__name">Leret</span>
-    </a>
-    <div class="site-header__tools">
-      <!-- Collapsed search: only the magnifying glass is visible. The
-           input is absolutely positioned to the LEFT of the icon and
-           slides out over the header's empty middle space when the
-           icon is clicked, so the icon never moves and nothing else
-           shifts. script.js handles click, focus, and Escape. -->
-      <div class="search-box" id="searchBox">
-        <input type="search" class="site-search" id="siteSearch"
-               placeholder="Search posts…" aria-label="Search posts" tabindex="-1">
-        <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/>
-            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
-          </svg>
-        </button>
-      </div>
-      <!-- The site is one scrolling page: these jump to the #posts and
-           #about sections on the homepage. Written as /#... so they work
-           from a standalone post page too (go home, then scroll). -->
-      <a class="site-header__link" href="/#posts">Posts</a>
-      <a class="site-header__link" href="/#about">About</a>
-      <!-- Contact icons (Instagram / LinkedIn / email), injected from
-           partials/contact-links.html — same markup the post endings
-           use, so they're maintained in one place. -->
-      <div class="site-header__social">
-        <!-- Shared social-icon cluster: Instagram / LinkedIn / email. Injected
-     wherever a page (or a generated block) contains the CONTACT_LINKS
-     placeholder — the header and every post's ending both use it, so
-     the icons are maintained in exactly one file.
-
-     The SVGs are inline (no icon font, no CDN) and use
-     stroke="currentColor" — "whatever CSS color this element has" — so
-     the .social-icons rules recolor them on hover and across themes. -->
-<ul class="social-icons">
-  <li>
-    <a href="#" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="#" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-        <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-        <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-        <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-        <path d="m3.5 7 8.5 6 8.5-6"/>
-      </svg>
-    </a>
-  </li>
-</ul>
-
-      </div>
-      <!-- Theme toggle: a bare transparent icon like the others;
-           script.js fills in the moon/sun SVG for the current theme. -->
-      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
-    </div>
-  </div>
-</header>
+<!-- The only shared "chrome" now is the theme toggle, fixed in the
+     top-right on every page. script.js fills in the sun/moon SVG for the
+     current theme and flips it on click (choice saved in localStorage). -->
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"></button>
 
 
 <main>
@@ -245,11 +172,8 @@
     </div>
   </div>
 </aside>
-<footer class="site-footer">
-  <div class="wrap site-footer__row">
-    <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
-  </div>
-</footer>
+<!-- Footer intentionally empty: the homepage contact strip carries the
+     copyright and links, and post/About pages don't need a footer. -->
 
 <script src="/script.js"></script>
 </body>

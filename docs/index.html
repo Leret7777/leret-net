@@ -4,413 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leret — Commercial Intelligence Specialist &amp; Model</title>
-  <meta name="description" content="Leret's personal site: posts on commercial intelligence and AI automation work, and modelling. Based in Manchester, UK.">
+  <meta name="description" content="Leret — Commercial Intelligence Specialist and model. Systems by day, frames by night. Based in Manchester, UK.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-<!-- id="top" is the anchor the posts' "Back to top" links point at. -->
-<header class="site-header" id="top">
-  <div class="wrap site-header__inner">
-    <a class="site-logo" href="/">
-      <img class="site-logo__mark" src="/images/lm-logo.svg" alt="LM">
-      <span class="site-logo__name">Leret</span>
-    </a>
-    <div class="site-header__tools">
-      <!-- Collapsed search: only the magnifying glass is visible. The
-           input is absolutely positioned to the LEFT of the icon and
-           slides out over the header's empty middle space when the
-           icon is clicked, so the icon never moves and nothing else
-           shifts. script.js handles click, focus, and Escape. -->
-      <div class="search-box" id="searchBox">
-        <input type="search" class="site-search" id="siteSearch"
-               placeholder="Search posts…" aria-label="Search posts" tabindex="-1">
-        <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/>
-            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
-          </svg>
-        </button>
-      </div>
-      <!-- The site is one scrolling page: these jump to the #posts and
-           #about sections on the homepage. Written as /#... so they work
-           from a standalone post page too (go home, then scroll). -->
-      <a class="site-header__link" href="/#posts">Posts</a>
-      <a class="site-header__link" href="/#about">About</a>
-      <!-- Contact icons (Instagram / LinkedIn / email), injected from
-           partials/contact-links.html — same markup the post endings
-           use, so they're maintained in one place. -->
-      <div class="site-header__social">
-        <!-- Shared social-icon cluster: Instagram / LinkedIn / email. Injected
-     wherever a page (or a generated block) contains the CONTACT_LINKS
-     placeholder — the header and every post's ending both use it, so
-     the icons are maintained in exactly one file.
+<body class="home-page">
+<!-- The only shared "chrome" now is the theme toggle, fixed in the
+     top-right on every page. script.js fills in the sun/moon SVG for the
+     current theme and flips it on click (choice saved in localStorage). -->
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"></button>
 
-     The SVGs are inline (no icon font, no CDN) and use
-     stroke="currentColor" — "whatever CSS color this element has" — so
-     the .social-icons rules recolor them on hover and across themes. -->
-<ul class="social-icons">
-  <li>
-    <a href="#" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.4" cy="6.6" r="0.5" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="#" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="3"/>
-        <line x1="7.5" y1="10.5" x2="7.5" y2="16.5"/>
-        <circle cx="7.5" cy="7.3" r="0.5" fill="currentColor" stroke="none"/>
-        <path d="M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/>
-      </svg>
-    </a>
-  </li>
-  <li>
-    <a href="mailto:leretmutkut@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/>
-        <path d="m3.5 7 8.5 6 8.5-6"/>
-      </svg>
-    </a>
-  </li>
-</ul>
 
-      </div>
-      <!-- Theme toggle: a bare transparent icon like the others;
-           script.js fills in the moon/sun SVG for the current theme. -->
-      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+<main class="home">
+  <!-- HERO: two columns. Left = wordmark + tagline. Right = paper pile. -->
+  <section class="home-hero">
+    <div class="home-hero__text">
+      <p class="eyebrow">Commercial Intelligence Specialist &amp; Model</p>
+      <h1 class="wordmark">LERET</h1>
+      <p class="tagline">Systems by day, frames by night. Based in Manchester, UK.</p>
+      <p class="home-hero__links">
+        <a class="mono-link" href="#" id="seeAllPosts">See all posts &rarr;</a>
+        <a class="mono-link" href="/about.html">About</a>
+      </p>
     </div>
-  </div>
-</header>
 
-
-<!-- The whole site is one scrolling page. A full-height portrait stays
-     put on the left (position: sticky) while everything else — intro,
-     the full-text post feed, and the About section — scrolls on the
-     right. The header's Posts/About links jump to the #posts / #about
-     sections below. Collapses to a single column on narrow screens. -->
-<main class="home-split">
-  <div class="home-split__photo">
-    <img src="/images/profile/portrait.svg" alt="Leret" width="600" height="800">
-  </div>
-
-  <div class="home-split__content">
-    <section class="hero hero--compact">
-      <h1>Hi, I'm Leret.</h1>
-      <p class="lede">
-        Commercial intelligence and AI automation by day, modelling with
-        Brother Models on the side. Everything I post is right here — use
-        the tags to narrow it down, or open any post on its own page.
-      </p>
-    </section>
-
-    <!-- POSTS: build.py fills the filter row (derived from the tags in
-         use) and the feed (every post's full content, newest first). -->
-    <section id="posts">
-      <div class="tag-filters" id="tagFilters">
-      <button class="tag-filter is-active" data-tag="all">All</button>
-      <button class="tag-filter" data-tag="commercial">commercial</button>
-      <button class="tag-filter" data-tag="modelling">modelling</button>
-    </div>
-      <div class="post-list" id="postList">
-      <article class="feed-post post-list__item" id="post-test-shoot-notes" data-tags="modelling">
-
-  <section class="hero">
-    <div class="wrap post-body">
-      <p class="post-date">12 June 2026 <span class="read-time">· 1 min read</span></p>
-      <h1><a class="feed-post__permalink" href="/posts/test-shoot-notes.html">Notes From a Test Shoot</a></h1><ul class="post-tags"><li>modelling</li></ul>
-
-      <p>
-        Test shoots are where a lot of the real work in modelling
-        happens — no client brief, just a photographer, a couple of
-        looks, and time to try things. This is a placeholder post to
-        carry the <em>modelling</em> tag; I'll replace it with notes
-        from an actual shoot (and photos, once they've been through the
-        resize script).
-      </p>
-
-      <p>
-        For the portfolio itself — gallery and video reel — see the
-        <a href="/posts/modelling-portfolio.html">Modelling Portfolio</a> post.
-      </p>
+    <!-- The paper pile: build.py fills this with the 3 most recent posts
+         as rotated "polaroid" cards. -->
+    <div class="home-hero__pile">
+      <a class="polaroid polaroid--1" href="/posts/test-shoot-notes.html">
+        <span class="polaroid__img"></span>
+        <span class="polaroid__cap">Notes From a Test Shoot</span>
+      </a>
+      <a class="polaroid polaroid--2" href="/posts/modelling-portfolio.html">
+        <span class="polaroid__img"></span>
+        <span class="polaroid__cap">Modelling Portfolio</span>
+      </a>
+      <a class="polaroid polaroid--3" href="/posts/ai-automation-for-commercial-teams.html">
+        <span class="polaroid__img"></span>
+        <span class="polaroid__cap">What I Actually Do: AI Automation for Commercial Teams</span>
+      </a>
     </div>
   </section>
 
-        <p class="feed-post__more"><a href="/posts/test-shoot-notes.html">Open this post on its own page &rarr;</a></p>
-      </article>
-      <article class="feed-post post-list__item" id="post-modelling-portfolio" data-tags="modelling">
-
-  <section class="hero">
-    <div class="wrap">
-      <p class="post-date">22 April 2026 <span class="read-time">· 1 min read</span></p>
-      <h1><a class="feed-post__permalink" href="/posts/modelling-portfolio.html">Modelling Portfolio</a></h1><ul class="post-tags"><li>modelling</li></ul>
-      <p class="lede">
-        Represented by <strong>Brother Models</strong>. Booking and comp
-        card details are in the <a href="/#about">About section</a>.
-        Click any photo to enlarge it.
-      </p>
-
-      <h2>Portrait</h2>
-      
-      <div class="gallery">
-        <button class="gallery__item">
-          <img src="/images/modeling/portrait/portrait-1.svg" data-full="/images/modeling/portrait/portrait-1.svg" alt="Portrait shoot, image 1 — placeholder">
-        </button>
-        <button class="gallery__item">
-          <img src="/images/modeling/portrait/portrait-2.svg" data-full="/images/modeling/portrait/portrait-2.svg" alt="Portrait shoot, image 2 — placeholder">
-        </button>
-        <button class="gallery__item">
-          <img src="/images/modeling/portrait/portrait-3.svg" data-full="/images/modeling/portrait/portrait-3.svg" alt="Portrait shoot, image 3 — placeholder">
-        </button>
-      </div>
-
-      <h2>Editorial</h2>
-      
-      <div class="gallery">
-        <button class="gallery__item">
-          <img src="/images/modeling/editorial/editorial-1.svg" data-full="/images/modeling/editorial/editorial-1.svg" alt="Editorial shoot, image 1 — placeholder">
-        </button>
-        <button class="gallery__item">
-          <img src="/images/modeling/editorial/editorial-2.svg" data-full="/images/modeling/editorial/editorial-2.svg" alt="Editorial shoot, image 2 — placeholder">
-        </button>
-        <button class="gallery__item">
-          <img src="/images/modeling/editorial/editorial-3.svg" data-full="/images/modeling/editorial/editorial-3.svg" alt="Editorial shoot, image 3 — placeholder">
-        </button>
-      </div>
-
-      <h2>Video reel</h2>
-      
-      <div class="video-embed">
-        <iframe
-          src="https://www.youtube.com/embed/aqz-KE-bpKQ"
-          title="Modeling reel (placeholder)"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <h2>Notable shoots</h2>
-      <div class="notice-box">
-        [Notable shoots or campaigns — to add later]
-      </div>
-    </div>
+  <!-- CONTACT STRIP -->
+  <section class="contact-strip">
+    <p class="eyebrow">Contact</p>
+    <a class="contact-strip__email" href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
+    <p class="contact-strip__links">
+      <a class="mono-link" href="#" aria-label="Instagram">Instagram</a>
+      <a class="mono-link" href="#" aria-label="LinkedIn">LinkedIn</a>
+      <a class="mono-link" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">Comp card</a>
+    </p>
+    <p class="contact-strip__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
   </section>
-
-        <p class="feed-post__more"><a href="/posts/modelling-portfolio.html">Open this post on its own page &rarr;</a></p>
-      </article>
-      <article class="feed-post post-list__item" id="post-ai-automation-for-commercial-teams" data-tags="commercial">
-
-  <section class="hero">
-    <div class="wrap post-body">
-      <p class="post-date">10 March 2026 <span class="read-time">· 1 min read</span></p>
-      <h1><a class="feed-post__permalink" href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a></h1><ul class="post-tags"><li>commercial</li></ul>
-
-      <p>
-        I'm a Commercial Intelligence Specialist — I sit at the
-        intersection of data analytics and AI automation, building tools
-        and workflows that make commercial functions faster and less
-        manual. Day to day that means commercial planning, performance
-        reporting, customer value management (CVM), sales operations, and
-        pricing — the kind of work that's traditionally spreadsheet-heavy
-        and slow, turned into something faster and more reliable.
-      </p>
-
-      <p>
-        I'm most interested in where AI automation genuinely removes
-        friction from a commercial team's day, rather than adding another
-        dashboard nobody opens.
-      </p>
-
-      <h2>Tools I work with</h2>
-      <ul class="tag-list">
-        <li>Power Automate</li>
-        <li>Google Cloud Platform (GCP)</li>
-        <li>GitLab</li>
-        <li>Microsoft Copilot Studio</li>
-      </ul>
-
-      <h2>A recent project</h2>
-      <p>
-        A PowerPoint-generation skill for Microsoft Copilot Studio, built
-        with <a href="https://gitbrent.github.io/PptxGenJS/" target="_blank" rel="noopener">PptxGenJS</a>.
-        It takes structured commercial data and produces a formatted,
-        ready-to-share deck automatically — cutting out the recurring
-        manual work of building the same slides by hand every reporting
-        cycle.
-      </p>
-
-      <h2>Background</h2>
-      <ul class="tag-list">
-        <li>Fintech Masters</li>
-        <li>BA, Business Administration</li>
-        <li>Google GEAR/GAIL — Generative AI Leadership (in progress)</li>
-        <li>Google Professional Data Engineer (planned)</li>
-      </ul>
-
-      <p>
-        Open to hearing about commercial analytics and AI automation work
-        — my contact details are in the header, and there's more in the
-        <a href="/#about">About section</a>.
-      </p>
-    </div>
-  </section>
-
-        <p class="feed-post__more"><a href="/posts/ai-automation-for-commercial-teams.html">Open this post on its own page &rarr;</a></p>
-      </article>
-      <article class="feed-post post-list__item" id="post-building-this-site" data-tags="commercial">
-
-  <section class="hero">
-    <div class="wrap post-body">
-      <p class="post-date">2 February 2026 <span class="read-time">· 1 min read</span></p>
-      <h1><a class="feed-post__permalink" href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a></h1><ul class="post-tags"><li>commercial</li></ul>
-
-      <p>
-        I work with data and automation professionally, but I'd never
-        actually written HTML, CSS, or JavaScript by hand before this
-        site. It would have been faster to reach for a static site
-        generator or a template engine — but the point of this project
-        was to actually learn the fundamentals, not to hide them behind
-        someone else's abstraction.
-      </p>
-
-      <p>
-        So every page on this site is a real, complete HTML file. There's
-        no Markdown getting converted, no templating language, no
-        framework. The only shortcut I allowed myself is a single small
-        Python script, <code>build.py</code>, that does two things:
-      </p>
-
-      <ul>
-        <li>
-          Swaps a couple of placeholder comments — <code>&lt;!-- NAV --&gt;</code>
-          and <code>&lt;!-- FOOTER --&gt;</code> — for the shared navigation
-          and footer markup, so I'm not hand-copying the same menu into
-          every single page.
-        </li>
-        <li>
-          Reads a small metadata comment at the top of each post file
-          (title and date) and automatically rebuilds this Writing page's
-          post list, sorted newest first.
-        </li>
-      </ul>
-
-      <p>
-        That's it. No pip installs, no build server, no CI — I just run
-        <code>python3 build.py</code> locally, check the result, and push.
-        It's a small enough mechanism that I can read the whole script in
-        a couple of minutes and know exactly what it did to my HTML.
-      </p>
-
-      <h2>What's next</h2>
-      <p>
-        Now that the mechanics are in place, most of the actual work is
-        just writing pages — which, it turns out, is a genuinely nice way
-        to actually learn CSS layout instead of copy-pasting a component
-        library.
-      </p>
-    </div>
-  </section>
-
-        <p class="feed-post__more"><a href="/posts/building-this-site.html">Open this post on its own page &rarr;</a></p>
-      </article>
-      <article class="feed-post post-list__item" id="post-what-i-do-and-why" data-tags="commercial">
-
-  <section class="hero">
-    <div class="wrap post-body">
-      <p class="post-date">15 January 2026 <span class="read-time">· 1 min read</span></p>
-      <h1><a class="feed-post__permalink" href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a></h1><ul class="post-tags"><li>commercial</li></ul>
-
-      <p>
-        People are sometimes surprised that I do both commercial
-        intelligence work and modelling. I get why — on paper they don't
-        have much in common. One is spreadsheets, automation pipelines,
-        and pricing workflows. The other is photo shoots and video reels.
-      </p>
-
-      <p>
-        But I've never found them as separate as they look from the
-        outside. Both are, in their own way, about paying close attention
-        to how something is put together — a commercial process, a shot,
-        a narrative — and making deliberate choices about it. I didn't
-        want a site that pretended to be two different people, so this one
-        just holds all of it: the <a href="/?tag=commercial">work</a>, the
-        <a href="/?tag=modelling">modelling</a>, and everything I end up
-        writing about along the way.
-      </p>
-
-      <h2>What to expect here</h2>
-      <p>
-        Some posts will be about AI automation and commercial analytics —
-        tools I'm using, problems I'm solving, things I've learned building
-        workflow automation for commercial teams. Others will be less
-        technical. I'm not going to force a theme onto it beyond "things
-        I wanted to write down."
-      </p>
-
-      <p>Thanks for reading — more soon.</p>
-    </div>
-  </section>
-
-        <p class="feed-post__more"><a href="/posts/what-i-do-and-why.html">Open this post on its own page &rarr;</a></p>
-      </article>
-    </div>
-    </section>
-
-    <!-- ABOUT: bio + modelling bookings, as the final section of the
-         one-page site. -->
-    <section id="about" class="about-section">
-      <h2>About</h2>
-      <p class="lede">
-        I'm Leret — a Commercial Intelligence Specialist working across
-        data analytics and AI automation, and a model represented by
-        Brother Models. I write here about both. Based in Manchester, UK.
-      </p>
-
-      <div class="booking-card">
-        <h3>Modelling &amp; bookings</h3>
-        <p>
-          I'm represented by <strong>Brother Models</strong> (Manchester, UK).
-          For bookings, availability, and rates, contact my booker:
-        </p>
-        <p class="booking-card__contact">
-          Francesca — <a href="mailto:francesca@brothermodels.com?subject=Booking%20Enquiry%20—%20Leret">francesca@brothermodels.com</a>
-        </p>
-        <div class="btn-row">
-          <a class="btn" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">Request comp card</a>
-          <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Digitals%20Request%20—%20Leret">Request digitals</a>
-        </div>
-        <p class="booking-card__note">
-          Measurements, comp card, and current digitals come from the
-          agency on request — that way they're always up to date.
-        </p>
-      </div>
-
-      <p>
-        For anything else, email me at
-        <a href="mailto:leretmutkut@gmail.com?subject=Hello">leretmutkut@gmail.com</a>.
-      </p>
-    </section>
-  </div>
 </main>
 
-<footer class="site-footer">
-  <div class="wrap site-footer__row">
-    <p class="site-footer__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
-  </div>
-</footer>
-
-
-<!-- One shared lightbox for the modelling gallery inlined in the feed
-     above (script.js reveals it when a gallery photo is clicked). -->
-<div class="lightbox" id="lightbox" hidden>
-  <button class="lightbox__close" aria-label="Close">&times;</button>
-  <img id="lightboxImage" src="" alt="">
-  <p class="lightbox__caption" id="lightboxCaption"></p>
-</div>
+<!-- Footer intentionally empty: the homepage contact strip carries the
+     copyright and links, and post/About pages don't need a footer. -->
 
 <script src="/script.js"></script>
 </body>

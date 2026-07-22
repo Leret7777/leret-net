@@ -15,8 +15,8 @@
 /* ---------------------------------------------------------------------
    1. THEME
    ---------------------------------------------------------------------
-   The CSS defines light colors by default and dark colors behind either
-   (a) the OS-level preference or (b) an explicit data-theme attribute
+   The CSS defines DARK colors by default and LIGHT colors behind either
+   (a) the OS preferring light, or (b) an explicit data-theme attribute
    on <html>. All this code does is manage that attribute.
 
    This first bit runs immediately (not waiting for DOMContentLoaded):
@@ -35,13 +35,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const themeToggle = document.getElementById("themeToggle");
 
   function currentTheme() {
-    // Explicit choice wins; otherwise fall back to the OS preference.
-    // matchMedia lets JS evaluate the same query the CSS uses.
+    // An explicit saved choice wins. Otherwise default to DARK, and only
+    // use light when the OS *explicitly* prefers light — so "no
+    // preference" lands on dark, matching the design's dark-first intent.
     const explicit = document.documentElement.getAttribute("data-theme");
     if (explicit) return explicit;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
   }
 
   // Inline SVG icons for the toggle, matching the 26x26 icons used

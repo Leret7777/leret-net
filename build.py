@@ -53,6 +53,7 @@ POST_LIST_PLACEHOLDER = "<!-- POST_LIST -->"
 TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
+PAPER_PILE_PLACEHOLDER = "<!-- PAPER_PILE -->"
 
 # The site's public address — used to build absolute URLs for the
 # social share links (a share link has to tell X/LinkedIn/WhatsApp the
@@ -147,6 +148,10 @@ def parse_post(html, filename):
     tags_value = meta.get("tags", "")
     meta["tags"] = [t.strip().lower() for t in tags_value.split(",") if t.strip()]
     meta["excerpt"] = meta.get("excerpt", "")
+    # Optional: a hero/thumbnail image path (e.g. /images/foo.jpg) used by
+    # the homepage paper pile and the All-Posts overlay. Empty -> a plain
+    # placeholder colour is shown instead.
+    meta["image"] = meta.get("image", "")
 
     return meta, remaining_html
 
@@ -269,6 +274,25 @@ def build_feed_html(posts):
     return ('<div class="post-list" id="postList">\n      '
             + "\n      ".join(articles)
             + "\n    </div>")
+
+
+def build_paper_pile_html(posts):
+    """The homepage "paper pile": the 3 most recent posts as rotated
+    polaroid cards. `posts` is already newest-first, so we take the
+    first three. Each card links to that post's page; the .polaroid--N
+    classes place and rotate them (see style.css)."""
+    cards = []
+    for i, post in enumerate(posts[:3], start=1):
+        # If the post declares an image, use it as the photo; otherwise
+        # the .polaroid__img fallback colour shows through.
+        style = f" style=\"background-image:url('{post['image']}')\"" if post["image"] else ""
+        cards.append(
+            f'<a class="polaroid polaroid--{i}" href="/posts/{post["slug"]}.html">\n'
+            f'        <span class="polaroid__img"{style}></span>\n'
+            f'        <span class="polaroid__cap">{post["title"]}</span>\n'
+            "      </a>"
+        )
+    return "\n      ".join(cards)
 
 
 def build_post_list_html(posts):
@@ -511,18 +535,22 @@ def build():
         write_file(os.path.join(POSTS_OUT_DIR, post["slug"] + ".html"),
                    final_html)
 
-    # The homepage shows every post's FULL content as one scrolling feed.
+    # Homepage bits: the paper pile (3 newest posts). The full feed and
+    # tag filters are still generated so any page that references them
+    # keeps working, but the new homepage doesn't use them.
+    paper_pile_html = build_paper_pile_html(posts)
     post_list_html = build_feed_html(posts)
     tag_filters_html = build_tag_filters_html(posts)
 
-    # 4/6. Build every page, injecting the post list + filter row where
-    #    the placeholders exist (only index.html has them; on other pages
-    #    replace() simply finds nothing and changes nothing).
+    # 4/6. Build every page, filling whichever placeholders it contains.
+    #    replace() is a no-op when a placeholder isn't present, so each
+    #    page only picks up what it actually references.
     for filename in os.listdir(PAGES_DIR):
         if not filename.endswith(".html"):
             continue
         raw = read_file(os.path.join(PAGES_DIR, filename))
         final_html = inject_partials(raw, nav_html, footer_html, contact_links_html, newsletter_html)
+        final_html = final_html.replace(PAPER_PILE_PLACEHOLDER, paper_pile_html)
         final_html = final_html.replace(POST_LIST_PLACEHOLDER, post_list_html)
         final_html = final_html.replace(TAG_FILTERS_PLACEHOLDER, tag_filters_html)
         write_file(os.path.join(DOCS, filename), final_html)
@@ -534,6 +562,8 @@ def build():
             "title": p["title"],
             "date": p["date"],
             "tags": p["tags"],
+            "category": p["tags"][0] if p["tags"] else "",
+            "image": p["image"],
             "url": f"/posts/{p['slug']}.html",
             "excerpt": p["excerpt"],
             "read_minutes": p["read_minutes"],

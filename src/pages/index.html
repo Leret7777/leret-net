@@ -4,87 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leret — Commercial Intelligence Specialist &amp; Model</title>
-  <meta name="description" content="Leret's personal site: posts on commercial intelligence and AI automation work, and modelling. Based in Manchester, UK.">
+  <meta name="description" content="Leret — Commercial Intelligence Specialist and model. Systems by day, frames by night. Based in Manchester, UK.">
   <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="home-page">
 <!-- NAV -->
 
-<!-- The whole site is one scrolling page. A full-height portrait stays
-     put on the left (position: sticky) while everything else — intro,
-     the full-text post feed, and the About section — scrolls on the
-     right. The header's Posts/About links jump to the #posts / #about
-     sections below. Collapses to a single column on narrow screens. -->
-<main class="home-split">
-  <div class="home-split__photo">
-    <img src="/images/profile/portrait.svg" alt="Leret" width="600" height="800">
-  </div>
-
-  <div class="home-split__content">
-    <section class="hero hero--compact">
-      <h1>Hi, I'm Leret.</h1>
-      <p class="lede">
-        Commercial intelligence and AI automation by day, modelling with
-        Brother Models on the side. Everything I post is right here — use
-        the tags to narrow it down, or open any post on its own page.
+<main class="home">
+  <!-- HERO: two columns. Left = wordmark + tagline. Right = paper pile. -->
+  <section class="home-hero">
+    <div class="home-hero__text">
+      <p class="eyebrow">Commercial Intelligence Specialist &amp; Model</p>
+      <h1 class="wordmark">LERET</h1>
+      <p class="tagline">Systems by day, frames by night. Based in Manchester, UK.</p>
+      <p class="home-hero__links">
+        <a class="mono-link" href="#" id="seeAllPosts">See all posts &rarr;</a>
+        <a class="mono-link" href="/about.html">About</a>
       </p>
-    </section>
+    </div>
 
-    <!-- POSTS: build.py fills the filter row (derived from the tags in
-         use) and the feed (every post's full content, newest first). -->
-    <section id="posts">
-      <!-- TAG_FILTERS -->
-      <!-- POST_LIST -->
-    </section>
+    <!-- The paper pile: build.py fills this with the 3 most recent posts
+         as rotated "polaroid" cards. -->
+    <div class="home-hero__pile">
+      <!-- PAPER_PILE -->
+    </div>
+  </section>
 
-    <!-- ABOUT: bio + modelling bookings, as the final section of the
-         one-page site. -->
-    <section id="about" class="about-section">
-      <h2>About</h2>
-      <p class="lede">
-        I'm Leret — a Commercial Intelligence Specialist working across
-        data analytics and AI automation, and a model represented by
-        Brother Models. I write here about both. Based in Manchester, UK.
-      </p>
-
-      <div class="booking-card">
-        <h3>Modelling &amp; bookings</h3>
-        <p>
-          I'm represented by <strong>Brother Models</strong> (Manchester, UK).
-          For bookings, availability, and rates, contact my booker:
-        </p>
-        <p class="booking-card__contact">
-          Francesca — <a href="mailto:francesca@brothermodels.com?subject=Booking%20Enquiry%20—%20Leret">francesca@brothermodels.com</a>
-        </p>
-        <div class="btn-row">
-          <a class="btn" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">Request comp card</a>
-          <a class="btn btn--outline" href="mailto:francesca@brothermodels.com?subject=Digitals%20Request%20—%20Leret">Request digitals</a>
-        </div>
-        <p class="booking-card__note">
-          Measurements, comp card, and current digitals come from the
-          agency on request — that way they're always up to date.
-        </p>
-      </div>
-
-      <p>
-        For anything else, email me at
-        <a href="mailto:leretmutkut@gmail.com?subject=Hello">leretmutkut@gmail.com</a>.
-      </p>
-    </section>
-  </div>
+  <!-- CONTACT STRIP -->
+  <section class="contact-strip">
+    <p class="eyebrow">Contact</p>
+    <a class="contact-strip__email" href="mailto:leretmutkut@gmail.com">leretmutkut@gmail.com</a>
+    <p class="contact-strip__links">
+      <a class="mono-link" href="#" aria-label="Instagram">Instagram</a>
+      <a class="mono-link" href="#" aria-label="LinkedIn">LinkedIn</a>
+      <a class="mono-link" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">Comp card</a>
+    </p>
+    <p class="contact-strip__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
+  </section>
 </main>
 
 <!-- FOOTER -->
-
-<!-- One shared lightbox for the modelling gallery inlined in the feed
-     above (script.js reveals it when a gallery photo is clicked). -->
-<div class="lightbox" id="lightbox" hidden>
-  <button class="lightbox__close" aria-label="Close">&times;</button>
-  <img id="lightboxImage" src="" alt="">
-  <p class="lightbox__caption" id="lightboxCaption"></p>
-</div>
-
 <script src="/script.js"></script>
 </body>
 </html>
