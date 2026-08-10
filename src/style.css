@@ -1358,23 +1358,30 @@ form .btn {
 
 /* --- Simple centered page (About) --------------------------------------- */
 .page {
-  padding: clamp(2rem, 6vh, 4rem) clamp(1.5rem, 5vw, 2rem) 4rem;
+  min-height: 100vh;
+  min-height: 100svh; /* fit exactly one screen; no scroll on desktop */
+  padding: clamp(1.2rem, 3vh, 2rem) clamp(1.5rem, 5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .page__inner {
   max-width: 680px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .page__title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin: 0.3rem 0 var(--space-3);
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  margin: 0.2rem 0 var(--space-2);
 }
 
 .lede {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--color-text-muted);
   max-width: 620px;
+  margin: 0 0 var(--space-2);
 }
 
 .about-block {
@@ -1405,8 +1412,9 @@ form .btn {
 .about-photos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin: var(--space-4) 0;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+  max-width: 360px; /* keep the two photos compact so the page fits one view */
 }
 
 .about-photo {
@@ -1419,9 +1427,12 @@ form .btn {
   background: var(--color-surface);
 }
 
+/* On phones let the page breathe and scroll normally. */
 @media (max-width: 560px) {
-  .about-photos {
-    grid-template-columns: 1fr;
+  .page {
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: clamp(2rem, 6vh, 3rem);
   }
 }
 
