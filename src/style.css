@@ -1290,6 +1290,7 @@ form .btn {
   border-top: 1px solid var(--color-border);
   padding-top: clamp(1.4rem, 4vh, 2.4rem);
   margin-top: clamp(1.4rem, 4vh, 2.4rem);
+  text-align: center;
 }
 
 .contact-strip__email {
@@ -1309,6 +1310,7 @@ form .btn {
 .contact-strip__links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-3);
   margin: 0 0 var(--space-3);
 }
