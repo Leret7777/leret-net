@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Posts — Leret</title>
+  <meta name="description" content="Every post by Leret — commercial intelligence and modelling notes.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- The only shared "chrome" now is the theme toggle, fixed in the
+     top-right on every page. script.js fills in the sun/moon SVG for the
+     current theme and flips it on click (choice saved in localStorage). -->
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"></button>
+
+
+<main class="home">
+  <header class="home-head home-head--tight">
+    <p><a class="mono-link" href="/">&larr; Back</a></p>
+    <h1 class="page__title">All Posts</h1>
+  </header>
+
+  <!-- build.py fills this with every post, newest first. -->
+  <section class="home-feed">
+    <article class="postitem">
+        <a class="postitem__title" href="/posts/test-shoot-notes.html">Notes From a Test Shoot</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>12 Jun, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">What actually happens at a test shoot, from call time to final selects.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/modelling-portfolio.html">Modelling Portfolio</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>22 Apr, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">Photo gallery and video reel. Represented by Brother Models — bookings via the About page.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>10 Mar, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">Commercial planning, CVM, pricing ops — and the tools I use to make the manual parts disappear.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>2 Feb, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">No framework, no site generator — every page hand-written, held together by one small Python script.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>15 Jan, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people.</p>
+      </article>
+  </section>
+</main>
+
+<!-- Footer intentionally empty: the homepage contact strip carries the
+     copyright and links, and post/About pages don't need a footer. -->
+
+<script src="/script.js"></script>
+</body>
+</html>

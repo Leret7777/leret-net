@@ -1225,56 +1225,77 @@ form .btn {
   margin: var(--space-3) 0 0;
 }
 
-/* --- Post feed: a stack of text cards ----------------------------------- */
+/* A tighter header for the standalone All Posts page. */
+.home-head--tight {
+  text-align: left;
+  margin-bottom: clamp(1.5rem, 5vh, 2.5rem);
+}
+
+/* --- Post feed: a reading list (mono titles, date, excerpt) ------------- */
 .home-feed {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: clamp(1.8rem, 5vh, 2.6rem);
 }
 
-.postcard {
-  display: block;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: clamp(1.3rem, 4vw, 1.9rem);
-  text-decoration: none;
-  transition: border-color 140ms ease, transform 140ms ease;
-}
-
-.postcard:hover,
-.postcard:focus-visible {
-  border-color: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-.postcard__cat {
-  display: block;
+.postitem__title {
   font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.72rem;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--color-accent);
-  margin-bottom: var(--space-2);
+  text-decoration: none;
 }
 
-.postcard__title {
-  display: block;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(1.4rem, 3.6vw, 1.9rem);
-  line-height: 1.15;
-  color: var(--color-text);
-  margin-bottom: var(--space-2);
+.postitem__title:hover,
+.postitem__title:focus-visible {
+  color: var(--color-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.postcard__meta {
-  display: block;
+.postitem__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
   font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.78rem;
-  color: var(--color-faint);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.postitem__cal {
+  width: 0.95em;
+  height: 0.95em;
+  flex-shrink: 0;
+}
+
+.postitem__excerpt {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: var(--space-2) 0 0;
+  max-width: 60ch;
+}
+
+/* "All Posts →" link under the homepage feed. */
+.home-more {
+  text-align: center;
+  margin: clamp(2.5rem, 7vh, 4rem) 0 0;
+}
+
+.all-posts-link {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.all-posts-link:hover,
+.all-posts-link:focus-visible {
+  color: var(--color-accent);
 }
 
 /* --- Contact strip ------------------------------------------------------ */

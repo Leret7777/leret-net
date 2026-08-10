@@ -54,6 +54,25 @@ TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
 HOME_FEED_PLACEHOLDER = "<!-- HOME_FEED -->"
+ALL_POSTS_LIST_PLACEHOLDER = "<!-- ALL_POSTS_LIST -->"
+
+# How many posts the homepage feed shows before the "All Posts →" link.
+HOME_FEED_LIMIT = 3
+
+# A small inline calendar icon (stroke=currentColor so the theme colours it)
+# shown next to each post's date. Inline SVG keeps it dependency-free.
+CALENDAR_SVG = (
+    '<svg class="postitem__cal" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<rect x="3" y="4" width="18" height="18" rx="2"></rect>'
+    '<line x1="3" y1="9" x2="21" y2="9"></line>'
+    '<line x1="8" y1="2" x2="8" y2="6"></line>'
+    '<line x1="16" y1="2" x2="16" y2="6"></line></svg>'
+)
+
+_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 # The site's public address — used to build absolute URLs for the
 # social share links (a share link has to tell X/LinkedIn/WhatsApp the
@@ -267,34 +286,43 @@ def build_feed_html(posts):
             + "\n    </div>")
 
 
-def format_date_dots(iso_date):
-    """Turn an ISO date "2026-07-21" into "21.07.2026" for the feed
-    cards. Falls back to the raw string if it isn't in that shape."""
+def format_date_long(iso_date):
+    """Turn an ISO date "2025-08-21" into "21 Aug, 2025". Falls back to
+    the raw string if it isn't in YYYY-MM-DD shape."""
     parts = iso_date.split("-")
     if len(parts) == 3:
         year, month, day = parts
-        return f"{day}.{month}.{year}"
+        try:
+            month_name = _MONTHS[int(month) - 1]
+            return f"{int(day)} {month_name}, {year}"
+        except (ValueError, IndexError):
+            pass
     return iso_date
 
 
-def build_home_feed_html(posts):
-    """The homepage feed: every post as a plain text card — a category
-    label, the title, and a "read time · date" meta line. No images.
-    `posts` is already newest-first. Each card links to the post's page;
-    CSS uppercases the category and meta (see .postcard in style.css)."""
-    cards = []
+def build_post_list_items(posts):
+    """A list of posts rendered in the reading-list style: a mono title
+    link, a meta line (calendar icon + date + read time), and the
+    excerpt. `posts` is already newest-first. Used for both the homepage
+    feed (newest few) and the full All Posts page."""
+    items = []
     for post in posts:
-        cat = post["tags"][0] if post["tags"] else ""
-        date_fmt = format_date_dots(post["date"])
-        cards.append(
-            f'<a class="postcard" href="/posts/{post["slug"]}.html">\n'
-            f'        <span class="postcard__cat">{cat}</span>\n'
-            f'        <span class="postcard__title">{post["title"]}</span>\n'
-            f'        <span class="postcard__meta">{post["read_minutes"]} min read '
-            f'&middot; {date_fmt}</span>\n'
-            "      </a>"
+        date_fmt = format_date_long(post["date"])
+        excerpt = post["excerpt"]
+        excerpt_html = (
+            f'\n        <p class="postitem__excerpt">{excerpt}</p>'
+            if excerpt else ""
         )
-    return "\n      ".join(cards)
+        items.append(
+            f'<article class="postitem">\n'
+            f'        <a class="postitem__title" href="/posts/{post["slug"]}.html">'
+            f'{post["title"]}</a>\n'
+            f'        <p class="postitem__meta">{CALENDAR_SVG} '
+            f'<span>{date_fmt} &bull; {post["read_minutes"]} min read</span></p>'
+            f'{excerpt_html}\n'
+            "      </article>"
+        )
+    return "\n      ".join(items)
 
 
 def build_subscribe_html():
@@ -565,8 +593,10 @@ def build():
         write_file(os.path.join(POSTS_OUT_DIR, post["slug"] + ".html"),
                    final_html)
 
-    # Homepage feed: every post as a text card (newest first).
-    home_feed_html = build_home_feed_html(posts)
+    # Post lists: the homepage shows the newest few; the All Posts page
+    # shows every post. Same markup, different slice.
+    home_feed_html = build_post_list_items(posts[:HOME_FEED_LIMIT])
+    all_posts_html = build_post_list_items(posts)
 
     # 4/6. Build every page, filling whichever placeholders it contains.
     #    replace() is a no-op when a placeholder isn't present, so each
@@ -577,6 +607,7 @@ def build():
         raw = read_file(os.path.join(PAGES_DIR, filename))
         final_html = inject_partials(raw, nav_html, footer_html)
         final_html = final_html.replace(HOME_FEED_PLACEHOLDER, home_feed_html)
+        final_html = final_html.replace(ALL_POSTS_LIST_PLACEHOLDER, all_posts_html)
         write_file(os.path.join(DOCS, filename), final_html)
 
     # 5. posts-index.json: the same metadata the homepage list was built

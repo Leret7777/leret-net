@@ -26,35 +26,29 @@
     </p>
   </header>
 
-  <!-- POST FEED: build.py fills this with every post as a text card
-       (category, title, read time + date). Newest first. -->
+  <!-- POST FEED: build.py fills this with the newest few posts (title,
+       date + read time, excerpt). The "All Posts" link leads to the full
+       list. -->
   <section class="home-feed">
-    <a class="postcard" href="/posts/test-shoot-notes.html">
-        <span class="postcard__cat">modelling</span>
-        <span class="postcard__title">Notes From a Test Shoot</span>
-        <span class="postcard__meta">1 min read &middot; 12.06.2026</span>
-      </a>
-      <a class="postcard" href="/posts/modelling-portfolio.html">
-        <span class="postcard__cat">modelling</span>
-        <span class="postcard__title">Modelling Portfolio</span>
-        <span class="postcard__meta">1 min read &middot; 22.04.2026</span>
-      </a>
-      <a class="postcard" href="/posts/ai-automation-for-commercial-teams.html">
-        <span class="postcard__cat">commercial</span>
-        <span class="postcard__title">What I Actually Do: AI Automation for Commercial Teams</span>
-        <span class="postcard__meta">1 min read &middot; 10.03.2026</span>
-      </a>
-      <a class="postcard" href="/posts/building-this-site.html">
-        <span class="postcard__cat">commercial</span>
-        <span class="postcard__title">Building This Site From Scratch, By Hand</span>
-        <span class="postcard__meta">1 min read &middot; 02.02.2026</span>
-      </a>
-      <a class="postcard" href="/posts/what-i-do-and-why.html">
-        <span class="postcard__cat">commercial</span>
-        <span class="postcard__title">What I Do, and Why This Site Mixes Two Careers</span>
-        <span class="postcard__meta">1 min read &middot; 15.01.2026</span>
-      </a>
+    <article class="postitem">
+        <a class="postitem__title" href="/posts/test-shoot-notes.html">Notes From a Test Shoot</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>12 Jun, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">What actually happens at a test shoot, from call time to final selects.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/modelling-portfolio.html">Modelling Portfolio</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>22 Apr, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">Photo gallery and video reel. Represented by Brother Models — bookings via the About page.</p>
+      </article>
+      <article class="postitem">
+        <a class="postitem__title" href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a>
+        <p class="postitem__meta"><svg class="postitem__cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="16" y1="2" x2="16" y2="6"></line></svg> <span>10 Mar, 2026 &bull; 1 min read</span></p>
+        <p class="postitem__excerpt">Commercial planning, CVM, pricing ops — and the tools I use to make the manual parts disappear.</p>
+      </article>
   </section>
+  <p class="home-more">
+    <a class="all-posts-link" href="/all-posts.html">All Posts &rarr;</a>
+  </p>
 
   <!-- CONTACT STRIP -->
   <section class="contact-strip">
@@ -63,7 +57,7 @@
     <p class="contact-strip__links">
       <a class="mono-link" href="#" aria-label="Instagram">Instagram</a>
       <a class="mono-link" href="#" aria-label="LinkedIn">LinkedIn</a>
-      <a class="mono-link" href="mailto:francesca@brothermodels.com?subject=Comp%20Card%20Request">Comp card</a>
+      <a class="mono-link" href="https://leret.substack.com" aria-label="Substack">Substack</a>
     </p>
     <p class="contact-strip__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
   </section>

@@ -1,10 +1,11 @@
 # leret.me
 
 Personal site for Leret. The **homepage** is a centered **LERET** wordmark
-and tagline, then a **feed of every post** as a text card (category, title,
-read time · date) — newest first. Each post has its **own reading page**
-(a shareable permalink) with a meta row, optional hero image, and a
-subscribe box. There's also a standalone **About** page.
+and tagline, then the **newest few posts** as a reading list (mono title,
+date + read time, excerpt) with an **All Posts →** link to the full list
+(`/all-posts.html`). Each post has its **own reading page** (a shareable
+permalink) with a meta row, optional hero image, and a subscribe box.
+There's also a standalone **About** page.
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no framework. The only "build step" is a small
@@ -26,9 +27,10 @@ checklist inside it, and run the build. Every post file also has a
 ```
 src/
   pages/       standalone pages:
-                 index.html   the homepage (wordmark header + post feed +
-                              contact strip)
-                 about.html   bio + modelling representation
+                 index.html     the homepage (wordmark header + newest
+                                posts + All Posts link + contact strip)
+                 all-posts.html the full reading list of every post
+                 about.html     bio + modelling representation
   partials/    shared markup injected into every page by build.py:
                  nav.html      just the round theme toggle (top-right)
                  footer.html   currently empty (kept as an injection point)
@@ -69,9 +71,10 @@ Standard library only — nothing to install. It:
    its reading time, and rewrites it as a **reading page**: a `← Back`
    link, a meta row (`category · N min read · date`), an optional hero
    image after the title, and a subscribe box before the footer.
-3. Builds the homepage **post feed** — every post as a text card
-   (category, title, `read time · date`), newest first — and injects it
-   into `index.html`.
+3. Builds the **post reading list** (mono title, calendar date + read
+   time, excerpt) — the newest few into `index.html`, and every post into
+   `all-posts.html`. The homepage limit is `HOME_FEED_LIMIT` in
+   `build.py`.
 4. Writes `docs/posts-index.json` (title/date/tags/category/url/excerpt/
    image/reading time for every post).
 5. Copies `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
@@ -172,9 +175,10 @@ No video files are stored in the repo — always a hosted embed.
 
 ## Contact & bookings
 
-- The homepage **contact strip** has the email (Bungee), Instagram /
-  LinkedIn links, and a "Comp card" mailto. The Instagram/LinkedIn links
-  currently point at `#` — put your real URLs into `src/pages/index.html`.
+- The homepage **contact strip** has the email (Bungee) and Instagram /
+  LinkedIn / Substack links. Instagram/LinkedIn currently point at `#`,
+  and Substack points at `https://leret.substack.com` — put your real
+  URLs into `src/pages/index.html`.
 - Modelling bookings live on the **About page**: Brother Models,
   Francesca's email, and "Request comp card" / "Request digitals"
   buttons.
