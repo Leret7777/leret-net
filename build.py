@@ -53,8 +53,7 @@ POST_LIST_PLACEHOLDER = "<!-- POST_LIST -->"
 TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
-PAPER_PILE_PLACEHOLDER = "<!-- PAPER_PILE -->"
-ALL_POSTS_GRID_PLACEHOLDER = "<!-- ALL_POSTS_GRID -->"
+HOME_FEED_PLACEHOLDER = "<!-- HOME_FEED -->"
 
 # The site's public address — used to build absolute URLs for the
 # social share links (a share link has to tell X/LinkedIn/WhatsApp the
@@ -268,42 +267,31 @@ def build_feed_html(posts):
             + "\n    </div>")
 
 
-def build_paper_pile_html(posts):
-    """The homepage "paper pile": the 3 most recent posts as rotated
-    polaroid cards. `posts` is already newest-first, so we take the
-    first three. Each card links to that post's page; the .polaroid--N
-    classes place and rotate them (see style.css)."""
-    cards = []
-    for i, post in enumerate(posts[:3], start=1):
-        # If the post declares an image, use it as the photo; otherwise
-        # the .polaroid__img fallback colour shows through.
-        style = f" style=\"background-image:url('{post['image']}')\"" if post["image"] else ""
-        cards.append(
-            f'<a class="polaroid polaroid--{i}" href="/posts/{post["slug"]}.html">\n'
-            f'        <span class="polaroid__img"{style}></span>\n'
-            f'        <span class="polaroid__cap">{post["title"]}</span>\n'
-            "      </a>"
-        )
-    return "\n      ".join(cards)
+def format_date_dots(iso_date):
+    """Turn an ISO date "2026-07-21" into "21.07.2026" for the feed
+    cards. Falls back to the raw string if it isn't in that shape."""
+    parts = iso_date.split("-")
+    if len(parts) == 3:
+        year, month, day = parts
+        return f"{day}.{month}.{year}"
+    return iso_date
 
 
-def build_all_posts_grid_html(posts):
-    """The grid of ALL posts inside the "All Posts" overlay. Each card is
-    a 3:4 image tile with a dark gradient and the post's category, title,
-    and tag/read-time over it."""
+def build_home_feed_html(posts):
+    """The homepage feed: every post as a plain text card — a category
+    label, the title, and a "read time · date" meta line. No images.
+    `posts` is already newest-first. Each card links to the post's page;
+    CSS uppercases the category and meta (see .postcard in style.css)."""
     cards = []
     for post in posts:
         cat = post["tags"][0] if post["tags"] else ""
-        tag = ("#" + post["tags"][0]) if post["tags"] else ""
-        style = f" style=\"background-image:url('{post['image']}')\"" if post["image"] else ""
+        date_fmt = format_date_dots(post["date"])
         cards.append(
-            f'<a class="pcard" href="/posts/{post["slug"]}.html">\n'
-            f'        <span class="pcard__img"{style}></span>\n'
-            f'        <span class="pcard__body">\n'
-            f'          <span class="pcard__cat">{cat}</span>\n'
-            f'          <span class="pcard__title">{post["title"]}</span>\n'
-            f'          <span class="pcard__meta">{tag} &middot; {post["read_minutes"]} min read</span>\n'
-            f'        </span>\n'
+            f'<a class="postcard" href="/posts/{post["slug"]}.html">\n'
+            f'        <span class="postcard__cat">{cat}</span>\n'
+            f'        <span class="postcard__title">{post["title"]}</span>\n'
+            f'        <span class="postcard__meta">{post["read_minutes"]} min read '
+            f'&middot; {date_fmt}</span>\n'
             "      </a>"
         )
     return "\n      ".join(cards)
@@ -577,10 +565,8 @@ def build():
         write_file(os.path.join(POSTS_OUT_DIR, post["slug"] + ".html"),
                    final_html)
 
-    # Homepage bits: the paper pile (3 newest posts) and the full
-    # All-Posts grid (every post) rendered into the overlay.
-    paper_pile_html = build_paper_pile_html(posts)
-    all_posts_grid_html = build_all_posts_grid_html(posts)
+    # Homepage feed: every post as a text card (newest first).
+    home_feed_html = build_home_feed_html(posts)
 
     # 4/6. Build every page, filling whichever placeholders it contains.
     #    replace() is a no-op when a placeholder isn't present, so each
@@ -590,8 +576,7 @@ def build():
             continue
         raw = read_file(os.path.join(PAGES_DIR, filename))
         final_html = inject_partials(raw, nav_html, footer_html)
-        final_html = final_html.replace(PAPER_PILE_PLACEHOLDER, paper_pile_html)
-        final_html = final_html.replace(ALL_POSTS_GRID_PLACEHOLDER, all_posts_grid_html)
+        final_html = final_html.replace(HOME_FEED_PLACEHOLDER, home_feed_html)
         write_file(os.path.join(DOCS, filename), final_html)
 
     # 5. posts-index.json: the same metadata the homepage list was built

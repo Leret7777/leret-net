@@ -12,27 +12,20 @@
 <!-- NAV -->
 
 <main class="home">
-  <!-- HERO: one centered column. Wordmark + tagline, then the paper pile
-       of recent posts, then the links. -->
-  <section class="home-hero">
-    <div class="home-hero__text">
-      <p class="eyebrow">Commercial Intelligence Specialist &amp; Model</p>
-      <h1 class="wordmark">LERET</h1>
-      <p class="tagline">Systems by day, frames by night. Based in Manchester, UK.</p>
-    </div>
-
-    <!-- The paper pile: build.py fills this with the 3 most recent posts
-         as rotated "polaroid" cards. These are clickable — each opens its
-         post. The hint below spells that out. -->
-    <div class="home-hero__pile">
-      <!-- PAPER_PILE -->
-    </div>
-    <p class="pile-hint">Latest posts &mdash; hover, then click to read</p>
-
-    <p class="home-hero__links">
-      <a class="mono-link" href="#" id="seeAllPosts">See all posts &rarr;</a>
+  <!-- HEADER: the wordmark + tagline, centered. -->
+  <header class="home-head">
+    <p class="eyebrow">Commercial Intelligence Specialist &amp; Model</p>
+    <h1 class="wordmark">LERET</h1>
+    <p class="tagline">Systems by day, frames by night. Based in Manchester, UK.</p>
+    <p class="home-head__links">
       <a class="mono-link" href="/about.html">About</a>
     </p>
+  </header>
+
+  <!-- POST FEED: build.py fills this with every post as a text card
+       (category, title, read time + date). Newest first. -->
+  <section class="home-feed">
+    <!-- HOME_FEED -->
   </section>
 
   <!-- CONTACT STRIP -->
@@ -47,22 +40,6 @@
     <p class="contact-strip__copyright">&copy; 2026 Leret. Based in Manchester, UK.</p>
   </section>
 </main>
-
-<!-- ALL POSTS overlay: a full-screen panel that fades in when
-     "See all posts →" is clicked. It's a normal DOM element (always in
-     the page) that script.js shows/hides via the .is-open class — NOT a
-     separate page. build.py fills the grid with every post. -->
-<div class="overlay" id="allPostsOverlay" aria-hidden="true">
-  <div class="overlay__inner">
-    <div class="overlay__head">
-      <h2 class="overlay__title">All Posts</h2>
-      <button class="overlay__close" id="overlayClose" type="button" aria-label="Close">&times;</button>
-    </div>
-    <div class="overlay__grid">
-      <!-- ALL_POSTS_GRID -->
-    </div>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <script src="/script.js"></script>

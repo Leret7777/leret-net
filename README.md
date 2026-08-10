@@ -1,11 +1,10 @@
 # leret.me
 
-Personal site for Leret. The **homepage** is a single, no-scroll hero: the
-**LERET** wordmark and tagline on the left, a rotated "paper pile" of the
-three newest posts on the right, and a contact strip below. **See all
-posts →** opens a full-screen overlay listing every post. Each post has
-its **own reading page** (a shareable permalink) with a meta row, optional
-hero image, and a subscribe box. There's also a standalone **About** page.
+Personal site for Leret. The **homepage** is a centered **LERET** wordmark
+and tagline, then a **feed of every post** as a text card (category, title,
+read time · date) — newest first. Each post has its **own reading page**
+(a shareable permalink) with a meta row, optional hero image, and a
+subscribe box. There's also a standalone **About** page.
 
 Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no framework. The only "build step" is a small
@@ -27,8 +26,8 @@ checklist inside it, and run the build. Every post file also has a
 ```
 src/
   pages/       standalone pages:
-                 index.html   the homepage (wordmark hero + paper pile +
-                              contact strip + the All-Posts overlay markup)
+                 index.html   the homepage (wordmark header + post feed +
+                              contact strip)
                  about.html   bio + modelling representation
   partials/    shared markup injected into every page by build.py:
                  nav.html      just the round theme toggle (top-right)
@@ -39,8 +38,8 @@ src/
                  profile/          portrait art
                  modeling/<shoot>/ modelling gallery photos
   style.css    the one shared stylesheet (dark default + light theme)
-  script.js    theme toggle, All-Posts overlay, search + tag filtering,
-               reading progress, photo lightbox
+  script.js    theme toggle, search + tag filtering, reading progress,
+               photo lightbox
 
 scripts/
   resize_images.py   optional Pillow helper: shrinks/compresses raw
@@ -70,9 +69,9 @@ Standard library only — nothing to install. It:
    its reading time, and rewrites it as a **reading page**: a `← Back`
    link, a meta row (`category · N min read · date`), an optional hero
    image after the title, and a subscribe box before the footer.
-3. Builds the homepage **paper pile** from the three newest posts (each a
-   rotated "polaroid" card linking to its page) and the **All-Posts
-   overlay grid** from every post, and injects both into `index.html`.
+3. Builds the homepage **post feed** — every post as a text card
+   (category, title, `read time · date`), newest first — and injects it
+   into `index.html`.
 4. Writes `docs/posts-index.json` (title/date/tags/category/url/excerpt/
    image/reading time for every post).
 5. Copies `style.css`, `script.js`, `images/`, and `CNAME` into `docs/`.
@@ -89,20 +88,19 @@ settings, fields separated by `|`:
 - `title` and `date` (YYYY-MM-DD) are required. `date` sets the order
   everywhere (newest first).
 - `tags` — one per post: `commercial` or `modelling`. The first tag is
-  shown as the post's **category** in the meta row and overlay card.
+  shown as the post's **category** in the feed card and meta row.
 - `excerpt` — optional one-line teaser.
 - `image` — optional. A path like `/images/my-hero.jpg`. When set, it
-  becomes the post's hero image, the polaroid photo on the homepage, and
-  the tile in the All-Posts overlay. Leave it empty and those fall back
-  to a neutral placeholder tile.
+  becomes the post's hero image on its reading page. Leave it empty and
+  the reading page simply has no hero. (The homepage feed cards are
+  text-only — no image.)
 
 The rest of the file is normal HTML; write the article inside `<main>`.
 The quickest start is to **copy `src/posts/_TEMPLATE.html`**.
 
-Run `python3 build.py` and the post appears in the paper pile (if it's
-one of the three newest) and the All-Posts overlay, with its reading
-time, category, subscribe box, and reading page — all added
-automatically.
+Run `python3 build.py` and the post appears in the homepage feed with its
+category, reading time, and date, plus its own reading page (subscribe
+box included) — all added automatically.
 
 ## The design system
 
@@ -118,7 +116,8 @@ black/white anywhere):
 | Border        | `#3a4239` | `#c9c4b5` |
 | Accent        | `#8fbc95` | `#3a6d4a` |
 
-The polaroid cards use a warm paper tone (`#f5f0e4`) in both themes.
+Post cards sit on the surface tone with a border that turns accent on
+hover.
 
 **Fonts** (Google Fonts, loaded via one `@import` at the top of
 `style.css`):
@@ -136,10 +135,6 @@ the default; the toggle overrides and remembers the choice in
 
 - **Theme** — dark/light via CSS custom properties. Dark by default;
   the top-right toggle flips it and persists the choice in `localStorage`.
-- **All-Posts overlay** — **See all posts →** fades in a full-screen
-  panel listing every post; closes on the ✕, a backdrop click, or
-  Escape. It's a normal DOM element in `index.html` toggled by the
-  `.is-open` class — not a separate page.
 - **Search + tag filtering** — retained from before; filters lists live.
 - **Reading time** — `N min read` in each post's meta row. build.py
   counts words in the post's `<main>` (~200 wpm); fully automatic.
