@@ -1196,66 +1196,88 @@ form .btn {
   min-height: 100svh; /* accounts for mobile browser chrome */
   max-width: 1080px;
   margin: 0 auto;
-  padding: clamp(1.5rem, 4vh, 3rem) clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(0.8rem, 2vh, 1.5rem) clamp(1.5rem, 5vw, 4rem);
   display: flex;
   flex-direction: column;
 }
 
 .home-hero {
   flex: 1;
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
+  justify-content: center;
+  text-align: center;
+  gap: clamp(0.7rem, 2vh, 1.3rem);
+}
+
+.home-hero__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .wordmark {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3.4rem, 9vw, 6.4rem);
+  font-size: clamp(3.2rem, 8.5vw, 5.8rem);
   line-height: 0.95;
   letter-spacing: 0.02em;
   color: var(--color-text);
-  margin: 0 0 var(--space-2);
+  margin: 0;
 }
 
 .tagline {
   font-family: var(--font-body);
   color: var(--color-text-muted);
-  max-width: 300px;
+  max-width: 320px;
   font-size: 1.05rem;
-  margin: var(--space-2) 0 0;
+  margin: var(--space-1) auto 0;
 }
 
 .home-hero__links {
   display: flex;
+  justify-content: center;
   gap: var(--space-3);
-  margin: var(--space-3) 0 0;
+  margin: 0;
+}
+
+/* "these are clickable posts" cue under the pile */
+.pile-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  margin: 0;
 }
 
 /* --- Paper pile: three rotated polaroids, absolutely positioned --------- */
 .home-hero__pile {
   position: relative;   /* the absolute cards are placed relative to this */
-  width: 240px;
+  width: 300px;
   height: 200px;
   margin: 0 auto;
 }
 
 .polaroid {
   position: absolute;
-  width: 110px;
+  width: 128px;
   background: var(--color-polaroid);   /* stays cream in BOTH themes */
-  padding: 7px 7px 22px;
+  padding: 8px 8px 22px;
   border-radius: 2px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
   text-decoration: none;
   display: block;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, outline-color 140ms ease;
+  outline: 2px solid transparent;   /* becomes accent on hover */
+  outline-offset: 3px;
 }
 
 .polaroid__img {
-  width: 96px;
-  height: 118px;
+  width: 112px;
+  height: 126px;
   background-color: #c3cabf;   /* fallback when a post has no image yet */
   background-size: cover;
   background-position: center;
@@ -1274,32 +1296,35 @@ form .btn {
   text-overflow: ellipsis;
 }
 
-.polaroid--1 { top: 8px;  left: 10px;  transform: rotate(-7deg); z-index: 1; }
-.polaroid--2 { top: 32px; left: 64px;  transform: rotate(4deg);  z-index: 2; }
-.polaroid--3 { top: 12px; left: 130px; transform: rotate(-2deg); z-index: 3; }
+.polaroid--1 { top: 6px;  left: 6px;   transform: rotate(-8deg); z-index: 1; }
+.polaroid--2 { top: 30px; left: 82px;  transform: rotate(5deg);  z-index: 2; }
+.polaroid--3 { top: 10px; left: 156px; transform: rotate(-2deg); z-index: 3; }
 
-/* Lift and straighten on hover. */
-.polaroid:hover {
-  transform: translateY(-4px) rotate(0deg);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34);
+/* Lift, straighten, scale up, and show an accent ring on hover — makes it
+   obvious the cards are clickable posts. */
+.polaroid:hover,
+.polaroid:focus-visible {
+  transform: translateY(-10px) scale(1.05) rotate(0deg);
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.42);
+  outline-color: var(--color-accent);
   z-index: 10;
 }
 
 /* --- Contact strip ------------------------------------------------------ */
 .contact-strip {
   border-top: 1px solid var(--color-border);
-  padding-top: clamp(1.4rem, 4vh, 2.4rem);
-  margin-top: clamp(1.4rem, 4vh, 2.4rem);
+  padding-top: clamp(0.8rem, 2.2vh, 1.4rem);
+  margin-top: clamp(0.8rem, 2.2vh, 1.4rem);
   text-align: center;
 }
 
 .contact-strip__email {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  font-size: clamp(1.4rem, 3.6vw, 2.1rem);
   color: var(--color-text);
   text-decoration: none;
   display: inline-block;
-  margin: var(--space-1) 0 var(--space-2);
+  margin: var(--space-1) 0;
   word-break: break-word;
 }
 
@@ -1312,7 +1337,7 @@ form .btn {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-3);
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-2);
 }
 
 .contact-strip__links .mono-link {
@@ -1333,20 +1358,15 @@ form .btn {
   margin: 0;
 }
 
-/* --- Homepage responsive: stack + allow scroll on mobile ---------------- */
+/* --- Homepage responsive: allow scroll on mobile ------------------------ */
 @media (max-width: 720px) {
   .home {
     min-height: 0;
   }
 
   .home-hero {
-    grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 8vw, 3.5rem);
+    gap: clamp(2rem, 8vw, 3rem);
     padding: var(--space-4) 0;
-  }
-
-  .home-hero__pile {
-    margin: 0;
   }
 }
 

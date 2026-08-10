@@ -12,23 +12,27 @@
 <!-- NAV -->
 
 <main class="home">
-  <!-- HERO: two columns. Left = wordmark + tagline. Right = paper pile. -->
+  <!-- HERO: one centered column. Wordmark + tagline, then the paper pile
+       of recent posts, then the links. -->
   <section class="home-hero">
     <div class="home-hero__text">
       <p class="eyebrow">Commercial Intelligence Specialist &amp; Model</p>
       <h1 class="wordmark">LERET</h1>
       <p class="tagline">Systems by day, frames by night. Based in Manchester, UK.</p>
-      <p class="home-hero__links">
-        <a class="mono-link" href="#" id="seeAllPosts">See all posts &rarr;</a>
-        <a class="mono-link" href="/about.html">About</a>
-      </p>
     </div>
 
     <!-- The paper pile: build.py fills this with the 3 most recent posts
-         as rotated "polaroid" cards. -->
+         as rotated "polaroid" cards. These are clickable — each opens its
+         post. The hint below spells that out. -->
     <div class="home-hero__pile">
       <!-- PAPER_PILE -->
     </div>
+    <p class="pile-hint">Latest posts &mdash; hover, then click to read</p>
+
+    <p class="home-hero__links">
+      <a class="mono-link" href="#" id="seeAllPosts">See all posts &rarr;</a>
+      <a class="mono-link" href="/about.html">About</a>
+    </p>
   </section>
 
   <!-- CONTACT STRIP -->
