@@ -1400,6 +1400,31 @@ form .btn {
   margin-bottom: 0;
 }
 
+/* Two-photo grid on the About page. Side by side on desktop, stacked on
+   narrow screens. The tiles keep a 3:4 portrait shape whatever the image. */
+.about-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.about-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+@media (max-width: 560px) {
+  .about-photos {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* =========================================================================
    DESIGN REFRESH — All-Posts overlay, post reading layout, subscribe box
    ========================================================================= */
