@@ -298,3 +298,60 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// ---------------------------------------------------------------------------
+// Visitor counter (like pawlean.com's "You're visitor #…").
+// GitHub Pages has no server, so the count is kept by Abacus, a free public
+// counting service that needs no account: https://abacus.jasoncameron.dev
+//   - "visitors": +1 once per browser visit (not on every page click), so
+//     it counts visits rather than page loads. Shown on the homepage.
+//   - "post-<name>": +1 every time a post is opened. Shown in the post's
+//     meta row as "N views".
+// Only counts on the live site (leret.me), never on local previews. If the
+// service is down, nothing is shown and the page works as normal.
+// ---------------------------------------------------------------------------
+(function () {
+  var host = window.location.hostname;
+  if (host !== "leret.me" && host !== "www.leret.me") return;
+
+  var API = "https://abacus.jasoncameron.dev";
+  var NS = "leret.me";
+
+  function call(action, key) {
+    return fetch(API + "/" + action + "/" + NS + "/" + key)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { return d && typeof d.value === "number" ? d.value : null; })
+      .catch(function () { return null; });
+  }
+
+  // Count this visit once per browser session (sessionStorage resets when
+  // the tab/browser is closed). Storage can be blocked, so guard it.
+  var counted = false;
+  try { counted = sessionStorage.getItem("leret-counted") === "1"; } catch (e) {}
+  var visitors = call(counted ? "get" : "hit", "visitors");
+  if (!counted) {
+    try { sessionStorage.setItem("leret-counted", "1"); } catch (e) {}
+  }
+
+  var homeSlot = document.getElementById("visitorCount");
+  if (homeSlot) {
+    visitors.then(function (n) {
+      if (n === null) return;
+      homeSlot.textContent = "You're visitor #" + n.toLocaleString("en-GB") + ". Thanks for stopping by :)";
+      homeSlot.hidden = false;
+    });
+  }
+
+  // Post views: posts live at /posts/<name>.html
+  var m = window.location.pathname.match(/^\/posts\/([a-z0-9-]+)\.html$/);
+  var meta = document.querySelector(".post-meta");
+  if (m && meta) {
+    call("hit", "post-" + m[1]).then(function (n) {
+      if (n === null) return;
+      var span = document.createElement("span");
+      span.className = "post-views";
+      span.textContent = " · " + n.toLocaleString("en-GB") + (n === 1 ? " view" : " views");
+      meta.appendChild(span);
+    });
+  }
+})();

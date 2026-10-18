@@ -1660,3 +1660,11 @@ form .btn {
   margin: 0.15rem 0 0;
   font-size: 1rem;
 }
+
+/* "You're visitor #N" line on the homepage (filled in by script.js). */
+.visitor-count {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: var(--space-2) 0 0;
+}

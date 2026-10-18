@@ -124,6 +124,9 @@ Don't commit or push. The workflow does that after a safety check.
   undone automatically.
 - Don't change the colours or fonts (see STYLE.md).
 - Don't add tracking, analytics, ads, cookies or third-party scripts.
+  The one exception is the visitor counter at the end of `src/script.js`
+  (Abacus, no cookies, no personal data): keep it working and don't
+  remove it.
 - On the site, write as Leret in the first person (I, my), or use the
   name Leret. Don't use he/she pronouns for Leret.
 - Plain British English. Explain any technical term in the post itself.
