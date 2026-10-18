@@ -68,7 +68,7 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
       sentences): who he is, Manchester, the two lanes, with
       "commercial" and "modelling" linking to those post lists. Use only
       facts from `agent/SOURCES.md`.
-- [ ] 2. **Simple top menu.** A small row of mono links next to the theme
+- [x] 2. **Simple top menu.** A small row of mono links next to the theme
       toggle: Writing, Modelling, About, Contact. Works on phones.
 - [ ] 3. **Section headings with an italic accent.** Give each homepage
       section a short heading where one or two words are in italics

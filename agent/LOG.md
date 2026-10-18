@@ -2,6 +2,14 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-18 — second run
+
+- Health check: only the known Subscribe placeholder form ID (already listed for Leret). External links fine.
+- Inbox: Leret's Brother Models headshots arrived. Resized 17 into `src/images/headshots/`, used two (front and side) on the About page in place of the drawings, with alt text and a "Photos: Brother Models" credit. Note moved to `inbox/done/`. The other 15 are ready for the homepage photo and modelling grid (roadmap 5 and 6).
+- Design step 2: added a small top menu (Writing, Modelling, About, Contact) beside the theme toggle; it shrinks for phones.
+- Substack and YouTube: no new post today (inbox work took priority).
+- Problem: I couldn't delete the full-size originals left in `inbox/photos/` (the shell asked for approval). They are removed from git's index but still on disk; please delete that folder.
+
 ## 2026-10-18 — first daily run
 
 - Health check: only issue is the Subscribe box's placeholder form ID (in build.py, already listed for Leret). Nothing else broken.

@@ -1591,3 +1591,48 @@ form .btn {
   max-width: 460px;
   margin: var(--space-3) auto 0;
 }
+
+.photo-credit {
+  margin: calc(-1 * var(--space-2)) 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+/* --- Top menu: sits just left of the theme toggle ----------------------- */
+.site-menu {
+  position: fixed;
+  top: clamp(0.9rem, 3vh, 1.4rem);
+  right: calc(clamp(0.9rem, 3vw, 1.4rem) + 34px + 0.5rem);
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 0.9rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 17px;
+  z-index: 300;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.site-menu a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.site-menu a:hover,
+.site-menu a:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (max-width: 400px) {
+  .site-menu {
+    gap: 0.6rem;
+    padding: 0 0.65rem;
+    font-size: 0.66rem;
+    letter-spacing: 0;
+  }
+}
