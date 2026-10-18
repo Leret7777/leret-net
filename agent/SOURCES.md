@@ -9,7 +9,7 @@ skips anything blank.
 
 - Substack: https://leret1.substack.com (profile: https://substack.com/@leret1)
 - Instagram: https://www.instagram.com/leret.pm/
-- LinkedIn: 
+- LinkedIn: https://www.linkedin.com/in/leretmutkut/
 - YouTube: 
 - GitHub: https://github.com/Leret7777
 
