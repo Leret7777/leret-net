@@ -1,7 +1,7 @@
 # How leret.me should feel
 
 This is the design direction the site agent works towards. It was written
-from three sites Leret said "speak to him", and from the design choices he
+from three sites Leret said "speak to Leret", and from the design choices Leret
 has already made. The agent changes the site **towards** this, one small
 step a day, using the roadmap at the bottom.
 
@@ -55,7 +55,7 @@ feels human, shows the work, and makes it easy to get in touch.
 
 First person, warm, plain British English. Short sentences. No jargon
 without explaining it. Confident but not salesy. Northern warmth is
-welcome (he's in Manchester). Never sound like marketing copy.
+welcome (Leret's in Manchester). Never sound like marketing copy.
 
 ## Design roadmap (do these in order, one per run)
 
@@ -65,7 +65,7 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
 
 - [x] 1. **Friendly intro on the homepage.** Under the wordmark, replace
       the one-line tagline with a short first-person hello (2 to 3
-      sentences): who he is, Manchester, the two lanes, with
+      sentences): who Leret is, Manchester, the two lanes, with
       "commercial" and "modelling" linking to those post lists. Use only
       facts from `agent/SOURCES.md`.
 - [x] 2. **Simple top menu.** A small row of mono links next to the theme
@@ -78,13 +78,13 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
       homepage. (This needs a small change to how the homepage list is
       made; do it inside `src/` and the page templates if possible,
       otherwise add it to NEEDS as a build change for Leret to approve.)
-- [ ] 5. **Modelling grid.** Turn the modelling portfolio into a
+- [x] 5. **Modelling grid.** Turn the modelling portfolio into a
       photo-first grid with minimal text, using the existing lightbox.
       Blocked until real photos exist.
 - [ ] 6. **Photo of Leret near the top of the homepage**, captioned with
       place and month/year. Blocked until a real photo exists.
 - [ ] 7. **Contact by reason.** Numbered contact options: 01 Modelling
-      bookings (to his agent Francesca, as on the About page), 02
+      bookings (to Leret's agent Francesca, as on the About page), 02
       Speaking and community, 03 Everything else (to Leret). Each a
       pre-filled email.
 - [ ] 8. **"Find me elsewhere" list** at the bottom of the homepage, only

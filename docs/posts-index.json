@@ -1,26 +1,26 @@
 [
   {
-    "title": "Notes From a Test Shoot",
-    "date": "2026-06-12",
+    "title": "I Built an Agent to Look After This Website",
+    "date": "2026-10-18",
     "tags": [
-      "modelling"
+      "commercial"
     ],
-    "category": "modelling",
+    "category": "commercial",
     "image": "",
-    "url": "/posts/test-shoot-notes.html",
-    "excerpt": "What actually happens at a test shoot, from call time to final selects.",
-    "read_minutes": 1
+    "url": "/posts/an-agent-that-looks-after-this-site.html",
+    "excerpt": "It runs every morning, fixes what's broken, adds what's new, and tells me what it did. One word from me undoes it.",
+    "read_minutes": 2
   },
   {
     "title": "Modelling Portfolio",
-    "date": "2026-04-22",
+    "date": "2026-10-18",
     "tags": [
       "modelling"
     ],
     "category": "modelling",
     "image": "",
     "url": "/posts/modelling-portfolio.html",
-    "excerpt": "Photo gallery and video reel. Represented by Brother Models \u2014 bookings via the About page.",
+    "excerpt": "My current polaroids from Brother Models, and recent work. Bookings through my agent, Francesca.",
     "read_minutes": 1
   },
   {
