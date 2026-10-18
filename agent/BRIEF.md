@@ -38,8 +38,12 @@ can be a one-off; only remove it if it also failed in yesterday's log.
 - A note for a post: write one post from it in his voice (see STYLE.md),
   copying `src/posts/_TEMPLATE.html` and following its checklist. Use
   only what the note says. Keep his meaning; tidy the wording.
+- A note that talks about photos that aren't in the inbox yet: leave
+  the note where it is and check again tomorrow.
 - A fact update: update the site and `agent/SOURCES.md` to match.
-- Photos in `inbox/photos/`: resize with
+- Photos (any image or video file anywhere in `inbox/`, not just
+  `inbox/photos/`; gather them into one folder first with `git mv` if
+  needed): resize with
   `python3 scripts/resize_images.py inbox/photos src/images/<folder>`,
   write proper alt text, and put them where the note says (or where the
   roadmap needs them).
