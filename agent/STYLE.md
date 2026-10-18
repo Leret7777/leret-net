@@ -63,7 +63,7 @@ Tick an item (`[x]`) when it's done, and note it in the log. Skip an item
 that is blocked on something only Leret can provide (a photo, a link):
 add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
 
-- [ ] 1. **Friendly intro on the homepage.** Under the wordmark, replace
+- [x] 1. **Friendly intro on the homepage.** Under the wordmark, replace
       the one-line tagline with a short first-person hello (2 to 3
       sentences): who he is, Manchester, the two lanes, with
       "commercial" and "modelling" linking to those post lists. Use only

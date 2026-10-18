@@ -1216,9 +1216,16 @@ form .btn {
 .tagline {
   font-family: var(--font-body);
   color: var(--color-text-muted);
-  max-width: 340px;
+  max-width: 460px;
   font-size: 1.05rem;
+  line-height: 1.55;
   margin: var(--space-2) 0 0;
+}
+
+.tagline a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .home-head__links {
