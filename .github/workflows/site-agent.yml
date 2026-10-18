@@ -1,0 +1,81 @@
+# The leret.me site agent.
+#
+# Every morning GitHub starts a fresh machine, hands this repository to
+# Claude with the standing job description in agent/BRIEF.md, runs a
+# safety check on whatever Claude changed, and publishes it.
+#
+# Needs one secret: ANTHROPIC_API_KEY (Settings → Secrets and variables
+# → Actions). To run it straight away: Actions tab → "Site agent" →
+# "Run workflow".
+
+name: Site agent
+
+on:
+  schedule:
+    # 06:17 UTC daily = 07:17 in UK summer, 06:17 in winter.
+    - cron: "17 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # commit and push the day's changes
+  pages: write      # ask GitHub Pages to republish the site
+
+# Never let two runs overlap.
+concurrency:
+  group: site-agent
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Get the site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the photo resizer's one dependency
+        run: pip install Pillow
+
+      - name: Remember where we started
+        id: base
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Run the agent
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            This is today's scheduled run of the leret.me site agent.
+            Today's date: use `date +%F`.
+            Read agent/BRIEF.md and follow it exactly. Nobody is available
+            to answer questions; decide and log what you did.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 60
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,Bash(python3 build.py),Bash(python3 agent/check_site.py:*),Bash(python3 scripts/resize_images.py:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git mv:*),Bash(git rm:*),Bash(mkdir:*),Bash(ls:*),Bash(date:*)"
+
+      - name: Safety check (undo anything out of bounds, make sure the site builds)
+        run: python3 agent/guard.py "${{ steps.base.outputs.sha }}"
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "leret.me site agent"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed today."
+            exit 0
+          fi
+          git commit -m "Site agent: daily update $(date -u +%F)"
+          git push origin HEAD:main
+          # Pushes made by a workflow don't always trigger a Pages rebuild,
+          # so ask for one explicitly.
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages rebuild request failed; it will still publish on the next push."

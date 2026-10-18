@@ -2,3 +2,5 @@
 # into optimized images in src/images/ before committing anything.
 incoming/*
 !incoming/.gitkeep
+
+__pycache__/

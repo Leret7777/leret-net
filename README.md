@@ -11,6 +11,22 @@ Hand-written HTML, CSS, and JavaScript. No static site generator, no
 templating engine, no framework. The only "build step" is a small
 standard-library-only Python script, `build.py`.
 
+## The site agent (runs every morning)
+
+A Claude agent looks after this site daily, on its own, via
+`.github/workflows/site-agent.yml`. Each run it checks for broken
+things, turns anything in `inbox/` into posts or updates, pulls in new
+material from the sources in `agent/SOURCES.md`, and makes one small
+design step towards `agent/STYLE.md`. A safety check (`agent/guard.py`)
+then undoes anything it wasn't allowed to touch and makes sure the site
+still builds before publishing.
+
+- **What it did:** `agent/LOG.md`
+- **What it needs from you:** `agent/NEEDS_FROM_LERET.md`
+- **Its job description:** `agent/BRIEF.md`
+- **Give it material:** drop notes or photos in `inbox/`
+- **Undo a bad day:** every run is one commit; revert it on GitHub.
+
 ## The 30-second version (how to make a change)
 
 1. Edit files in **`src/`** (never in `docs/`).
