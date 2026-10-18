@@ -8,7 +8,7 @@ skips anything blank.
 ## My links
 
 - Substack: https://leret1.substack.com (profile: https://substack.com/@leret1)
-- Instagram: 
+- Instagram: https://www.instagram.com/leret.pm/
 - LinkedIn: 
 - YouTube: 
 - GitHub: https://github.com/Leret7777
