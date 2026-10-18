@@ -12,6 +12,18 @@
     "read_minutes": 2
   },
   {
+    "title": "Teaching a Tool to Document Hundreds of Dashboards",
+    "date": "2026-10-18",
+    "tags": [
+      "commercial"
+    ],
+    "category": "commercial",
+    "image": "",
+    "url": "/posts/documenting-dashboards-automatically.html",
+    "excerpt": "Qlik dashboard files are tiny, undocumented and hard to read. I built a tool that opens them up and writes their documentation for me.",
+    "read_minutes": 2
+  },
+  {
     "title": "Modelling Portfolio",
     "date": "2026-10-18",
     "tags": [

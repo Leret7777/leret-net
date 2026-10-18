@@ -1,0 +1,92 @@
+<!-- title: Teaching a Tool to Document Hundreds of Dashboards | date: 2026-10-18 | tags: commercial | excerpt: Qlik dashboard files are tiny, undocumented and hard to read. I built a tool that opens them up and writes their documentation for me. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teaching a Tool to Document Hundreds of Dashboards — Leret</title>
+  <meta name="description" content="How I built a tool that reads Qlik dashboard files, works out what's in them, and uses AI to write and publish their documentation automatically.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- NAV -->
+
+<main>
+  <section class="hero">
+    <div class="wrap post-body">
+      <p class="post-date">18 October 2026</p>
+      <h1>Teaching a Tool to Document Hundreds of Dashboards</h1>
+
+      <p>
+        Part of my work involves a large collection of Qlik dashboards:
+        hundreds of them, built by different people over time. Writing
+        documentation for each one by hand isn't realistic, and anything
+        written by hand goes out of date as soon as someone changes a
+        dashboard. So I built a tool that does it for me.
+      </p>
+
+      <h2>What's actually inside a dashboard file</h2>
+      <p>
+        Each Qlik dashboard is saved as a <code>.qvf</code> file. They're
+        tiny, often only a few kilobytes, because they hold the
+        instructions for building the dashboard rather than the data
+        itself. Inside, the file is a series of compressed blocks of
+        structured text (JSON, a common format for data). Qlik doesn't
+        publish how the format works, so the first job was working that
+        out myself: opening files up, finding where each piece lives, and
+        writing code that reads them reliably.
+      </p>
+
+      <h2>What the tool does</h2>
+      <ul>
+        <li>reads a dashboard file and pulls out its sheets, its charts,
+          and the calculations behind them</li>
+        <li>follows the dashboard's load script, so you can see where each
+          number comes from (people call this "lineage": the path from the
+          original data to the chart)</li>
+        <li>removes anything sensitive, like passwords or connection
+          details, before anything else sees it</li>
+        <li>hands the cleaned-up structure to an AI model, Google's Vertex
+          AI, to write plain-English documentation</li>
+        <li>publishes that documentation as a page in Confluence, the wiki
+          the team already uses</li>
+      </ul>
+
+      <h2>How it fits together</h2>
+      <p>
+        The dashboard files already live in SharePoint. A Power Automate
+        flow sends each file to the tool, which runs on Google Cloud Run (a
+        service that runs your code only when it's needed, so it costs
+        almost nothing when idle). The tool turns the file into
+        documentation and publishes it. Nobody has to remember to do
+        anything.
+      </p>
+
+      <h2>Choices I made</h2>
+      <p>
+        I wrote it in Go, using only Go's own built-in tools and no outside
+        packages. Workplaces can have strict rules about third-party and
+        open-source code, and a tool with no outside parts is much easier
+        to get approved. It also means there's less that can break.
+      </p>
+      <p>
+        I built and tested the whole thing end to end on my own Google
+        Cloud account first, before bringing it into work.
+      </p>
+
+      <h2>Why I like this kind of work</h2>
+      <p>
+        Documentation is the job everyone agrees matters and nobody has
+        time for. This is the automation I enjoy most: taking something
+        that would never get done by hand and making it happen quietly in
+        the background.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<script src="/script.js"></script>
+</body>
+</html>
