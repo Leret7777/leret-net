@@ -41,6 +41,19 @@ can be a one-off; only remove it if it also failed in yesterday's log.
 - A note that talks about photos that aren't in the inbox yet: leave
   the note where it is and check again tomorrow.
 - A fact update: update the site and `agent/SOURCES.md` to match.
+- His LinkedIn profile saved as a PDF: this is approved material. Use it
+  to fill out the About page (a short first-person bio, then his
+  experience and education as a simple timeline) and add the work facts
+  to "Facts about me" in `agent/SOURCES.md`. Leave out phone numbers,
+  home address and anything personal that isn't about his work. Don't
+  copy his LinkedIn "About" text word for word; keep his meaning in a
+  warmer, shorter voice. This counts as the run's design step.
+- LinkedIn posts (pasted into a text file, or his LinkedIn data export):
+  these are approved. Each day, turn the oldest one not yet on the site
+  into a post (it counts as that run's one new post), dated with its
+  original date, ending with a link to LinkedIn if one is given. Keep the
+  file in `inbox/` until every post in it is on the site, noting in the
+  log how many are left.
 - Photos (any image or video file anywhere in `inbox/`, not just
   `inbox/photos/`; gather them into one folder first with `git mv` if
   needed): resize with

@@ -13,6 +13,11 @@ Drop things here for the site agent. No prompts needed: rough is fine.
   into a text file here (or save the photo/video into `inbox/photos/`).
   Only posts you put here are ever used; the agent never takes anything
   from Instagram by itself.
+- **Your LinkedIn profile**: on LinkedIn, save your profile as a PDF
+  and upload it here. The agent rewrites your About page from it.
+- **Your LinkedIn posts**: paste them into a text file (one after
+  another, with the date and link above each), or upload your LinkedIn
+  data export. The agent adds one to the site each day.
 - **Photos**: put them in `inbox/photos/`. Add a text file next to them
   saying where they should go if it matters (e.g. "homepage photo,
   Manchester, Oct 2026").
