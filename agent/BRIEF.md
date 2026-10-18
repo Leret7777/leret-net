@@ -60,10 +60,9 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   `python3 scripts/resize_images.py inbox/photos src/images/<folder>`,
   write proper alt text, and put them where the note says (or where the
   roadmap needs them).
-- Then move each used note into `inbox/done/` with `git mv`. For photos,
-  remove the full-size originals with `git rm` once the resized copies
-  are in `src/images/` (he keeps his own originals; the repo shouldn't
-  carry them).
+- Then move each used note into `inbox/done/` with `git mv`. Leave the
+  full-size photo originals alone: the safety check deletes them
+  automatically once their resized copies are in `src/images/`.
 
 **3. New material from his sources** (only if SOURCES.md has them):
 - Substack: fetch `<substack link>/feed`. For a Substack piece that isn't

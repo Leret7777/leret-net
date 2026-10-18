@@ -85,6 +85,18 @@ def main():
         for p in reverted:
             print("  - " + p)
 
+    # 1b. Clear out full-size photo originals the agent has already used:
+    #     any image in inbox/ whose resized copy now exists in src/images/.
+    used = set()
+    for dirpath, _, files in os.walk(os.path.join(ROOT, "src", "images")):
+        used.update(os.path.splitext(f)[0] for f in files)
+    for dirpath, _, files in os.walk(os.path.join(ROOT, "inbox")):
+        for f in files:
+            stem, ext = os.path.splitext(f)
+            if ext.lower() in (".jpg", ".jpeg", ".png", ".webp", ".heic") and stem in used:
+                os.remove(os.path.join(dirpath, f))
+                print(f"Removed used original: {os.path.relpath(os.path.join(dirpath, f), ROOT)}")
+
     # 2. No post may disappear.
     before = post_slugs_at(base)
     posts_dir = os.path.join(ROOT, "src", "posts")
