@@ -19,6 +19,7 @@ on:
 permissions:
   contents: write   # commit and push the day's changes
   pages: write      # ask GitHub Pages to republish the site
+  issues: write     # post the daily report
 
 # Never let two runs overlap.
 concurrency:
@@ -64,6 +65,7 @@ jobs:
         run: python3 agent/guard.py "${{ steps.base.outputs.sha }}"
 
       - name: Publish
+        id: publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -72,10 +74,39 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "Nothing changed today."
+            echo "sha=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "Site agent: daily update $(date -u +%F)"
           git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           # Pushes made by a workflow don't always trigger a Pages rebuild,
           # so ask for one explicitly.
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages rebuild request failed; it will still publish on the next push."
+
+      # The daily report: a GitHub issue, so you get a notification on your
+      # phone/email saying what changed, with links, and can reply "undo".
+      # Older reports are closed so only today's is open.
+      - name: Post today's report
+        if: always() && steps.base.outputs.sha != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AGENT_OK: ${{ steps.publish.outcome }}
+        run: |
+          gh label create site-agent --color 3a6d4a --description "Daily site agent report" --force >/dev/null 2>&1 || true
+          for n in $(gh issue list --label site-agent --state open --json number -q '.[].number'); do
+            gh issue close "$n" >/dev/null
+          done
+          if [ "$AGENT_OK" = "success" ]; then
+            python3 agent/report.py "${{ steps.base.outputs.sha }}" "${{ steps.publish.outputs.sha }}" > report.md
+          else
+            {
+              echo "**Today's run stopped before publishing, so nothing on the site changed.**"
+              echo
+              echo "The safety check or the agent hit a problem. Details are in the run log:"
+              echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              echo
+              echo "Nothing for you to do; it tries again tomorrow."
+            } > report.md
+          fi
+          gh issue create --label site-agent --title "Site agent report: $(date -u '+%-d %b %Y')" --body-file report.md

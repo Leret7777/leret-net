@@ -21,11 +21,15 @@ design step towards `agent/STYLE.md`. A safety check (`agent/guard.py`)
 then undoes anything it wasn't allowed to touch and makes sure the site
 still builds before publishing.
 
-- **What it did:** `agent/LOG.md`
+- **What it did:** a "Site agent report" issue appears on GitHub after
+  every run (you get a notification), and the full history is in
+  `agent/LOG.md`
+- **Undo:** reply to that day's report with `undo` (everything from that
+  day) or say in words what to undo (just that part). Undone things are
+  recorded in `agent/FEEDBACK.md` so the agent doesn't repeat them.
 - **What it needs from you:** `agent/NEEDS_FROM_LERET.md`
 - **Its job description:** `agent/BRIEF.md`
 - **Give it material:** drop notes or photos in `inbox/`
-- **Undo a bad day:** every run is one commit; revert it on GitHub.
 
 ## The 30-second version (how to make a change)
 

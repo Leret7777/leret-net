@@ -19,6 +19,9 @@ Read, in this order:
 4. The top few entries of `agent/LOG.md` and all of
    `agent/NEEDS_FROM_LERET.md`, so you don't repeat or contradict
    yesterday.
+5. All of `agent/FEEDBACK.md`: things Leret has undone. **Never do any
+   of these again, or anything closely like them.** If one of them was a
+   roadmap item, treat that item as done.
 
 ## Today's run, in order
 
@@ -90,6 +93,13 @@ Don't commit or push. The workflow does that after a safety check.
   When unsure, leave it out.
 - **Never use stock or AI-made photos of him**, and never describe a
   photo as him unless the inbox note says so.
+- **Instagram needs his approval, item by item.** His Instagram mixes
+  personal posts with modelling work. Never fetch, copy, embed or
+  describe anything from his Instagram on your own. An Instagram post may
+  only be used when he has put it in `inbox/` himself (its link, or the
+  photo/video file); that is his approval. Use it for the modelling side
+  unless his note says otherwise. The Instagram link in the contact strip
+  is just a link.
 - **Never delete a post.** You may fix typos, broken links and layout in
   existing posts, but don't rewrite what he said.
 - Only edit `src/`, `inbox/`, `README.md` (if the way the site works

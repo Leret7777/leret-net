@@ -53,10 +53,17 @@ def post_slugs_at(base):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("usage: python3 agent/guard.py <base-commit>")
+    if len(sys.argv) not in (2, 3):
+        print("usage: python3 agent/guard.py <base-commit> [<commit-being-undone>]")
         return 2
     base = sys.argv[1]
+    # When undoing a day, posts that day ADDED are allowed to go again.
+    undoing = sys.argv[2] if len(sys.argv) == 3 else ""
+    added_that_day = set()
+    if undoing:
+        out = git("diff", "--name-only", "--diff-filter=A",
+                  f"{undoing}~1", undoing, "--", "src/posts")
+        added_that_day = {os.path.basename(p) for p in out.split()}
 
     # 1. Put back anything outside the allowed folders.
     reverted = []
@@ -83,7 +90,7 @@ def main():
     posts_dir = os.path.join(ROOT, "src", "posts")
     after = {n for n in os.listdir(posts_dir)
              if n.endswith(".html") and not n.startswith("_")}
-    missing = before - after
+    missing = before - after - added_that_day
     if missing:
         print("STOP: these posts were deleted: " + ", ".join(sorted(missing)))
         return 1
