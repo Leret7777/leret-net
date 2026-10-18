@@ -50,6 +50,14 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   on the site yet, add a short post: two or three sentences in your own
   words on what it's about, then a clear link to read it on Substack.
   Mark it as from Substack. Don't copy his Substack text wholesale.
+- YouTube: find the channel's video feed (fetch the channel page, find
+  its channel ID starting `UC`, then fetch
+  `https://www.youtube.com/feeds/videos.xml?channel_id=<ID>`; note the ID
+  in SOURCES.md next to the link so you don't have to look it up again).
+  For a video that isn't on the site yet, add a short post with the
+  video embedded (see "Embedding a video" in README.md) and one or two
+  sentences in your own words from its title and description. Choose
+  `commercial` or `modelling` from what the video is about.
 - Featured projects: if a listed repository's README describes something
   not yet on the site, write a short post about what it does and why,
   based only on that README. Describe what exists; never claim results,
