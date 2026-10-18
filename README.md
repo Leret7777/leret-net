@@ -193,7 +193,7 @@ No video files are stored in the repo — always a hosted embed.
 
 - The homepage **contact strip** has the email (Bungee) and Instagram /
   LinkedIn / Substack links. Instagram/LinkedIn currently point at `#`,
-  and Substack points at `https://leret.substack.com` — put your real
+  and Substack points at `https://leret1.substack.com` — put your real
   URLs into `src/pages/index.html`.
 - Modelling bookings live on the **About page**: Brother Models,
   Francesca's email, and "Request comp card" / "Request digitals"

@@ -6,11 +6,6 @@ keeps running either way.
 
 - **Your Instagram and LinkedIn links.** Both are still empty on the
   homepage. Add them to `agent/SOURCES.md`.
-- **Your Substack link.** The site currently links to
-  leret.substack.com, but that address looks like someone else's
-  (empty, with a Portuguese description). Add your real one to
-  `agent/SOURCES.md`, or leave it blank and the agent will remove the
-  link.
 - **Real photos.** Every photo on the site is still a drawn placeholder.
   Upload photos into `inbox/photos/` (the GitHub app works) and the
   agent will resize them and put them in place.

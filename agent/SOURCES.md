@@ -7,7 +7,7 @@ skips anything blank.
 
 ## My links
 
-- Substack: 
+- Substack: https://leret1.substack.com (profile: https://substack.com/@leret1)
 - Instagram: 
 - LinkedIn: 
 - YouTube: 
