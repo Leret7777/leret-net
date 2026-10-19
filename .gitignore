@@ -4,3 +4,6 @@ incoming/*
 !incoming/.gitkeep
 
 __pycache__/
+
+# Feeds downloaded for the site agent each run (never committed)
+.feeds/

@@ -14,7 +14,12 @@ on:
   schedule:
     # 06:17 UTC daily = 07:17 in UK summer, 06:17 in winter.
     - cron: "17 6 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      feeds_only:
+        description: "Only test fetching Substack and YouTube (no agent, no changes)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write   # commit and push the day's changes
@@ -42,11 +47,47 @@ jobs:
       - name: Install the photo resizer's one dependency
         run: pip install Pillow
 
+      # The agent's own web tool is turned away by Substack and YouTube, so
+      # the feeds are downloaded here with a normal browser identity and
+      # saved to .feeds/ (not committed) for the agent to read.
+      - name: Fetch Leret's Substack and YouTube feeds
+        run: |
+          mkdir -p .feeds
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          get() {  # get <output file> <url>...  (tries each url until one works)
+            out="$1"; shift
+            for url in "$@"; do
+              code=$(curl -sL -A "$UA" -H "Accept: application/rss+xml, application/xml, application/json, text/xml, */*" \
+                     --max-time 30 -o "$out" -w '%{http_code}' "$url" || echo 000)
+              if [ "$code" = "200" ] && [ -s "$out" ]; then
+                echo "OK   $(basename "$out")  from $url" | tee -a .feeds/status.txt
+                return 0
+              fi
+              echo "     $(basename "$out")  $url gave $code" | tee -a .feeds/status.txt
+            done
+            rm -f "$out"
+            echo "FAIL $(basename "$out")  (all addresses refused)" | tee -a .feeds/status.txt
+          }
+          get .feeds/substack.xml \
+            "https://leret1.substack.com/feed" \
+            "https://substack.com/@leret1/feed"
+          get .feeds/substack-archive.json \
+            "https://leret1.substack.com/api/v1/archive?sort=new&limit=20"
+          get .feeds/youtube.xml \
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCpwLhWwcZxG0T-opIfukH5A"
+          echo "--- what was saved"; ls -la .feeds
+          for f in .feeds/substack.xml .feeds/youtube.xml; do
+            [ -f "$f" ] && echo "$f items: $(grep -c -E '<item>|<entry>' "$f")"
+          done
+          true
+
       - name: Remember where we started
+        if: ${{ !inputs.feeds_only }}
         id: base
         run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Run the agent
+        if: ${{ !inputs.feeds_only }}
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -62,9 +103,11 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,Bash(python3 build.py),Bash(python3 agent/check_site.py:*),Bash(python3 scripts/resize_images.py:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git mv:*),Bash(git rm:*),Bash(mkdir:*),Bash(ls:*),Bash(date:*)"
 
       - name: Safety check (undo anything out of bounds, make sure the site builds)
+        if: ${{ !inputs.feeds_only }}
         run: python3 agent/guard.py "${{ steps.base.outputs.sha }}"
 
       - name: Publish
+        if: ${{ !inputs.feeds_only }}
         id: publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

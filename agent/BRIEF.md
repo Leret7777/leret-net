@@ -65,18 +65,21 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   automatically once their resized copies are in `src/images/`.
 
 **3. New material from Leret's sources** (only if SOURCES.md has them):
-- Substack: fetch `<substack link>/feed`. For a Substack piece that isn't
-  on the site yet, add a short post: two or three sentences in your own
-  words on what it's about, then a clear link to read it on Substack.
-  Mark it as from Substack. Don't copy Leret's Substack text wholesale.
-- YouTube: find the channel's video feed (fetch the channel page, find
-  its channel ID starting `UC`, then fetch
-  `https://www.youtube.com/feeds/videos.xml?channel_id=<ID>`; note the ID
-  in SOURCES.md next to the link so you don't have to look it up again).
-  For a video that isn't on the site yet, add a short post with the
-  video embedded (see "Embedding a video" in README.md) and one or two
-  sentences in your own words from its title and description. Choose
-  `commercial` or `modelling` from what the video is about.
+- Substack and YouTube are downloaded for you before you start (your
+  web tool is turned away by both). Read `.feeds/status.txt` first to see
+  what was fetched, then:
+  - Substack: `.feeds/substack.xml` (the RSS feed) or, if that's missing,
+    `.feeds/substack-archive.json`. For a Substack piece that isn't on
+    the site yet, add a short post: two or three sentences in your own
+    words on what it's about, then a clear link to read it on Substack.
+    Mark it as from Substack. Don't copy Leret's Substack text wholesale.
+  - YouTube: `.feeds/youtube.xml`. For a video that isn't on the site
+    yet, add a short post with the video embedded (see "Embedding a
+    video" in README.md) and one or two sentences in your own words from
+    its title and description. Choose `commercial` or `modelling` from
+    what the video is about.
+  - If a feed is missing, or has no posts/videos yet, just say so in one
+    line of the log. Don't try to fetch it yourself.
 - Featured projects: if a listed repository's README describes something
   not yet on the site, write a short post about what it does and why,
   based only on that README. Describe what exists; never claim results,

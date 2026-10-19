@@ -11,7 +11,7 @@ skips anything blank.
 - Instagram: https://www.instagram.com/leret.pm/ (link only: nothing is taken
   from it unless I put that post in `inbox/`)
 - LinkedIn: https://www.linkedin.com/in/leretmutkut/
-- YouTube: https://www.youtube.com/@leret2845
+- YouTube: https://www.youtube.com/@leret2845 (channel ID UCpwLhWwcZxG0T-opIfukH5A)
 - GitHub: https://github.com/Leret7777
 
 ## Projects to feature
