@@ -73,6 +73,10 @@ jobs:
             "https://substack.com/@leret1/feed"
           get .feeds/substack-archive.json \
             "https://leret1.substack.com/api/v1/archive?sort=new&limit=20"
+          # Substack blocks GitHub's servers, so also try a free relay
+          # (rss2json fetches the feed and hands it back as JSON).
+          [ -f .feeds/substack.xml ] || get .feeds/substack-relay.json \
+            "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fleret1.substack.com%2Ffeed"
           get .feeds/youtube.xml \
             "https://www.youtube.com/feeds/videos.xml?channel_id=UCpwLhWwcZxG0T-opIfukH5A"
           echo "--- what was saved"; ls -la .feeds

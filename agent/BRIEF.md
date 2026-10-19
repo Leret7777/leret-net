@@ -69,7 +69,8 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   web tool is turned away by both). Read `.feeds/status.txt` first to see
   what was fetched, then:
   - Substack: `.feeds/substack.xml` (the RSS feed) or, if that's missing,
-    `.feeds/substack-archive.json`. For a Substack piece that isn't on
+    `.feeds/substack-archive.json`, or `.feeds/substack-relay.json`
+    (the same feed passed through a relay, as JSON: posts are in `items`). For a Substack piece that isn't on
     the site yet, add a short post: two or three sentences in your own
     words on what it's about, then a clear link to read it on Substack.
     Mark it as from Substack. Don't copy Leret's Substack text wholesale.
