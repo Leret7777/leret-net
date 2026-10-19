@@ -1679,3 +1679,10 @@ form .btn {
   font-style: italic;
   color: var(--color-accent);
 }
+
+/* Subscribe box: stack the email field and button on narrow phones so the
+   field isn't squeezed by the longer "Subscribe on Substack" label. */
+@media (max-width: 480px) {
+  .subscribe__form { flex-direction: column; }
+  .subscribe__btn { width: 100%; }
+}

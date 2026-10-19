@@ -79,6 +79,10 @@ _MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 # full address of the page, not a relative path).
 SITE_URL = "https://leret.me"
 
+# Leret's Substack: the Subscribe box at the end of every post signs
+# readers up there.
+SUBSTACK_URL = "https://leret1.substack.com"
+
 
 def read_file(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -326,19 +330,22 @@ def build_post_list_items(posts):
 
 
 def build_subscribe_html():
-    """The mailing signup box that ends every post (the design's one
-    place for it). Formspree — replace the placeholder form ID."""
+    """The signup box that ends every post. It sends readers to Leret's
+    Substack, which handles the mailing list: no extra account or service
+    needed. The email someone types is passed to Substack's own subscribe
+    page (pre-filled), where they confirm with one click."""
     return (
         '<aside class="subscribe">\n'
         '    <p class="subscribe__eyebrow">Subscribe to Leret</p>\n'
         '    <p class="subscribe__byline">By Leret &middot; Notes, shoots and systems</p>\n'
-        '    <p class="subscribe__body">New posts on commercial systems and modelling work, now and then.</p>\n'
-        '    <form class="subscribe__form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">\n'
-        '      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email" required>\n'
-        '      <button type="submit" class="subscribe__btn">Subscribe</button>\n'
+        '    <p class="subscribe__body">New posts on commercial systems and modelling work, '
+        'straight to your inbox through my Substack.</p>\n'
+        f'    <form class="subscribe__form" action="{SUBSTACK_URL}/subscribe" method="get" target="_blank" rel="noopener">\n'
+        '      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email">\n'
+        '      <button type="submit" class="subscribe__btn">Subscribe on Substack</button>\n'
         '    </form>\n'
-        '    <p class="subscribe__fine">Your email is used only to send updates on new posts and projects. '
-        'Leret is not responsible for any risk associated with email security.</p>\n'
+        '    <p class="subscribe__fine">Opens Substack in a new tab to confirm. '
+        'You can unsubscribe from any email.</p>\n'
         '  </aside>\n'
     )
 

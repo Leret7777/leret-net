@@ -201,9 +201,9 @@ No video files are stored in the repo — always a hosted embed.
 - Modelling bookings live on the **About page**: Brother Models,
   Francesca's email, and "Request comp card" / "Request digitals"
   buttons.
-- The Subscribe box on each post uses Formspree — replace
-  `REPLACE_WITH_YOUR_FORM_ID` in `build.py` (`build_subscribe_html`) with
-  a real form ID from https://formspree.io.
+- The Subscribe box on each post signs readers up to Leret's Substack
+  (`SUBSTACK_URL` in `build.py`): the email they type is passed to
+  Substack's subscribe page, where they confirm. No other service needed.
 
 ## GitHub Pages settings
 
