@@ -1668,3 +1668,14 @@ form .btn {
   color: var(--color-text-muted);
   margin: var(--space-2) 0 0;
 }
+
+/* Section headings with an italic accent word, e.g. "Latest *writing.*" */
+.section-heading {
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  margin: 0 0 var(--space-2);
+}
+
+.section-heading em {
+  font-style: italic;
+  color: var(--color-accent);
+}

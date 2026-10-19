@@ -2,6 +2,13 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-19
+
+- Health check: only the known Subscribe placeholder form ID (already listed for Leret). External links fine.
+- Inbox: the Manchester Fashion Week and Sophie test shoot notes are still waiting for their photos, so I left them in place.
+- Substack feed returned 403 again and the YouTube page still shows no channel ID, so no new post. Both have now failed two days running.
+- Design step 3: homepage sections now have headings with an italic accent word ("Latest *writing.*", "Get in *touch.*"), in both themes and on phones.
+
 ## 2026-10-18 — second run
 
 - Health check: only the known Subscribe placeholder form ID (already listed for Leret). External links fine.

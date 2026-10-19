@@ -70,7 +70,7 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
       facts from `agent/SOURCES.md`.
 - [x] 2. **Simple top menu.** A small row of mono links next to the theme
       toggle: Writing, Modelling, About, Contact. Works on phones.
-- [ ] 3. **Section headings with an italic accent.** Give each homepage
+- [x] 3. **Section headings with an italic accent.** Give each homepage
       section a short heading where one or two words are in italics
       (e.g. "Latest *writing.*"). Add the small CSS for it.
 - [ ] 4. **Pinned posts.** Let a post be pinned with `pinned: yes` in its
