@@ -2,6 +2,14 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-20
+
+- Health check: no problems, external links fine.
+- Inbox: Fashion Week and Sophie test shoot notes still have no photos, so I left them in place.
+- New post: Leret's YouTube video "i finally did it" (2020) is now on the site with the video embedded. The video gives no clear topic, so I filed it under commercial; it's easy to switch to modelling. Substack feed still returns 403 (third day running).
+- Design step 7: the contact section now has three numbered options with pre-filled emails: modelling bookings (to Francesca), speaking and community, everything else. Works in both themes and on phones.
+- Skipped step 4 (pinned posts): it needs a change to `build.py`, which I can't edit. Step 6 is skipped until Leret says where and when a homepage photo was taken.
+
 ## 2026-10-19
 
 - Health check: only the known Subscribe placeholder form ID (already listed for Leret). External links fine.

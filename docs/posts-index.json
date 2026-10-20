@@ -70,5 +70,17 @@
     "url": "/posts/what-i-do-and-why.html",
     "excerpt": "On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people.",
     "read_minutes": 1
+  },
+  {
+    "title": "I Finally Did It (Video)",
+    "date": "2020-05-28",
+    "tags": [
+      "commercial"
+    ],
+    "category": "commercial",
+    "image": "",
+    "url": "/posts/i-finally-did-it.html",
+    "excerpt": "A short video from my YouTube channel, from the quarantine days.",
+    "read_minutes": 1
   }
 ]

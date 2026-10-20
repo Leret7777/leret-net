@@ -83,7 +83,7 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
       Blocked until real photos exist.
 - [ ] 6. **Photo of Leret near the top of the homepage**, captioned with
       place and month/year. Blocked until a real photo exists.
-- [ ] 7. **Contact by reason.** Numbered contact options: 01 Modelling
+- [x] 7. **Contact by reason.** Numbered contact options: 01 Modelling
       bookings (to Leret's agent Francesca, as on the About page), 02
       Speaking and community, 03 Everything else (to Leret). Each a
       pre-filled email.

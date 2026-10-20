@@ -1332,6 +1332,32 @@ form .btn {
   color: var(--color-accent);
 }
 
+.contact-reasons {
+  list-style: none;
+  margin: var(--space-2) 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-3);
+  font-size: 0.95rem;
+}
+
+.contact-reasons a {
+  color: var(--color-text);
+}
+
+.contact-reasons a:hover {
+  color: var(--color-accent);
+}
+
+.contact-reasons__num,
+.contact-reasons__note {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
 .contact-strip__links {
   display: flex;
   flex-wrap: wrap;
