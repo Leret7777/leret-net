@@ -26,6 +26,9 @@ get in touch.
   device.
 - On phones: LERET at the top, then the page, then the posts list and
   contact at the bottom.
+- **Alignment on the left:** the intro (LERET, paragraph, page links)
+  and the contact footer are centred; the Writing list is left-aligned.
+  The three sections are evenly spaced, footer close under the list.
 - **Two quiet page links** under the paragraph: About me, and Featured in
   (`src/pages/featured.html`, cards modelled on pawlean.com/work, plus a
   logo wall once there are several). Don't add more links there.
