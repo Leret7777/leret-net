@@ -41,6 +41,13 @@ can be a one-off; only remove it if it also failed in yesterday's log.
 - A note that talks about photos that aren't in the inbox yet: leave
   the note where it is and check again tomorrow.
 - A fact update: update the site and `agent/SOURCES.md` to match.
+- A "featured in" note (a magazine, brand, show or campaign Leret has
+  modelled for or been featured in): add a card to the top of
+  `src/pages/featured.html` with exactly the details Leret gave (name,
+  what it was, month and year, link if given, photo if uploaded with it,
+  credited). If a logo image is uploaded, add it to the logo wall on the
+  same page (uncomment the wall the first time). Never add a brand,
+  magazine or client Leret hasn't named in a note.
 - Leret's LinkedIn profile saved as a PDF: this is approved material. Use it
   to fill out the About page (a short first-person bio, then Leret's
   experience and education as a simple timeline) and add the work facts

@@ -18,6 +18,11 @@ Drop things here for the site agent. No prompts needed: rough is fine.
 - **Your LinkedIn posts**: paste them into a text file (one after
   another, with the date and link above each), or upload your LinkedIn
   data export. The agent adds one to the site each day.
+- **Somewhere you've been featured**: a text file with the name of the
+  magazine, brand or show, what it was (shoot, campaign, runway,
+  interview), the month and year, and a link if there is one. Add a
+  photo or the brand's logo if you have one. It goes on the Featured in
+  page.
 - **Photos**: put them in `inbox/photos/`. Add a text file next to them
   saying where they should go if it matters (e.g. "homepage photo,
   Manchester, Oct 2026").

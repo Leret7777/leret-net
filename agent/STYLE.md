@@ -14,8 +14,8 @@ get in touch.
 ## The layout (keep it): two sides on every page
 
 - **Left: the same column on every page** (`src/partials/nav.html`): the
-  LERET wordmark (goes back to the photos), one short paragraph with a
-  "More about me" link, the list of every post with month and year, and
+  LERET wordmark (goes back to the photos), one short paragraph, links
+  to About me and Featured in, the list of every post with month and year, and
   contact details. On tall screens it stays still.
 - **Right: the page itself.** The photo wall on the homepage; the post,
   the About page or the portfolio everywhere else. Tapping a post title
@@ -26,6 +26,9 @@ get in touch.
   device.
 - On phones: LERET at the top, then the page, then the posts list and
   contact at the bottom.
+- **Two quiet page links** under the paragraph: About me, and Featured in
+  (`src/pages/featured.html`, cards modelled on pawlean.com/work, plus a
+  logo wall once there are several). Don't add more links there.
 
 ## Rules that keep it clean
 

@@ -1873,3 +1873,61 @@ form .btn {
   .photo-wall { gap: 3px; }
   .home-page .split__writing { margin-top: 0; }
 }
+
+
+/* --- Featured in page (modelled on pawlean.com/work) -------------------- */
+.split__pages { display: flex; gap: 1.25rem; margin: 0.9rem 0 0; font-size: 1rem; }
+.split__pages a { color: var(--color-accent); }
+.split__pages a[aria-current="page"] { font-weight: 600; text-decoration: none; }
+
+.featured { padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem) 3rem; max-width: 980px; }
+.featured h1 { font-size: clamp(2rem, 3.4vw, 2.75rem); margin: 0; letter-spacing: -0.01em; }
+.featured__lede { margin: 0.6rem 0 2.25rem; color: var(--color-text-muted); max-width: 34rem; }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.feature {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  overflow: hidden;
+  padding-bottom: 1.25rem;
+}
+.feature__photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.feature__date,
+.feature__name,
+.feature__note { padding: 0 1.25rem; }
+.feature__date { margin: 1.1rem 0 0.35rem; font-size: 0.85rem; color: var(--color-faint); }
+.feature__name { margin: 0 0 0.5rem; font-size: 1.2rem; line-height: 1.3; }
+.feature__name a { color: var(--color-text); text-decoration: none; }
+.feature__name a:hover, .feature__name a:focus-visible { color: var(--color-accent); }
+.feature__name a[href^="http"]::after { content: " \2197"; font-size: 0.85em; color: var(--color-text-muted); }
+.feature__note { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--color-text-muted); }
+
+.logo-wall-section { margin-top: 3rem; }
+.logo-wall-section h2 { font-size: 1.05rem; margin: 0 0 1rem; }
+.logo-wall {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.logo-wall li {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 110px; padding: 1.25rem;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin: -1px -1px 0 0;     /* collapse the inner grid lines */
+  font-weight: 600; color: var(--color-text-muted); text-align: center;
+}
+.logo-wall img { max-width: 130px; max-height: 56px; object-fit: contain; filter: grayscale(1); opacity: 0.75; }
+
+@media (max-width: 820px) {
+  .split__pages { margin-top: 0.6rem; }
+  .featured { padding: 1rem 1.25rem 2.5rem; }
+}

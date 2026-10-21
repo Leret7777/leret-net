@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured in — Leret</title>
+  <meta name="description" content="Brands, magazines and shows Leret has modelled for or been featured in.">
+  <link rel="icon" href="/images/lm-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- Shared left column, on every page. build.py puts this where each
+     page says NAV, and the closing tags (partials/footer.html) where it
+     says FOOTER, so each page's own content lands on the right. There's
+     deliberately no menu: the list of posts is the navigation, and
+     LERET goes back to the photos. -->
+<div class="split">
+  <aside class="split__words">
+    <header class="split__intro">
+      <p class="wordmark"><a href="/" aria-label="Leret, home">LERET</a></p>
+      <p class="split__lede">
+        I'm a model with Brother Models, and by day I build AI automation
+        for commercial and sales teams. I live in Manchester.
+      </p>
+      <p class="split__pages">
+        <a href="/about.html">About me</a>
+        <a href="/featured.html">Featured in</a>
+      </p>
+    </header>
+
+    <nav class="split__writing" aria-label="Writing">
+      <h2>Writing</h2>
+      <ul class="titles">
+        <li><a href="/posts/an-agent-that-looks-after-this-site.html">I Built an Agent to Look After This Website</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/documenting-dashboards-automatically.html">Teaching a Tool to Document Hundreds of Dashboards</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/modelling-portfolio.html">Modelling Portfolio</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a><span class="titles__date">Mar 2026</span></li>
+        <li><a href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a><span class="titles__date">Feb 2026</span></li>
+        <li><a href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a><span class="titles__date">Jan 2026</span></li>
+        <li><a href="/posts/i-finally-did-it.html">I Finally Did It (Video)</a><span class="titles__date">May 2020</span></li>
+      </ul>
+    </nav>
+
+    <footer class="split__contact" id="contact">
+      <h2>Contact</h2>
+      <p>
+        Bookings through my agent Francesca:<br>
+        <a href="mailto:francesca@brothermodels.com?subject=Booking%20enquiry%20%E2%80%94%20Leret">francesca@brothermodels.com</a>
+      </p>
+      <p>
+        Everything else:<br>
+        <a href="mailto:leretmutkut@gmail.com?subject=Hello%20Leret">leretmutkut@gmail.com</a>
+      </p>
+      <p class="split__links">
+        <a href="https://www.instagram.com/leret.pm/">Instagram</a>
+        <a href="https://www.linkedin.com/in/leretmutkut/">LinkedIn</a>
+        <a href="https://leret1.substack.com">Substack</a>
+        <a href="https://www.youtube.com/@leret2845">YouTube</a>
+      </p>
+      <p class="visitor-count" id="visitorCount" hidden></p>
+    </footer>
+  </aside>
+
+  <div class="split__content">
+
+
+<!-- FEATURED IN: modelled on pawlean.com/work.
+     1. FEATURES: one <article class="feature"> card per job or feature,
+        newest first. Each card: optional photo, date, name (linked if
+        there's somewhere to read or see it), one or two lines about it.
+        Only list things Leret has confirmed, with the details Leret gave.
+     2. LOGO WALL: once there are several, add each brand or magazine to
+        the .logo-wall list. Use the logo image Leret supplies
+        (<img src="/images/featured/...">); otherwise just its name. -->
+<main class="featured">
+  <h1>Featured in</h1>
+  <p class="featured__lede">Brands, magazines and shows I've modelled for or been featured in.</p>
+
+  <div class="feature-grid">
+    <article class="feature">
+      <p class="feature__date">September 2026</p>
+      <h2 class="feature__name">Manchester Fashion Week</h2>
+      <p class="feature__note">Runway. Modelled at the September 2026 shows in Manchester.</p>
+    </article>
+  </div>
+
+  <!-- LOGO WALL (shown once it has entries; add <li> items):
+  <section class="logo-wall-section" aria-label="Also featured in">
+    <h2>Also featured in</h2>
+    <ul class="logo-wall">
+      <li><img src="/images/featured/example-logo.png" alt="Example Magazine"></li>
+      <li>Example Brand</li>
+    </ul>
+  </section>
+  -->
+</main>
+
+  </div><!-- /split__content -->
+</div><!-- /split -->
+
+<script src="/script.js"></script>
+</body>
+</html>

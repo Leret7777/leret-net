@@ -362,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
   var here = window.location.pathname;
-  document.querySelectorAll(".titles a").forEach(function (a) {
+  document.querySelectorAll(".titles a, .split__pages a").forEach(function (a) {
     if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
   });
 });
