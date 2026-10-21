@@ -42,3 +42,11 @@ of these things again, or anything closely like them.
   polaroids instead of sitting together at the top.
 - Don't put a new shoot as a block at the top of the wall again.
 
+## 2026-10-21 (later): photo wall order by type
+
+- What Leret asked: photos of just Leret's face first to capture
+  attention, then full-body shots, then shots with others. The top pair
+  should be the front-on polaroid close-up and the black and white shot
+  leaning on the brick wall.
+- Don't sort the wall by date or group it by shoot; follow STYLE.md.
+
