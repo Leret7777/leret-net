@@ -1814,18 +1814,39 @@ form .btn {
 .split__content .post-main .wrap { margin: 0; }
 .split__content .subscribe { margin-left: clamp(1.5rem, 4vw, 3rem); margin-right: clamp(1.5rem, 4vw, 3rem); }
 
-/* Homepage photo wall: two columns, tight gaps, square corners like prints.
-   Starts right at the top edge, so photos are the first thing you see. */
+/* Homepage photo wall (Oct 2026): an irregular masonry wall like
+   sophiejouvenaar.com. Every photo shows whole at its own shape (never
+   cropped). script.js sorts the photos into 3 columns (2 on narrow
+   screens), each into the shortest column, so the order reads across the
+   top. Without JavaScript they simply stack, whole, one under another. */
 .split__photos section { padding: 0; }
 .photo-wall {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
+  --wall-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wall-gap);
+}
+.photo-wall.is-masonry { flex-direction: row; align-items: flex-start; }
+.photo-wall__col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wall-gap);
 }
 .photo-wall .gallery__item {
+  display: block;
+  width: 100%;
   border-radius: 0;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: auto;
+  overflow: visible;
   background: var(--color-surface);
+}
+.photo-wall .gallery__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
 }
 .photo-wall .gallery__item:hover img { transform: none; }
 .photo-wall .gallery__item:hover { opacity: 0.92; }
@@ -1866,7 +1887,7 @@ form .btn {
   .split__content .home,
   .split__content .post-main { padding-left: 1.25rem; padding-right: 1.25rem; padding-top: 1rem; }
   .split__content .subscribe { margin-left: 1.25rem; margin-right: 1.25rem; }
-  .photo-wall { gap: 3px; }
+  .photo-wall { --wall-gap: 6px; }
   .home-page .split__writing { margin-top: 0; }
 }
 

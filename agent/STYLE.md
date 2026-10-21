@@ -105,7 +105,10 @@ that is blocked on something only Leret can provide: add the blocker to
       of the homepage photo wall, credited, as well as to their posts.
       (Sophie test shoot done 21 Oct 2026; add the Fashion Week photos the
       same way if they arrive.)
-- [ ] 4. **Irregular photo wall, no cropping, like sophiejouvenaar.com
+- [x] 4. **Irregular photo wall, no cropping, like sophiejouvenaar.com
+      (done by hand 21 Oct 2026: masonry in script.js; when adding a photo,
+      put its <button> in the right group in src/pages/index.html; the
+      width/height attributes are optional)
       (Leret asked for this on 21 Oct 2026; do it next).** Sophie's wall
       (checked 21 Oct 2026) is a masonry layout: 3 equal-width columns,
       about 10px gaps, and every photo shown whole at its own shape

@@ -366,3 +366,61 @@ document.addEventListener("DOMContentLoaded", function () {
     if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
   });
 });
+
+// ---------------------------------------------------------------------------
+// Homepage photo wall: irregular masonry, like sophiejouvenaar.com.
+// Photos keep their own shape (never cropped). Each photo, in page order,
+// goes into whichever column is currently shortest, so the first photos
+// sit along the top and the order (close-ups, face, half body, with
+// others, full body) reads across. 3 columns on wide walls, 2 on narrow.
+// Uses each <img>'s width/height so it can lay out before photos load;
+// any photo without them is measured once it has loaded.
+// ---------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+  var wall = document.querySelector(".photo-wall");
+  if (!wall) return;
+  var items = Array.prototype.slice.call(wall.querySelectorAll(".gallery__item"));
+  if (!items.length) return;
+  var current = 0;
+
+  function ratio(item) {            // height / width of the photo
+    var img = item.querySelector("img");
+    var w = parseFloat(img.getAttribute("width")) || img.naturalWidth;
+    var h = parseFloat(img.getAttribute("height")) || img.naturalHeight;
+    return w && h ? h / w : 1.4;
+  }
+
+  function layout(force) {
+    var n = wall.clientWidth >= 700 ? 3 : 2;
+    if (n === current && !force) return;
+    current = n;
+    var cols = [], heights = [];
+    for (var i = 0; i < n; i++) {
+      var c = document.createElement("div");
+      c.className = "photo-wall__col";
+      cols.push(c); heights.push(0);
+    }
+    items.forEach(function (item) {
+      var k = heights.indexOf(Math.min.apply(null, heights));
+      cols[k].appendChild(item);
+      heights[k] += ratio(item) + 0.02;   // + a little for the gap
+    });
+    wall.innerHTML = "";
+    cols.forEach(function (c) { wall.appendChild(c); });
+    wall.classList.add("is-masonry");
+  }
+
+  layout(true);
+  var t;
+  window.addEventListener("resize", function () {
+    clearTimeout(t);
+    t = setTimeout(function () { layout(false); }, 150);
+  });
+  // Photos added without width/height: lay out again once they've loaded.
+  items.forEach(function (item) {
+    var img = item.querySelector("img");
+    if (!img.getAttribute("width") && !img.complete) {
+      img.addEventListener("load", function () { layout(true); }, { once: true });
+    }
+  });
+});
