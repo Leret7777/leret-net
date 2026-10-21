@@ -55,6 +55,9 @@ get in touch.
   meta lines, ledes); Lacquer for handwritten touches (only the footer's
   "Contact" label and visitor line); EB Garamond for body text and
   captions. Don't add other fonts.
+- **Free fonts only.** Every font on the site must be free to use on a
+  website, including for work (in practice: Google Fonts). Never use a
+  font that is only "free for personal use" or needs a paid licence.
 - **The left column must fit on one screen without scrolling**, on a
   small laptop too. Keep it compact; don't add lines to it. Post titles
   show in full (never cut short) with no dividing lines between them.
