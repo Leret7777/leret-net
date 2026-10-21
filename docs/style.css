@@ -2142,3 +2142,24 @@ h3 { font-size: 1.05rem; }
 .split__intro { text-align: center; }
 .split__lede { margin-left: auto; margin-right: auto; }
 .split__pages { justify-content: center; }
+
+
+/* About page: experience and education as a quiet timeline. */
+.about h2 { margin-top: 2.25rem; }
+.timeline, .plain-list { list-style: none; margin: 0; padding: 0; }
+.timeline li {
+  padding: 0.7rem 0 0.7rem 1rem;
+  border-left: 2px solid var(--color-border);
+  position: relative;
+}
+.timeline li::before {
+  content: "";
+  position: absolute; left: -5px; top: 1.05rem;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-accent);
+}
+.timeline p { margin: 0; }
+.timeline__when { font-family: var(--font-sub); font-size: 0.85rem; color: var(--color-faint); }
+.timeline__what { font-family: var(--font-body); font-weight: 600; color: var(--color-text); }
+.timeline__note { font-family: var(--font-body); color: var(--color-text-muted); font-size: 1rem; line-height: 1.5; }
+.plain-list li { padding: 0.25rem 0; font-family: var(--font-body); }

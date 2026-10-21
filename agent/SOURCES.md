@@ -36,3 +36,22 @@ the agent doesn't say it.
 - Modelling measurements: height 174cm / 5'8½", bust 81.5cm / 32",
   waist 70.5cm / 28", hips 94.5cm / 37", dress EU 34–36 / US 4–6 /
   UK 6–8, shoes EU 39 / US 8 / UK 6 (shown on the Modelling Portfolio)
+- From LinkedIn (read 21 Oct 2026; never name the employer on the site):
+  "Analyst turned AI automation specialist. I turn commercial chaos into
+  smart, friendly workflows that make sales and commercial teams win
+  customers better." Roles at a large UK telecoms company: Data
+  Analytics Professional (Jun 2025 to now), Commercial Analyst (Jan to
+  Jul 2025), Product Trader (Apr to Dec 2024; peer-voted Rising Star and
+  Engagement Champion awards), Product Manager (Oct 2023 to Apr 2024),
+  Security Product Manager intern (Jun to Aug 2023). Earlier: E-payment
+  intern, Independent National Electoral Commission, Nigeria (Jun 2021 to
+  May 2022). Education: Master's in Financial Technology, Henley Business
+  School (2022 to 2023); BA Business Administration and Management,
+  Covenant University (2016 to 2020). Organising member, GDG Cloud Manchester
+  (Google Developer Groups, North West) since Aug 2025. Certifications: Google
+  Generative AI Leader (2026); McKinsey Business, Team and Self-Leadership
+  (2025). Open-source skills: github.com/Leret7777/commercial-gtm-agent-skills
+- LinkedIn posts already on the site (don't add them again): first
+  agent skill (3 Sep 2026); joining GDG as an organiser and the first
+  Manchester meet-up (4 Sep 2025). Google Generative AI Leader
+  certification (8 Jun 2026) is on the About page.

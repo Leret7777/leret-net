@@ -48,6 +48,18 @@
     "read_minutes": 1
   },
   {
+    "title": "I Published My First Agent Skill",
+    "date": "2026-09-03",
+    "tags": [
+      "commercial"
+    ],
+    "category": "commercial",
+    "image": "",
+    "url": "/posts/my-first-agent-skill.html",
+    "excerpt": "A free AI agent skill that turns a weekly pipeline export into a trading pack, commentary included.",
+    "read_minutes": 1
+  },
+  {
     "title": "What I Actually Do: AI Automation for Commercial Teams",
     "date": "2026-03-10",
     "tags": [
@@ -81,6 +93,18 @@
     "image": "",
     "url": "/posts/what-i-do-and-why.html",
     "excerpt": "On doing commercial intelligence work and modelling at the same time, and why this site doesn't pretend to be two different people.",
+    "read_minutes": 1
+  },
+  {
+    "title": "Organising GDG Cloud Manchester",
+    "date": "2025-09-04",
+    "tags": [
+      "commercial"
+    ],
+    "category": "commercial",
+    "image": "",
+    "url": "/posts/organising-gdg-cloud-manchester.html",
+    "excerpt": "I joined Google Developer Groups in the North West as an organiser, and put on my first meet-up in Manchester.",
     "read_minutes": 1
   },
   {
