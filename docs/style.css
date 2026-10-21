@@ -2105,3 +2105,7 @@ h3 { font-size: 1.05rem; }
 
 /* Featured photos are never cropped: each shows whole, at its own shape. */
 .feature__photo { aspect-ratio: auto; height: auto; object-fit: contain; }
+
+/* Contact footer: centred in the left column (Leret, Oct 2026). */
+.split__contact { text-align: center; }
+.split__links { justify-content: center; }
