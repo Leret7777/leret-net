@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-21 (scheduled run, evening)
+
+- Health check: build and checks pass, external links fine.
+- Inbox: the Manchester Fashion Week note still has no photos, so it stays. Substack still 403; the only YouTube video is already on the site. No new post.
+- Design step 4 (masonry photo wall) not started: I couldn't read the photos' pixel sizes (the commands that do it needed an approval nobody could give), and the step needs them for each image's width and height. Left unticked so tomorrow's run can pick it up. Nothing on the site changed.
+
 ## 2026-10-21 (scheduled run)
 
 - Health check: no problems at the start; external links fine.
