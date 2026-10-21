@@ -42,13 +42,14 @@ get in touch.
   3. **Half body**: Leret alone, waist or hips up.
   4. **With others**: any shot with another person in it.
   5. **Full body**: Leret alone, head to toe.
-  The top two photos stay as Leret chose them: the front-on polaroid
-  close-up (headshots/8) and the black and white shot leaning on the
-  brick wall (sophie-test-shoot-02). Within each group, mix shoots,
+  The first three photos stay as Leret chose them: the eye-and-ring
+  close-up (sophie-test-shoot-11), the front-on polaroid close-up
+  (headshots/8) and the black and white shot leaning on the brick wall
+  (sophie-test-shoot-02). Within each group, mix shoots,
   colour and black and white. Put each new photo into the right group.
   Current photos, sorted by Leret's groups:
-  - Close-ups: headshots/8, sophie-test-shoot-02, headshots/9,
-    sophie-test-shoot-09, sophie-test-shoot-11, headshots/1
+  - Close-ups: sophie-test-shoot-11, headshots/8, sophie-test-shoot-02,
+    headshots/9, sophie-test-shoot-09, headshots/1
   - Face: headshots/10, headshots/3, headshots/12, headshots/11
   - Half body: headshots/2, headshots/13, headshots/5, headshots/14,
     headshots/4, headshots/15, headshots/6, headshots/16, headshots/7
