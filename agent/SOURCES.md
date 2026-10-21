@@ -53,5 +53,7 @@ the agent doesn't say it.
   (2025). Open-source skills: github.com/Leret7777/commercial-gtm-agent-skills
 - LinkedIn posts already on the site (don't add them again): first
   agent skill (3 Sep 2026); joining GDG as an organiser and the first
-  Manchester meet-up (4 Sep 2025). Google Generative AI Leader
+  Manchester meet-up (4 Sep 2025), plus its recap (20 Sep 2025) and the
+  Cloud Run workshop (Nov 2025), both folded into that post; the Speak Up
+  open mic night (promo 27 May 2026, recap 30 May 2026). Google Generative AI Leader
   certification (8 Jun 2026) is on the About page.

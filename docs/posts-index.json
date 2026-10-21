@@ -60,6 +60,18 @@
     "read_minutes": 1
   },
   {
+    "title": "Mind the Gap: Our First Open Mic Night",
+    "date": "2026-05-30",
+    "tags": [
+      "commercial"
+    ],
+    "category": "commercial",
+    "image": "",
+    "url": "/posts/mind-the-gap-open-mic.html",
+    "excerpt": "GDG Cloud Manchester's Speak Up evening. I opened with a talk on the gap between business and tech, then the room took the mic.",
+    "read_minutes": 1
+  },
+  {
     "title": "What I Actually Do: AI Automation for Commercial Teams",
     "date": "2026-03-10",
     "tags": [
