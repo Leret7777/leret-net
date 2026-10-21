@@ -1,0 +1,82 @@
+# Download an image from the web straight into the site.
+#
+# Used for press photos and logos (e.g. the Salon Business banner Leret
+# is the model on). Actions tab → "Fetch image" → Run workflow, then give
+# the image's address and a file name. Photos are resized for the web
+# with the same settings as scripts/resize_images.py; SVG logos are saved
+# as they are. Nothing on the pages changes until a page uses the file.
+
+name: Fetch image
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Image address (https://...)"
+        required: true
+      save_as:
+        description: "File name under src/images/featured/ (e.g. salon-business-haircon.jpg or salon-business-logo.svg)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-agent
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download and prepare
+        env:
+          URL: ${{ inputs.url }}
+          NAME: ${{ inputs.save_as }}
+        run: |
+          set -e
+          case "$NAME" in */*|*..*|"") echo "::error::save_as must be a plain file name"; exit 1;; esac
+          case "$URL" in https://*) ;; *) echo "::error::url must start with https://"; exit 1;; esac
+          mkdir -p src/images/featured /tmp/dl
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          curl -sSfL -A "$UA" --max-time 60 -o /tmp/dl/original "$URL"
+          case "$NAME" in
+            *.svg)
+              head -c 400 /tmp/dl/original | grep -qi "<svg" || { echo "::error::not an SVG"; exit 1; }
+              cp /tmp/dl/original "src/images/featured/$NAME" ;;
+            *)
+              pip install -q Pillow
+              python3 - <<'EOF'
+          import os
+          from PIL import Image
+          name = os.environ["NAME"]
+          im = Image.open("/tmp/dl/original")
+          im = im.convert("RGB")
+          im.thumbnail((1600, 1600))
+          base = os.path.splitext(name)[0] + ".jpg"
+          out = os.path.join("src/images/featured", base)
+          im.save(out, "JPEG", quality=82, optimize=True, progressive=True)
+          print("saved", out, im.size)
+          EOF
+              ;;
+          esac
+          ls -la src/images/featured
+          python3 build.py
+
+      - name: Publish
+        env:
+          NAME: ${{ inputs.save_as }}
+        run: |
+          git config user.name "leret.me site agent"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "Nothing new."; exit 0; }
+          git commit -m "Add image: $NAME (fetched from the web)"
+          git push origin HEAD:main
