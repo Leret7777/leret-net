@@ -1968,14 +1968,8 @@ form .btn {
     flex-direction: column;
   }
   .split__writing .titles { overflow-y: auto; min-height: 0; }
-  .titles li { padding: 0.32rem 0; gap: 0.75rem; }
-  .titles a {
-    font-size: 0.9rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-  }
+  .titles li { padding: 0.38rem 0; gap: 0.75rem; }
+  .titles a { font-size: 0.9rem; line-height: 1.3; }
   .titles__date { font-size: 0.76rem; }
 
   .split__contact { margin-top: 0; flex-shrink: 0; }
@@ -1984,3 +1978,7 @@ form .btn {
   .split__links { margin-top: 0.35rem; }
   .split .visitor-count { margin-top: 0.25rem; font-size: 0.88rem; }
 }
+
+/* Post list: full titles, no dividing lines between them. */
+.titles li,
+.titles li:last-child { border: 0; }

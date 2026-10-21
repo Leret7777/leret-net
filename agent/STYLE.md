@@ -54,8 +54,8 @@ get in touch.
   friendly handwritten face) only for the contact footer at the bottom of
   the left column; Public Sans for everything else.
 - **The left column must fit on one screen without scrolling**, on a
-  small laptop too. Keep it compact; don't add lines to it. Long post
-  titles are cut to one line (the full title shows on hover).
+  small laptop too. Keep it compact; don't add lines to it. Post titles
+  show in full (never cut short) with no dividing lines between them.
 - The build process (`src/` → `build.py` → `docs/`).
 - Two categories of post: `commercial` and `modelling`.
 
