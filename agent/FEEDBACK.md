@@ -50,3 +50,9 @@ of these things again, or anything closely like them.
   leaning on the brick wall.
 - Don't sort the wall by date or group it by shoot; follow STYLE.md.
 
+## 2026-10-21 (later): wall order and layout, like Sophie's
+
+- What Leret asked: never crop photos; an irregular wall like
+  sophiejouvenaar.com instead of 2 identical columns; order close-ups,
+  face, half body, shots with others, full body. See STYLE.md.
+

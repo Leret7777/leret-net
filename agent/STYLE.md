@@ -35,10 +35,25 @@ get in touch.
 - Don't add navigation: no menus, Back links, buttons or bars.
 - Add photos, not sections. New photos Leret approves go on the photo
   wall and/or in the relevant post. Order the wall by type, never by
-  date or shoot: (1) close-ups of Leret's face first, to catch attention;
-  (2) Leret alone, half or full body; (3) shots with other people last.
-  Within each group, mix shoots, colour and black and white. Put each
-  new photo into the right group.
+  date or shoot, in this order (Leret's instruction):
+  1. **Close-ups**: tight shots where Leret's face or a detail fills the
+     frame.
+  2. **Face**: headshots and portraits, head and shoulders.
+  3. **Half body**: Leret alone, waist or hips up.
+  4. **With others**: any shot with another person in it.
+  5. **Full body**: Leret alone, head to toe.
+  The top two photos stay as Leret chose them: the front-on polaroid
+  close-up (headshots/8) and the black and white shot leaning on the
+  brick wall (sophie-test-shoot-02). Within each group, mix shoots,
+  colour and black and white. Put each new photo into the right group.
+  Current photos, sorted by Leret's groups:
+  - Close-ups: headshots/8, sophie-test-shoot-02, headshots/9,
+    sophie-test-shoot-09, sophie-test-shoot-11, headshots/1
+  - Face: headshots/10, headshots/3, headshots/12, headshots/11
+  - Half body: headshots/2, headshots/13, headshots/5, headshots/14,
+    headshots/4, headshots/15, headshots/6, headshots/16, headshots/7
+  - With others: sophie-test-shoot-04, -13, -06, -12, -01, -08, -07, -05
+  - Full body: sophie-test-shoot-10, headshots/17, sophie-test-shoot-03
 - **Photos are never cropped**, on the wall or anywhere else: always the
   whole photo, at its own shape. The wall is an irregular masonry layout,
   not a grid of identical rows (see roadmap item 4).
@@ -90,32 +105,36 @@ that is blocked on something only Leret can provide: add the blocker to
       of the homepage photo wall, credited, as well as to their posts.
       (Sophie test shoot done 21 Oct 2026; add the Fashion Week photos the
       same way if they arrive.)
-- [ ] 4. **Irregular photo wall, no cropping (Leret asked for this on
-      21 Oct 2026; do it next).** On the homepage photo wall:
-      - **Never crop a photo.** Show every photo whole, at its own shape
-        (portrait, landscape or square). In `src/style.css`, remove the
-        fixed `aspect-ratio` from `.photo-wall .gallery__item` and make
-        the images `width: 100%; height: auto;` with no `object-fit:
-        cover`.
-      - **Irregular, not a grid of identical rows.** Use a masonry
-        layout: 3 columns on wide screens, 2 on phones and narrow
-        screens, each photo at its natural height so the columns end at
-        different points and nothing lines up in rows. Keep the gaps
-        small (about 4px) and the corners square.
-      - **Keep the reading order.** The order rule above (faces first,
-        then solo body shots, then shots with others) must still hold
-        from the top down, so do not use plain CSS `columns` (that fills
-        column 1 top to bottom first and sends later photos to the top
-        of the next column). Instead, in `src/script.js`, place the
-        photos into the columns one by one, each into whichever column
-        is currently shortest, so the first photos sit along the top.
-        Rebuild the columns when the screen changes between 2 and 3
-        columns. Without JavaScript, the photos must still show whole
-        in a simple single list.
-      - Keep the click-to-enlarge working, and keep the photo credit
-        line under the wall.
-      - Check: no photo is cut off, the top of the wall starts with the
-        face close-ups, and nothing scrolls sideways on a phone.
+- [ ] 4. **Irregular photo wall, no cropping, like sophiejouvenaar.com
+      (Leret asked for this on 21 Oct 2026; do it next).** Sophie's wall
+      (checked 21 Oct 2026) is a masonry layout: 3 equal-width columns,
+      about 10px gaps, and every photo shown whole at its own shape
+      (portrait, landscape or square), so the columns end at different
+      heights. Photos are placed left, middle, right, then each next one
+      goes under whichever column is shortest, so the order reads across
+      the top. Do the same on the homepage wall:
+      - **Never crop a photo.** In `src/style.css`, remove the fixed
+        `aspect-ratio` from `.photo-wall .gallery__item`, and make the
+        images `width: 100%; height: auto;` with no `object-fit: cover`.
+      - **Masonry, not identical rows**: 3 columns on wide screens, 2 on
+        phones and narrow screens, gaps about 10px (6px on phones),
+        square corners.
+      - **Keep the order** in the "Order the wall by type" rule above,
+        reading across the top. Don't use plain CSS `columns` (it fills
+        column 1 first). In `src/script.js`, place the photos into the
+        columns one by one, each into whichever column is currently
+        shortest, using each photo's width and height so it works before
+        images finish loading (add `width` and `height` attributes to each
+        `<img>` in `src/pages/index.html`, taken from the image files).
+        Rebuild when the screen changes between 2 and 3 columns. Without
+        JavaScript the photos must still show whole, in order, one under
+        another.
+      - Reorder the photos in `src/pages/index.html` to match the groups
+        listed in that rule.
+      - Keep click-to-enlarge working, and the photo credit line under the
+        wall.
+      - Check: no photo is cut off, the top starts with headshots/8 then
+        sophie-test-shoot-02, and nothing scrolls sideways on a phone.
 - [ ] 5. **Polish pass.** Check spacing, phone layout and page speed.
       Fix small things only.
 
