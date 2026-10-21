@@ -51,9 +51,9 @@ get in touch.
   with the site's forest greens for text and links. No dark mode, no
   theme switch, no pure black or white.
 - **Fonts (chosen by Leret, Oct 2026)**: Ultra for headings (LERET
-  wordmark, page and post titles); EB Garamond for subtitles (labels,
-  dates, meta lines, ledes); Lacquer for handwritten touches (only the
-  footer's "Contact" label and visitor line); Outfit for body text and
+  wordmark, page and post titles); Outfit for subtitles (labels, dates,
+  meta lines, ledes); Lacquer for handwritten touches (only the footer's
+  "Contact" label and visitor line); EB Garamond for body text and
   captions. Don't add other fonts.
 - **Free fonts only.** Every font on the site must be free to use on a
   website, including for work (in practice: Google Fonts). Never use a
