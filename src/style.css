@@ -2081,3 +2081,6 @@ h3 { font-size: 1.05rem; }
 
 /* Subscribe: a single button, no email field. */
 .subscribe .subscribe__btn { display: inline-block; text-decoration: none; margin-top: 0.5rem; width: auto; }
+
+/* Featured photos are never cropped: each shows whole, at its own shape. */
+.feature__photo { aspect-ratio: auto; height: auto; object-fit: contain; }
