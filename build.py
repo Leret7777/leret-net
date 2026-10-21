@@ -262,6 +262,22 @@ def extract_main_inner(page_html):
     return page_html[open_end + 1:end]
 
 
+def tag_real_main(html):
+    """Add class="post-main" to the post's actual <main> tag, ignoring any
+    "<main>" text inside comments."""
+    i = 0
+    while True:
+        pos = html.find("<main>", i)
+        if pos == -1:
+            return html
+        open_c = html.rfind("<!--", 0, pos)
+        close_c = html.rfind("-->", 0, pos)
+        if open_c != -1 and open_c > close_c:   # inside a comment: skip it
+            i = pos + len("<main>")
+            continue
+        return html[:pos] + '<main class="post-main">' + html[pos + len("<main>"):]
+
+
 def build_feed_html(posts):
     """The homepage feed: every post's FULL content, newest first, one
     after another on a single scrolling page. Each post is still its own
@@ -605,7 +621,9 @@ def build():
         page_html = post.pop("page_html")
 
         # Scope the reading-layout CSS: give the post's <main> a class.
-        page_html = page_html.replace("<main>", '<main class="post-main">', 1)
+        # (Skip any "<main>" that only appears inside an HTML comment, such
+        # as an editing note at the top of the post, and tag the real one.)
+        page_html = tag_real_main(page_html)
 
         # Replace the hand-written <p class="post-date">DATE</p> with the
         # back link + meta row. We keep the DATE text the author wrote and
