@@ -34,3 +34,11 @@ of these things again, or anything closely like them.
   everywhere, with the forest greens kept for text and links.
 - Don't add dark mode or a theme switch back.
 
+## 2026-10-21 (later): photo wall mixed, not chronological
+
+- What Leret asked: mix and match the photo wall; don't make it
+  chronological.
+- What was done: the test shoot photos (now 13) are woven in among the
+  polaroids instead of sitting together at the top.
+- Don't put a new shoot as a block at the top of the wall again.
+

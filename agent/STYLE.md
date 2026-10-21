@@ -34,7 +34,10 @@ get in touch.
 
 - Don't add navigation: no menus, Back links, buttons or bars.
 - Add photos, not sections. New photos Leret approves go on the photo
-  wall (newest shoot first) and/or in the relevant post. Never add new
+  wall and/or in the relevant post. On the wall, mix shoots together:
+  never group a shoot, never put the newest on top, never date order.
+  Weave new photos in among the existing ones (colour, black and white
+  and polaroids alternating). Never add new
   blocks, lists, banners or headings to the homepage.
 - No italic-accent headings, no numbered lists (01, 02, 03) unless it's
   a real sequence, no small all-caps labels, no "Find me elsewhere"
