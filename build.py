@@ -382,22 +382,15 @@ def build_home_titles_html(posts):
 
 
 def build_subscribe_html():
-    """The signup box that ends every post. It sends readers to Leret's
-    Substack, which handles the mailing list: no extra account or service
-    needed. The email someone types is passed to Substack's own subscribe
-    page (pre-filled), where they confirm with one click."""
+    """The sign-up box that ends every post: one button that opens Leret's
+    Substack sign-up page, where readers subscribe. No form or email field
+    here, since Substack asks for the email itself."""
     return (
         '<aside class="subscribe">\n'
         '    <p class="subscribe__eyebrow">Subscribe to Leret</p>\n'
-        '    <p class="subscribe__byline">By Leret &middot; Notes, shoots and systems</p>\n'
         '    <p class="subscribe__body">New posts on commercial systems and modelling work, '
         'straight to your inbox through my Substack.</p>\n'
-        f'    <form class="subscribe__form" action="{SUBSTACK_URL}/subscribe" method="get" target="_blank" rel="noopener">\n'
-        '      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email">\n'
-        '      <button type="submit" class="subscribe__btn">Subscribe on Substack</button>\n'
-        '    </form>\n'
-        '    <p class="subscribe__fine">Opens Substack in a new tab to confirm. '
-        'You can unsubscribe from any email.</p>\n'
+        f'    <a class="subscribe__btn" href="{SUBSTACK_URL}/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>\n'
         '  </aside>\n'
     )
 

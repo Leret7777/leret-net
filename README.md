@@ -201,9 +201,9 @@ No video files are stored in the repo — always a hosted embed.
 - Modelling bookings live on the **About page**: Brother Models,
   Francesca's email, and "Request comp card" / "Request digitals"
   buttons.
-- The Subscribe box on each post signs readers up to Leret's Substack
-  (`SUBSTACK_URL` in `build.py`): the email they type is passed to
-  Substack's subscribe page, where they confirm. No other service needed.
+- The Subscribe box on each post is one button that opens Leret's
+  Substack sign-up page (`SUBSTACK_URL` in `build.py`), where readers
+  enter their email. No other service needed.
 
 ## GitHub Pages settings
 

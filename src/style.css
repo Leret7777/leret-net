@@ -2078,3 +2078,6 @@ h3 { font-size: 1.05rem; }
 .split__contact h2 { font-size: 1.1rem; }
 .split .visitor-count { font-size: 0.95rem; color: var(--color-text-muted); }
 .split__links a { font-weight: 500; font-size: 0.85rem; }
+
+/* Subscribe: a single button, no email field. */
+.subscribe .subscribe__btn { display: inline-block; text-decoration: none; margin-top: 0.5rem; width: auto; }
