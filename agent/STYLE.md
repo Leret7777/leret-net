@@ -79,9 +79,11 @@ that is blocked on something only Leret can provide: add the blocker to
       21 Oct 2026).
 - [x] 2. **Every page uses the two sides**, with less navigation (done
       by hand, 21 Oct 2026).
-- [ ] 3. **New photos onto the wall.** When the Sophie test shoot or
+- [x] 3. **New photos onto the wall.** When the Sophie test shoot or
       Manchester Fashion Week photos arrive, add the best few to the top
       of the homepage photo wall, credited, as well as to their posts.
+      (Sophie test shoot done 21 Oct 2026; add the Fashion Week photos the
+      same way if they arrive.)
 - [ ] 4. **Polish pass.** Check spacing, phone layout, both themes, and
       page speed. Fix small things only.
 

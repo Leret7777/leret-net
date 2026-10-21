@@ -2,7 +2,14 @@
 
 Newest first. One short entry per daily run, in plain English.
 
-## 2026-10-21
+## 2026-10-21 (scheduled run)
+
+- Health check: no problems at the start; external links fine.
+- New post: "Test shoot with Sophie", a photo gallery with Sophie Jouvenaar, Neave and Lethabo Kgope credited and linked as the note asked. Resized the 25 photos into `src/images/modeling/sophie-test-shoot/`; the post uses 13 of them. Note moved to `inbox/done/`; the full-size originals stay in `inbox/` for the safety check to clear.
+- Design step 3: put three of the test-shoot photos at the top of the homepage photo wall (credited) and four in "Recent work" on the Modelling Portfolio. Ticked off.
+- Manchester Fashion Week note: still no photos, left in place. Substack feed still 403; the only YouTube video is already on the site.
+
+## 2026-10-21 (earlier)
 
 - Health check: no problems, external links fine.
 - Inbox: Fashion Week and Sophie test shoot notes still have no photos, so I left them in place.
