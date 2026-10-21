@@ -43,8 +43,10 @@ get in touch.
 
 ## What stays fixed (do not change)
 
-- **Colours**: the existing forest-green palette in `src/style.css`
-  (dark default, light theme, no pure black or white).
+- **Colours: light only.** The page background is the soft warm cream
+  #FFFBF3 (taken from careerhannah.com; Leret finds it easy on the eyes),
+  with the site's forest greens for text and links. No dark mode, no
+  theme switch, no pure black or white.
 - **Fonts**: Bungee only for the LERET wordmark; Public Sans for
   everything else on the homepage.
 - The build process (`src/` → `build.py` → `docs/`).

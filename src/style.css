@@ -14,31 +14,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap');
 
 /* -------------------------------------------------------------------------
-   1. Color themes (CSS custom properties)
+   1. Colours: light only (Oct 2026)
    -------------------------------------------------------------------------
-   Every colour is a variable, defined in two sets. DARK is the default
-   (on :root). Which set actually applies is decided in three layers,
-   weakest to strongest:
-     a) Default: the dark values on :root.
-     b) System preference: if the OS prefers LIGHT, the media query
-        applies the light values — unless the visitor has forced dark.
-     c) Manual override: script.js sets data-theme="light"/"dark" on
-        <html> when the toggle is clicked (saved in localStorage). An
-        explicit [data-theme] selector beats the media query.
-   The light block is written twice (manual override + media query)
-   because plain CSS can't "reuse" a block; duplicating ~8 lines is
-   simpler than any workaround.
+   One light palette, no dark mode. The background is the soft warm cream
+   from careerhannah.com (#FFFBF3), which Leret found easy on the eyes;
+   text and links keep the site's own forest greens.
    ------------------------------------------------------------------------- */
 :root {
-  /* DARK (default) */
-  --color-bg: #1c211c;          /* warm dark charcoal, green undertone */
-  --color-text: #ebe8df;        /* warm off-white */
-  --color-text-muted: #b0aca2;  /* secondary text */
-  --color-faint: #8f938a;       /* dates, meta */
-  --color-surface: #252a25;     /* cards / subtle surfaces */
-  --color-border: #3a4239;
-  --color-accent: #8fbc95;      /* light muted sage — legible on dark */
-  --color-accent-strong: #a7cdac;
+  color-scheme: light;
+  --color-bg: #fffbf3;          /* soft warm cream (as careerhannah.com) */
+  --color-text: #2a2f27;        /* warm charcoal with a green undertone */
+  --color-text-muted: #5f6459;  /* secondary text */
+  --color-faint: #6a6e64;       /* dates, meta */
+  --color-surface: #f6f0e3;     /* subtle panels, a shade deeper than the page */
+  --color-border: #e3dccb;      /* soft warm dividers */
+  --color-accent: #3a6d4a;      /* forest green, legible on cream */
+  --color-accent-strong: #2f5a3d;
 
   /* Aliases kept so existing component CSS (posts/about) still resolves. */
   --color-bg-alt: var(--color-surface);
@@ -63,32 +54,6 @@
   --space-5: 4rem;
 
   --radius: 6px;
-}
-
-/* Manual light mode. */
-:root[data-theme="light"] {
-  --color-bg: #eeeae0;          /* warm cream, hint of green */
-  --color-text: #2a2f27;        /* warm charcoal */
-  --color-text-muted: #5f6459;
-  --color-faint: #7a7f74;
-  --color-surface: #e4dfd2;
-  --color-border: #c9c4b5;
-  --color-accent: #3a6d4a;      /* darker forest — legible on cream */
-  --color-accent-strong: #2f5a3d;
-}
-
-/* System light mode — applies only when the visitor hasn't forced dark. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --color-bg: #eeeae0;
-    --color-text: #2a2f27;
-    --color-text-muted: #5f6459;
-    --color-faint: #7a7f74;
-    --color-surface: #e4dfd2;
-    --color-border: #c9c4b5;
-    --color-accent: #3a6d4a;
-    --color-accent-strong: #2f5a3d;
-  }
 }
 
 /* -------------------------------------------------------------------------

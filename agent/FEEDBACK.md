@@ -26,3 +26,11 @@ of these things again, or anything closely like them.
   homepage menu. The list of posts on the left is the navigation.
 - Don't add any navigation back (menus, Back links, buttons, bars).
 
+## 2026-10-21 (later): light version only
+
+- What Leret asked: a light-only site with careerhannah.com's background
+  colour, which isn't intense on the eyes.
+- What was done: dark mode removed entirely; background is now #FFFBF3
+  everywhere, with the forest greens kept for text and links.
+- Don't add dark mode or a theme switch back.
+
