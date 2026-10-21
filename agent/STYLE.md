@@ -50,10 +50,11 @@ get in touch.
   #FFFBF3 (taken from careerhannah.com; Leret finds it easy on the eyes),
   with the site's forest greens for text and links. No dark mode, no
   theme switch, no pure black or white.
-- **Fonts**: Bungee only for the LERET wordmark; Nunito (a small, soft
-  rounded face; Leret found the handwritten one ugly and hard to read)
-  only for the contact footer at the bottom of
-  the left column; Public Sans for everything else.
+- **Fonts (chosen by Leret, Oct 2026)**: Ultra for headings (LERET
+  wordmark, page and post titles); Outfit for subtitles (labels, dates,
+  meta lines, ledes); Lacquer for handwritten touches (only the footer's
+  "Contact" label and visitor line); EB Garamond for body text and
+  captions. Don't add other fonts.
 - **The left column must fit on one screen without scrolling**, on a
   small laptop too. Keep it compact; don't add lines to it. Post titles
   show in full (never cut short) with no dividing lines between them.
