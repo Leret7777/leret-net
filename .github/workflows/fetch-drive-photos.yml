@@ -1,0 +1,91 @@
+# Bring photos from Leret's Google Drive straight into the site's inbox.
+#
+# The photos go Drive → GitHub directly; they never pass through a chat.
+# Each is shrunk to web size (longest side 2000px) on the way in. The
+# daily site agent then places them (see the note in the inbox folder).
+#
+# Input `files`: one photo per line, "<Drive file id> <new file name>".
+# The Drive folder must be shared as "Anyone with the link" while this
+# runs; it can be set back to Restricted afterwards.
+
+name: Fetch Drive photos
+
+on:
+  workflow_dispatch:
+    inputs:
+      folder:
+        description: "Folder inside inbox/ to save into (e.g. sophie-test-shoot)"
+        required: true
+      files:
+        description: "One per line: <Drive file id> <file name>"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-agent
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download and shrink
+        env:
+          FOLDER: ${{ inputs.folder }}
+          FILES: ${{ inputs.files }}
+        run: |
+          pip install -q Pillow
+          python3 - <<'EOF'
+          import os, re, sys, urllib.request, io
+          from PIL import Image, ImageOps
+          folder = os.environ["FOLDER"].strip()
+          if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", folder):
+              sys.exit("::error::folder must be lowercase letters, numbers and dashes")
+          out_dir = os.path.join("inbox", folder)
+          os.makedirs(out_dir, exist_ok=True)
+          ok, failed = 0, []
+          for line in os.environ["FILES"].replace(",", "\n").splitlines():
+              parts = line.split()
+              if len(parts) != 2:
+                  continue
+              fid, name = parts
+              if not re.fullmatch(r"[A-Za-z0-9_-]{10,}", fid) or not re.fullmatch(r"[a-z0-9-]+\.jpg", name):
+                  failed.append(f"{line} (bad id or name)"); continue
+              url = f"https://drive.usercontent.google.com/download?id={fid}&export=download&confirm=t"
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+              try:
+                  data = urllib.request.urlopen(req, timeout=120).read()
+                  im = ImageOps.exif_transpose(Image.open(io.BytesIO(data))).convert("RGB")
+              except Exception as e:
+                  failed.append(f"{name} ({type(e).__name__}: is the folder shared as 'Anyone with the link'?)")
+                  continue
+              im.thumbnail((2000, 2000))
+              im.save(os.path.join(out_dir, name), "JPEG", quality=84, optimize=True, progressive=True)
+              ok += 1
+              print("saved", name, im.size)
+          print(f"::notice title=Drive photos::{ok} saved, {len(failed)} failed")
+          for f in failed:
+              print(f"::warning title=Not fetched::{f}")
+          if ok == 0:
+              sys.exit(1)
+          EOF
+
+      - name: Save to the repository
+        env:
+          FOLDER: ${{ inputs.folder }}
+        run: |
+          git config user.name "leret.me site agent"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add inbox
+          git diff --cached --quiet && { echo "Nothing new."; exit 0; }
+          git commit -m "Inbox: photos from Google Drive ($FOLDER)"
+          git push origin HEAD:main
