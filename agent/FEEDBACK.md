@@ -56,3 +56,10 @@ of these things again, or anything closely like them.
   sophiejouvenaar.com instead of 2 identical columns; order close-ups,
   face, half body, shots with others, full body. See STYLE.md.
 
+## 2026-10-22: Featured in page
+
+- What Leret asked: leave the Featured in layout as it is; every feature
+  needs its picture and the brand's real logo, linking back to the
+  magazine; take Manchester Fashion Week off until there's information.
+- Don't rearrange or restyle the Featured in page, and don't re-add
+  Manchester Fashion Week without an inbox note from Leret.

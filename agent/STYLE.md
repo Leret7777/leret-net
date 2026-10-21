@@ -32,6 +32,11 @@ get in touch.
 - **Two quiet page links** under the paragraph: About me, and Featured in
   (`src/pages/featured.html`, cards modelled on pawlean.com/work, plus a
   logo wall once there are several). Don't add more links there.
+- **The Featured in page is finished the way Leret wants it (22 Oct
+  2026).** Don't change its layout, card order, photos, credits or logos.
+  Only add a new card when an inbox note asks for one. Manchester Fashion
+  Week is deliberately off the page until Leret sends details and photos;
+  don't put it back on your own.
 
 ## Rules that keep it clean
 
