@@ -12,8 +12,8 @@
 <!-- NAV -->
 
 <!-- FEATURED IN: modelled on pawlean.com/work.
-     1. FEATURES: one <article class="feature"> card per job or feature,
-        newest first. Each card: optional photo, date, name (linked if
+     1. FEATURES: one <article class="feature"> card per job or feature.
+        Cards with a photo of Leret go first (newest first), then the rest. Each card: optional photo, date, name (linked if
         there's somewhere to read or see it), one or two lines about it.
         Only list things Leret has confirmed, with the details Leret gave.
      2. LOGO WALL: once there are several, add each brand or magazine to
@@ -24,28 +24,32 @@
   <p class="featured__lede">Brands, magazines and shows I've modelled for or been featured in.</p>
 
   <div class="feature-grid">
+
+    <article class="feature">
+      <a href="https://salonbusiness.co.uk/events/fellowship-debut-at-haircon/" class="feature__photo-link">
+        <img class="feature__photo feature__photo--square" src="/images/featured/salon-business-haircon-2026.jpg" alt="Leret on the banner of Salon Business's HAIRCON article, with a gold collared jacket, yellow lips and a wavy art panel above the head">
+      </a>
+      <p class="feature__date">June 2026</p>
+      <h2 class="feature__name"><a href="https://salonbusiness.co.uk/events/fellowship-debut-at-haircon/">Salon Business</a></h2>
+      <p class="feature__note">Featured model, HAIRCON coverage.</p>
+      <p class="feature__credit">Photo: Salon Business, imagery by @danieljohnsongray</p>
+    </article>
+
     <article class="feature">
       <p class="feature__date">September 2026</p>
       <h2 class="feature__name">Manchester Fashion Week</h2>
       <p class="feature__note">Runway. Modelled at the September 2026 shows in Manchester.</p>
     </article>
-
-    <article class="feature">
-      <p class="feature__date">June 2026</p>
-      <h2 class="feature__name"><a href="https://salonbusiness.co.uk/events/fellowship-debut-at-haircon/">Salon Business</a></h2>
-      <p class="feature__note">Featured model. I'm the face at the top of Salon Business's article on the Fellowship for British Hairdressing's Xperience Hair Live show at HAIRCON, Manchester.</p>
-    </article>
   </div>
 
-  <!-- LOGO WALL (shown once it has entries; add <li> items):
-  <section class="logo-wall-section" aria-label="Also featured in">
-    <h2>Also featured in</h2>
+  <!-- LOGO WALL: logo image if there is one (src/images/featured/),
+       otherwise the name in text, as with Manchester Fashion Week. -->
+  <section class="logo-wall-section" aria-label="Featured in">
     <ul class="logo-wall">
-      <li><img src="/images/featured/example-logo.png" alt="Example Magazine"></li>
-      <li>Example Brand</li>
+      <li><img src="/images/featured/salon-business-logo.svg" alt="Salon Business"></li>
+      <li><span class="logo-wall__name">Manchester Fashion Week</span></li>
     </ul>
   </section>
-  -->
 </main>
 
 <!-- FOOTER -->

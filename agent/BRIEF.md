@@ -47,7 +47,11 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   what it was, month and year, link if given, photo if uploaded with it,
   credited). If a logo image is uploaded, add it to the logo wall on the
   same page (uncomment the wall the first time). Never add a brand,
-  magazine or client Leret hasn't named in a note.
+  magazine or client Leret hasn't named in a note. Cards with a photo of
+  Leret go first: Leret's face is the point of the page. If a note only
+  gives a web address for a photo or logo, you can't download it
+  yourself; add it to NEEDS so it can be fetched with the "Fetch image"
+  workflow.
 - Leret's LinkedIn profile saved as a PDF: this is approved material. Use it
   to fill out the About page (a short first-person bio, then Leret's
   experience and education as a simple timeline) and add the work facts
