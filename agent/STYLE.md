@@ -87,7 +87,7 @@ add the blocker to `agent/NEEDS_FROM_LERET.md` and move to the next item.
       bookings (to Leret's agent Francesca, as on the About page), 02
       Speaking and community, 03 Everything else (to Leret). Each a
       pre-filled email.
-- [ ] 8. **"Find me elsewhere" list** at the bottom of the homepage, only
+- [x] 8. **"Find me elsewhere" list** at the bottom of the homepage, only
       with links that are filled in `agent/SOURCES.md`.
 - [ ] 9. **Posts from elsewhere** (Substack, YouTube) shown in the post
       list with a small ↗ marker.

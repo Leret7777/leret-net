@@ -2,6 +2,13 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-21
+
+- Health check: no problems, external links fine.
+- Inbox: Fashion Week and Sophie test shoot notes still have no photos, so I left them in place.
+- No new post: Substack feed still 403; the only YouTube video is already on the site.
+- Design step 8: added a "Find me *elsewhere.*" list on the homepage (LinkedIn, Substack, YouTube, GitHub, Instagram, each with a ↗). It replaces the small link row in the contact section, which repeated the same links. Steps 4 and 6 stay blocked (see NEEDS).
+
 ## 2026-10-20
 
 - Health check: no problems, external links fine.
