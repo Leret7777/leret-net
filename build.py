@@ -100,12 +100,28 @@ def write_file(path, content):
         f.write(content)
 
 
+def asset_version(name):
+    """A short fingerprint of a file in src/ (e.g. style.css). Pages link to
+    /style.css?v=<fingerprint>, so whenever the file changes, browsers fetch
+    the new one instead of reusing an old copy from their cache."""
+    import hashlib
+    with open(os.path.join(SRC, name), "rb") as f:
+        return hashlib.md5(f.read()).hexdigest()[:10]
+
+
+def bust_cache(html):
+    """Point every page at the current versions of style.css and script.js."""
+    html = html.replace('href="/style.css"', f'href="/style.css?v={asset_version("style.css")}"')
+    html = html.replace('src="/script.js"', f'src="/script.js?v={asset_version("script.js")}"')
+    return html
+
+
 def inject_partials(html, nav_html, footer_html):
     """Replace the NAV and FOOTER placeholder comments with the shared
     header (theme toggle) and footer markup."""
     html = html.replace(NAV_PLACEHOLDER, nav_html)
     html = html.replace(FOOTER_PLACEHOLDER, footer_html)
-    return html
+    return bust_cache(html)
 
 
 # ---------------------------------------------------------------------------
