@@ -343,7 +343,7 @@ def build_home_titles_html(posts):
         except (ValueError, IndexError):
             when = post["date"]
         items.append(
-            f'<li><a href="/posts/{post["slug"]}.html">{post["title"]}</a>'
+            f'<li><a href="/posts/{post["slug"]}.html" title="{post["title"]}">{post["title"]}</a>'
             f'<span class="titles__date">{when}</span></li>'
         )
     return '<ul class="titles">\n        ' + "\n        ".join(items) + "\n      </ul>"

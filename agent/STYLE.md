@@ -50,8 +50,12 @@ get in touch.
   #FFFBF3 (taken from careerhannah.com; Leret finds it easy on the eyes),
   with the site's forest greens for text and links. No dark mode, no
   theme switch, no pure black or white.
-- **Fonts**: Bungee only for the LERET wordmark; Public Sans for
-  everything else on the homepage.
+- **Fonts**: Bungee only for the LERET wordmark; Patrick Hand (a small,
+  friendly handwritten face) only for the contact footer at the bottom of
+  the left column; Public Sans for everything else.
+- **The left column must fit on one screen without scrolling**, on a
+  small laptop too. Keep it compact; don't add lines to it. Long post
+  titles are cut to one line (the full title shows on hover).
 - The build process (`src/` → `build.py` → `docs/`).
 - Two categories of post: `commercial` and `modelling`.
 
