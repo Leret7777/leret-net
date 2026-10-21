@@ -89,7 +89,7 @@ can be a one-off; only remove it if it also failed in yesterday's log.
   are more, leave the rest for tomorrow.
 
 **4. One design step.** Do the first unticked, unblocked item in the
-STYLE.md roadmap. Keep it small and finished: it must look right in both
+STYLE.md roadmap, following its "Rules that keep it clean". Keep it small and finished: it must look right in both
 themes and on a phone-width screen. Tick it off. If every item is done,
 make at most one small consistency fix, or nothing.
 

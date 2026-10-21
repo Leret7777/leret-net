@@ -54,6 +54,9 @@ TAG_FILTERS_PLACEHOLDER = "<!-- TAG_FILTERS -->"
 CONTACT_LINKS_PLACEHOLDER = "<!-- CONTACT_LINKS -->"
 NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
 HOME_FEED_PLACEHOLDER = "<!-- HOME_FEED -->"
+# A plain list of the newest post titles + month, for the homepage's left column.
+HOME_TITLES_PLACEHOLDER = "<!-- HOME_TITLES -->"
+HOME_TITLES_LIMIT = 3
 ALL_POSTS_LIST_PLACEHOLDER = "<!-- ALL_POSTS_LIST -->"
 
 # How many posts the homepage feed shows before the "All Posts →" link.
@@ -327,6 +330,23 @@ def build_post_list_items(posts):
             "      </article>"
         )
     return "\n      ".join(items)
+
+
+def build_home_titles_html(posts):
+    """The homepage's quiet writing list: newest few titles, each with its
+    month and year. No excerpts or icons, so the photos stay the focus."""
+    items = []
+    for post in posts:
+        parts = post["date"].split("-")
+        try:
+            when = f"{_MONTHS[int(parts[1]) - 1]} {parts[0]}"
+        except (ValueError, IndexError):
+            when = post["date"]
+        items.append(
+            f'<li><a href="/posts/{post["slug"]}.html">{post["title"]}</a>'
+            f'<span class="titles__date">{when}</span></li>'
+        )
+    return '<ul class="titles">\n        ' + "\n        ".join(items) + "\n      </ul>"
 
 
 def build_subscribe_html():
@@ -603,6 +623,7 @@ def build():
     # Post lists: the homepage shows the newest few; the All Posts page
     # shows every post. Same markup, different slice.
     home_feed_html = build_post_list_items(posts[:HOME_FEED_LIMIT])
+    home_titles_html = build_home_titles_html(posts[:HOME_TITLES_LIMIT])
     all_posts_html = build_post_list_items(posts)
 
     # 4/6. Build every page, filling whichever placeholders it contains.
@@ -614,6 +635,7 @@ def build():
         raw = read_file(os.path.join(PAGES_DIR, filename))
         final_html = inject_partials(raw, nav_html, footer_html)
         final_html = final_html.replace(HOME_FEED_PLACEHOLDER, home_feed_html)
+        final_html = final_html.replace(HOME_TITLES_PLACEHOLDER, home_titles_html)
         final_html = final_html.replace(ALL_POSTS_LIST_PLACEHOLDER, all_posts_html)
         write_file(os.path.join(DOCS, filename), final_html)
 
