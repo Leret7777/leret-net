@@ -9,21 +9,60 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<!-- Shared "chrome": a small top menu and the theme toggle, fixed in the
-     top-right on every page. script.js fills in the sun/moon SVG for the
-     current theme and flips it on click (choice saved in localStorage). -->
-<nav class="site-menu" aria-label="Main">
-  <a href="/all-posts.html">Writing</a>
-  <a href="/posts/modelling-portfolio.html">Modelling</a>
-  <a href="/about.html">About</a>
-  <a href="/#contact">Contact</a>
-</nav>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"></button>
+<!-- Shared left column, on every page. build.py puts this where each
+     page says NAV, and the closing tags (partials/footer.html) where it
+     says FOOTER, so each page's own content lands on the right. There's
+     deliberately no menu: the list of posts is the navigation, and
+     LERET goes back to the photos. -->
+<div class="split">
+  <aside class="split__words">
+    <header class="split__intro">
+      <p class="wordmark"><a href="/" aria-label="Leret, home">LERET</a></p>
+      <p class="split__lede">
+        I'm a model with Brother Models, and by day I build AI automation
+        for commercial and sales teams. I live in Manchester.
+        <a href="/about.html">More about me</a>
+      </p>
+    </header>
+
+    <nav class="split__writing" aria-label="Writing">
+      <h2>Writing</h2>
+      <ul class="titles">
+        <li><a href="/posts/an-agent-that-looks-after-this-site.html">I Built an Agent to Look After This Website</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/documenting-dashboards-automatically.html">Teaching a Tool to Document Hundreds of Dashboards</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/modelling-portfolio.html">Modelling Portfolio</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a><span class="titles__date">Mar 2026</span></li>
+        <li><a href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a><span class="titles__date">Feb 2026</span></li>
+        <li><a href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a><span class="titles__date">Jan 2026</span></li>
+        <li><a href="/posts/i-finally-did-it.html">I Finally Did It (Video)</a><span class="titles__date">May 2020</span></li>
+      </ul>
+    </nav>
+
+    <footer class="split__contact" id="contact">
+      <h2>Contact</h2>
+      <p>
+        Bookings through my agent Francesca:<br>
+        <a href="mailto:francesca@brothermodels.com?subject=Booking%20enquiry%20%E2%80%94%20Leret">francesca@brothermodels.com</a>
+      </p>
+      <p>
+        Everything else:<br>
+        <a href="mailto:leretmutkut@gmail.com?subject=Hello%20Leret">leretmutkut@gmail.com</a>
+      </p>
+      <p class="split__links">
+        <a href="https://www.instagram.com/leret.pm/">Instagram</a>
+        <a href="https://www.linkedin.com/in/leretmutkut/">LinkedIn</a>
+        <a href="https://leret1.substack.com">Substack</a>
+        <a href="https://www.youtube.com/@leret2845">YouTube</a>
+      </p>
+      <p class="visitor-count" id="visitorCount" hidden></p>
+    </footer>
+  </aside>
+
+  <div class="split__content">
 
 
 <main class="home">
   <header class="home-head home-head--tight">
-    <p><a class="mono-link" href="/">&larr; Back</a></p>
     <h1 class="page__title">All Posts</h1>
   </header>
 
@@ -67,8 +106,8 @@
   </section>
 </main>
 
-<!-- Footer intentionally empty: the homepage contact strip carries the
-     copyright and links, and post/About pages don't need a footer. -->
+  </div><!-- /split__content -->
+</div><!-- /split -->
 
 <script src="/script.js"></script>
 </body>

@@ -9,45 +9,34 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="home-page">
-<!-- Shared "chrome": a small top menu and the theme toggle, fixed in the
-     top-right on every page. script.js fills in the sun/moon SVG for the
-     current theme and flips it on click (choice saved in localStorage). -->
-<nav class="site-menu" aria-label="Main">
-  <a href="/all-posts.html">Writing</a>
-  <a href="/posts/modelling-portfolio.html">Modelling</a>
-  <a href="/about.html">About</a>
-  <a href="/#contact">Contact</a>
-</nav>
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"></button>
-
-
-<!-- HOMEPAGE: words on the left (they stay put), photos on the right
-     (they scroll). On phones the intro comes first, then the photos,
-     then the writing and contact details. -->
-<main class="split">
-  <div class="split__words">
+<!-- Shared left column, on every page. build.py puts this where each
+     page says NAV, and the closing tags (partials/footer.html) where it
+     says FOOTER, so each page's own content lands on the right. There's
+     deliberately no menu: the list of posts is the navigation, and
+     LERET goes back to the photos. -->
+<div class="split">
+  <aside class="split__words">
     <header class="split__intro">
-      <h1 class="wordmark"><a href="/">LERET</a></h1>
-      <nav class="split__menu" aria-label="Main">
-        <a href="/all-posts.html">Writing</a>
-        <a href="/posts/modelling-portfolio.html">Modelling</a>
-        <a href="/about.html">About</a>
-      </nav>
+      <p class="wordmark"><a href="/" aria-label="Leret, home">LERET</a></p>
       <p class="split__lede">
         I'm a model with Brother Models, and by day I build AI automation
         for commercial and sales teams. I live in Manchester.
+        <a href="/about.html">More about me</a>
       </p>
     </header>
 
-    <section class="split__writing" aria-labelledby="writing-heading">
-      <h2 id="writing-heading">Writing</h2>
+    <nav class="split__writing" aria-label="Writing">
+      <h2>Writing</h2>
       <ul class="titles">
         <li><a href="/posts/an-agent-that-looks-after-this-site.html">I Built an Agent to Look After This Website</a><span class="titles__date">Oct 2026</span></li>
         <li><a href="/posts/documenting-dashboards-automatically.html">Teaching a Tool to Document Hundreds of Dashboards</a><span class="titles__date">Oct 2026</span></li>
         <li><a href="/posts/modelling-portfolio.html">Modelling Portfolio</a><span class="titles__date">Oct 2026</span></li>
+        <li><a href="/posts/ai-automation-for-commercial-teams.html">What I Actually Do: AI Automation for Commercial Teams</a><span class="titles__date">Mar 2026</span></li>
+        <li><a href="/posts/building-this-site.html">Building This Site From Scratch, By Hand</a><span class="titles__date">Feb 2026</span></li>
+        <li><a href="/posts/what-i-do-and-why.html">What I Do, and Why This Site Mixes Two Careers</a><span class="titles__date">Jan 2026</span></li>
+        <li><a href="/posts/i-finally-did-it.html">I Finally Did It (Video)</a><span class="titles__date">May 2020</span></li>
       </ul>
-      <p><a class="split__more" href="/all-posts.html">All writing</a></p>
-    </section>
+    </nav>
 
     <footer class="split__contact" id="contact">
       <h2>Contact</h2>
@@ -67,11 +56,18 @@
       </p>
       <p class="visitor-count" id="visitorCount" hidden></p>
     </footer>
-  </div>
+  </aside>
 
+  <div class="split__content">
+
+
+<!-- HOMEPAGE: the shared left column comes from partials/nav.html; this
+     page's own content (the photo wall) fills the right side. -->
+<main class="split__photos">
+  <h1 class="sr-only">Leret</h1>
   <!-- PHOTOS: click any to see it larger. Add new photos here as more
        <button class="gallery__item"> blocks (newest shoots first). -->
-  <section class="split__photos" aria-label="Photos of Leret">
+  <section aria-label="Photos of Leret">
     <div class="photo-wall">
       <button class="gallery__item" type="button">
         <img src="/images/headshots/17-leret-polaroids-brother-models.jpg" data-full="/images/headshots/17-leret-polaroids-brother-models.jpg" alt="Leret, full length, black vest top and jeans" fetchpriority="high">
@@ -135,8 +131,8 @@
   <p class="lightbox__caption" id="lightboxCaption"></p>
 </div>
 
-<!-- Footer intentionally empty: the homepage contact strip carries the
-     copyright and links, and post/About pages don't need a footer. -->
+  </div><!-- /split__content -->
+</div><!-- /split -->
 
 <script src="/script.js"></script>
 </body>

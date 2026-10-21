@@ -11,21 +11,25 @@ Quiet and picture-led: Leret's photos do most of the talking, with a few
 calm words alongside about who Leret is, what Leret writes, and how to
 get in touch.
 
-## The homepage layout (keep it)
+## The layout (keep it): two sides on every page
 
-Two sides, nothing else:
-
-- **Left: words.** The LERET wordmark, a small menu (Writing, Modelling,
-  About), one short paragraph, the three newest post titles with month
-  and year, and contact details. On tall screens it stays still while
-  the photos scroll.
-- **Right: photos.** A two-column wall of photos, square corners, tight
-  gaps, no captions on the wall. Clicking a photo opens it larger.
-- **No bar, menu pill or floating button on top of the homepage.**
-- On phones: intro first, then the photos, then writing and contact.
+- **Left: the same column on every page** (`src/partials/nav.html`): the
+  LERET wordmark (goes back to the photos), one short paragraph with a
+  "More about me" link, the list of every post with month and year, and
+  contact details. On tall screens it stays still.
+- **Right: the page itself.** The photo wall on the homepage; the post,
+  the About page or the portfolio everywhere else. Tapping a post title
+  on the left opens it on the right.
+- **Less navigation.** No menu, no Back links, no "All posts" link, no
+  theme button, no reading-progress bar, nothing floating on top. The
+  list of posts is the navigation. Light/dark follows the visitor's
+  device.
+- On phones: LERET at the top, then the page, then the posts list and
+  contact at the bottom.
 
 ## Rules that keep it clean
 
+- Don't add navigation: no menus, Back links, buttons or bars.
 - Add photos, not sections. New photos Leret approves go on the photo
   wall (newest shoot first) and/or in the relevant post. Never add new
   blocks, lists, banners or headings to the homepage.
@@ -59,10 +63,8 @@ that is blocked on something only Leret can provide: add the blocker to
 
 - [x] 1. **Split homepage**: words left, photos right (done by hand,
       21 Oct 2026).
-- [ ] 2. **Calm the other pages to match.** On the About page, the
-      Writing (all posts) page and the post pages: remove clutter in the
-      same spirit (no italic-accent headings, no extra label rows), keep
-      the content. Small, careful changes, one page per run.
+- [x] 2. **Every page uses the two sides**, with less navigation (done
+      by hand, 21 Oct 2026).
 - [ ] 3. **New photos onto the wall.** When the Sophie test shoot or
       Manchester Fashion Week photos arrive, add the best few to the top
       of the homepage photo wall, credited, as well as to their posts.

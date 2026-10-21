@@ -24,10 +24,10 @@
    wrong theme while the page loads.
 --------------------------------------------------------------------- */
 (function () {
-  const saved = localStorage.getItem("theme"); // "dark", "light", or null
-  if (saved === "dark" || saved === "light") {
-    document.documentElement.setAttribute("data-theme", saved);
-  }
+  // There's no theme button any more (Oct 2026: less navigation), so the
+  // site simply follows the visitor's device setting. Forget any choice
+  // saved by the old button so nobody gets stuck in one theme.
+  try { localStorage.removeItem("theme"); } catch (e) {}
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
      height. requestAnimationFrame batches the update so we're not doing
      layout work on every single scroll event.
   --------------------------------------------------------------------- */
-  if (document.querySelector(".subscribe")) {
+  if (false && document.querySelector(".subscribe")) { // progress bar retired: nothing on top of the page
     const bar = document.createElement("div");
     bar.className = "read-progress";
     document.body.appendChild(bar);
@@ -355,3 +355,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 })();
+
+// ---------------------------------------------------------------------------
+// Left column: mark the post you're reading, so the list doubles as "you are
+// here" (there are no Back links any more).
+// ---------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+  var here = window.location.pathname;
+  document.querySelectorAll(".titles a").forEach(function (a) {
+    if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
+  });
+});

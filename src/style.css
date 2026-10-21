@@ -1743,19 +1743,19 @@ form .btn {
 
 
 /* =========================================================================
-   HOMEPAGE — split layout (Oct 2026 redesign, after Leret found the old
-   homepage too busy). Words on the left stay still; photos on the right
-   scroll. Inspired by sophiejouvenaar.com: quiet type, pictures first.
+   SITE LAYOUT — two sides on every page (Oct 2026 redesign).
+   Left: the shared column from partials/nav.html (name, one paragraph,
+   the list of posts, contact). It stays still on tall screens.
+   Right: whatever the page is: the photo wall on the homepage, a post,
+   or the About page. Nothing floats on top of the page.
    ========================================================================= */
-/* No bar or buttons floating on top of the homepage: just the two sides.
-   The menu lives in the left column; light/dark follows the visitor's
-   device setting (or their choice from another page). */
-.home-page .site-menu,
-.home-page .theme-toggle { display: none; }
+.site-menu,
+.theme-toggle,
+.read-progress { display: none; }
 
 .split {
   display: grid;
-  grid-template-columns: minmax(300px, 38fr) 62fr;
+  grid-template-columns: minmax(300px, 36fr) 64fr;
   min-height: 100vh;
 }
 
@@ -1767,46 +1767,34 @@ form .btn {
   display: flex;
   flex-direction: column;
   gap: clamp(1.75rem, 4.5vh, 3rem);
-  padding: clamp(1.75rem, 5vh, 3rem) clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 3vh, 2rem);
+  padding: clamp(1.75rem, 5vh, 3rem) clamp(1.5rem, 3.5vw, 3.25rem) clamp(1.25rem, 3vh, 2rem);
+  border-right: 1px solid var(--color-border);
 }
 
+.split__content { min-width: 0; }
+
 .split .wordmark {
-  font-size: clamp(2.6rem, 4.6vw, 3.6rem);
+  font-size: clamp(2.6rem, 4.4vw, 3.5rem);
   margin: 0;
 }
 .split .wordmark a { color: inherit; text-decoration: none; }
 
-.split__menu {
-  display: flex;
-  gap: 1.25rem;
-  margin-top: 1.1rem;
-  font-size: 0.95rem;
-}
-.split__menu a,
-.split__links a {
-  color: var(--color-text-muted);
-  text-decoration: none;
-}
-.split__menu a:hover,
-.split__links a:hover,
-.split__menu a:focus-visible,
-.split__links a:focus-visible { color: var(--color-accent); }
-
 .split__lede {
-  margin: 1.75rem 0 0;
+  margin: 1.25rem 0 0;
   max-width: 30rem;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.55;
   color: var(--color-text);
 }
+.split__lede a { color: var(--color-accent); white-space: nowrap; }
 
-.split h2 {
+.split__words h2 {
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0;
   color: var(--color-text);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.6rem;
 }
 
 .titles {
@@ -1819,7 +1807,7 @@ form .btn {
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  padding: 0.55rem 0;
+  padding: 0.5rem 0;
   border-top: 1px solid var(--color-border);
 }
 .titles li:last-child { border-bottom: 1px solid var(--color-border); }
@@ -1828,41 +1816,41 @@ form .btn {
   text-decoration: none;
   line-height: 1.4;
 }
-.titles a:hover, .titles a:focus-visible { color: var(--color-accent); }
+.titles a:hover,
+.titles a:focus-visible,
+.titles a[aria-current="page"] { color: var(--color-accent); }
+.titles a[aria-current="page"] { font-weight: 600; }
 .titles__date {
   flex-shrink: 0;
   font-size: 0.85rem;
   color: var(--color-faint);
 }
 
-.split__more {
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: 0.95rem;
-  color: var(--color-accent);
-}
-
 .split__contact { margin-top: auto; }   /* sits at the bottom of the column */
 .split__contact p {
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.85rem;
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--color-text-muted);
 }
 .split__contact a[href^="mailto"] { color: var(--color-text); }
 .split__links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
-.split .visitor-count { font-family: var(--font-body); font-size: 0.8rem; margin: 0.5rem 0 0; }
+.split__links a { color: var(--color-text-muted); text-decoration: none; }
+.split__links a:hover, .split__links a:focus-visible { color: var(--color-accent); }
+.split .visitor-count { font-family: var(--font-body); font-size: 0.8rem; margin: 0.4rem 0 0; }
 
-/* Photos: two columns, tight gaps, square corners like prints. */
-.split__photos {
-  padding: 0;
-}
+/* Right side: the pages' own layouts were built to fill a whole screen,
+   so let them sit naturally inside the right column instead. */
+.split__content .page { min-height: 0; justify-content: flex-start; padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem); }
+.split__content .page__inner { margin: 0; }
+.split__content .home { margin: 0; padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem); }
+.split__content .post-main { padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem) 0; }
+.split__content .post-main .wrap { margin: 0; }
+.split__content .subscribe { margin-left: clamp(1.5rem, 4vw, 3rem); margin-right: clamp(1.5rem, 4vw, 3rem); }
 
-/* On short screens the words can't all fit beside the photos, so let the
-   left side scroll with the page instead of staying put. */
-@media (min-width: 821px) and (max-height: 780px) {
-  .split__words { position: static; height: auto; overflow: visible; }
-}
+/* Homepage photo wall: two columns, tight gaps, square corners like prints.
+   Starts right at the top edge, so photos are the first thing you see. */
+.split__photos section { padding: 0; }
 .photo-wall {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1880,12 +1868,12 @@ form .btn {
   outline-offset: -2px;
 }
 .split__photos .photo-credit {
-  margin: 0.75rem 0 1.5rem;
+  margin: 0.75rem 1rem 1.5rem;
   text-align: right;
   font-family: var(--font-body);
 }
 
-/* The one moving moment: photos fade in once as the page opens. */
+/* The one moving moment: the first photos fade in as the page opens. */
 @media (prefers-reduced-motion: no-preference) {
   .photo-wall .gallery__item { animation: photo-in 0.7s ease both; }
   .photo-wall .gallery__item:nth-child(2) { animation-delay: 0.08s; }
@@ -1894,14 +1882,29 @@ form .btn {
 }
 @keyframes photo-in { from { opacity: 0; } to { opacity: 1; } }
 
-/* Phones and small tablets: one column. Intro, then photos, then the rest. */
+/* Short screens: the left side can't fit beside everything, so it scrolls
+   with the page instead of staying put. */
+@media (min-width: 821px) and (max-height: 780px) {
+  .split__words { position: static; height: auto; overflow: visible; }
+}
+
+/* Phones and small tablets: one column. Name first, then the page's own
+   content (photos on the homepage), then the posts list and contact. */
 @media (max-width: 820px) {
   .split { display: flex; flex-direction: column; }
   .split__words { display: contents; }
   .split__intro { order: 1; padding: 1.5rem 1.25rem 1.25rem; }
-  .split__photos { order: 2; padding: 0; }
-  .split__writing { order: 3; padding: 2rem 1.25rem 0; }
+  .split__content { order: 2; }
+  .split__writing { order: 3; padding: 2.5rem 1.25rem 0; border-top: 1px solid var(--color-border); margin-top: 2rem; }
   .split__contact { order: 4; padding: 2rem 1.25rem 2.5rem; }
-  .split__photos .photo-credit { padding: 0 1.25rem; }
+  body:not(.home-page) .split__lede { display: none; }   /* get straight to the post */
+  body:not(.home-page) .split__intro { padding-bottom: 0.25rem; }
+  .split .wordmark { font-size: 2.2rem; }
+  .home-page .split .wordmark { font-size: 2.8rem; }
+  .split__content .page,
+  .split__content .home,
+  .split__content .post-main { padding-left: 1.25rem; padding-right: 1.25rem; padding-top: 1rem; }
+  .split__content .subscribe { margin-left: 1.25rem; margin-right: 1.25rem; }
   .photo-wall { gap: 3px; }
+  .home-page .split__writing { margin-top: 0; }
 }

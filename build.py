@@ -56,7 +56,7 @@ NEWSLETTER_PLACEHOLDER = "<!-- NEWSLETTER -->"
 HOME_FEED_PLACEHOLDER = "<!-- HOME_FEED -->"
 # A plain list of the newest post titles + month, for the homepage's left column.
 HOME_TITLES_PLACEHOLDER = "<!-- HOME_TITLES -->"
-HOME_TITLES_LIMIT = 3
+HOME_TITLES_LIMIT = None   # None = every post (the list is the site's navigation)
 ALL_POSTS_LIST_PLACEHOLDER = "<!-- ALL_POSTS_LIST -->"
 
 # How many posts the homepage feed shows before the "All Posts →" link.
@@ -575,6 +575,12 @@ def build():
     # already chronological — reverse=True flips it to newest-first.
     posts.sort(key=lambda p: p["date"], reverse=True)
 
+    # The shared left column (nav partial) lists the posts, so fill it in
+    # now, before any page or post is written.
+    nav_html = nav_html.replace(
+        HOME_TITLES_PLACEHOLDER,
+        build_home_titles_html(posts if HOME_TITLES_LIMIT is None else posts[:HOME_TITLES_LIMIT]))
+
     # Now write each post in the new reading layout: a "← Back" link, a
     # meta row (category · read time · date), an optional hero image, the
     # body, and the subscribe box at the end.
@@ -597,8 +603,7 @@ def build():
             cat = post["tags"][0] if post["tags"] else ""
             cat_html = f'<span class="post-cat">{cat}</span> &middot; ' if cat else ""
             meta = (
-                '<p class="post-back"><a href="/">&larr; Back</a></p>\n'
-                f'      <p class="post-meta">{cat_html}'
+                f'<p class="post-meta">{cat_html}'
                 f'<span class="read-time">{post["read_minutes"]} min read</span> '
                 f'&middot; <span class="post-date-text">{date_text}</span></p>'
             )
