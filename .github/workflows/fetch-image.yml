@@ -58,6 +58,14 @@ jobs:
           from PIL import Image
           name = os.environ["NAME"]
           im = Image.open("/tmp/dl/original")
+          if name.lower().endswith(".png"):
+              # Logos: keep the transparent background, save as PNG.
+              im = im.convert("RGBA")
+              im.thumbnail((800, 800))
+              out = os.path.join("src/images/featured", name)
+              im.save(out, "PNG", optimize=True)
+              print("saved", out, im.size)
+              raise SystemExit(0)
           im = im.convert("RGB")
           im.thumbnail((1600, 1600))
           base = os.path.splitext(name)[0] + ".jpg"
