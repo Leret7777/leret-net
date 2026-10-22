@@ -2,6 +2,13 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-22 (scheduled run)
+
+- Health check: build and checks pass, external links fine.
+- Fact update from Leret applied: the degree now reads "BSc Business Administration and Management" (About page, the AI automation post, SOURCES.md), and the cybersecurity role is "Security Product Manager" without "intern" (About page, SOURCES.md). Note moved to `inbox/done/`.
+- Manchester Fashion Week note still has no photos, so it stays. Substack still 403; the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started today; nothing small needed fixing, and the check found no problems.
+
 ## 2026-10-21 (scheduled run, evening)
 
 - Health check: build and checks pass, external links fine.
