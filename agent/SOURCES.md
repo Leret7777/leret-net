@@ -57,3 +57,6 @@ the agent doesn't say it.
   Cloud Run workshop (Nov 2025), both folded into that post; the Speak Up
   open mic night (promo 27 May 2026, recap 30 May 2026). Google Generative AI Leader
   certification (8 Jun 2026) is on the About page.
+- Describe Leret as an editorial and campaign model based in Manchester.
+  Don't name the agency in intros, the About page or page descriptions;
+  the bookings email and photo credits stay.

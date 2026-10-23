@@ -2,6 +2,13 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-23 (scheduled run)
+
+- Health check: build and checks pass, external links fine.
+- Fact update from Leret applied: the intro on the left now reads "I'm Leret Mutkut, an editorial and campaign model based in Manchester…", and Brother Models is no longer named in the About page text, the page descriptions or the hidden structured data (the "affiliation" entry is gone). I also dropped it from one photo description on the homepage. The bookings email and photo credits are unchanged, as asked. SOURCES.md updated; note moved to `inbox/done/`.
+- Manchester Fashion Week note still has no photos, so it stays. Substack still 403; the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-10-22 (scheduled run)
 
 - Health check: build and checks pass, external links fine.
