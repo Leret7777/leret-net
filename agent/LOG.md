@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-10-30 (scheduled run)
+
+- Health check: build and checks pass, external links fine (the Creative Head link that timed out yesterday is fine again).
+- Manchester Fashion Week note still has no photos, so it stays. Substack direct feed still 403 and the relay feed has no posts; the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-10-29 (scheduled run)
 
 - Health check: build passes. One external link (the Creative Head magazine page on the Featured in page) timed out; it was fine yesterday, so I left it and will see if it fails again tomorrow.
