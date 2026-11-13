@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-11-13 (scheduled run)
+
+- Health check: build passes. Two Substack links (profile and subscribe) returned 404 today; they passed yesterday, so I've left them and will check again tomorrow.
+- Manchester Fashion Week note still has no photos, so it stays. Substack feeds still blocked (404 today); the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-11-12 (scheduled run)
 
 - Health check: build and checks pass, all 22 external links fine.

@@ -11,5 +11,5 @@ keeps running either way.
 - **Which projects to feature.** Add the QVF parser's repository link
   (and any others you're happy to show) under "Projects to feature" in
   `agent/SOURCES.md`.
-- **Substack feed is blocked (403).** I can't read it, so no Substack
+- **Substack feed is blocked (403/404).** I can't read it, so no Substack
   posts yet. You could paste pieces into `inbox/` instead.
