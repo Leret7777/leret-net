@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-11-17 (scheduled run)
+
+- Health check: build and checks pass, all 22 external links fine (the Estetica Magazine link that failed yesterday works again).
+- Manchester Fashion Week note still has no photos, so it stays. Substack feeds still blocked (403); the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-11-16 (scheduled run)
 
 - Health check: build passes. One external link (Estetica Magazine, Pete Tong collection) returned a 500 error today; it was fine yesterday, so I've left it and will check again tomorrow.
