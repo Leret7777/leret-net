@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-11-19 (scheduled run)
+
+- Health check: build and checks pass, all 22 external links fine.
+- Manchester Fashion Week note still has no photos, so it stays. Substack feeds still blocked (403); the only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-11-18 (scheduled run)
 
 - Health check: build and checks pass, all 22 external links fine.
