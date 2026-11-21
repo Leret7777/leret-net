@@ -2,6 +2,12 @@
 
 Newest first. One short entry per daily run, in plain English.
 
+## 2026-11-21 (scheduled run)
+
+- Health check: build passes. One external link (Creative Head magazine reader) timed out today; it was fine yesterday, so I've left it and will check again tomorrow. Yesterday's Substack 404s were a one-off in the link check; Substack's feeds are still blocked for me (403).
+- Manchester Fashion Week note still has no photos, so it stays. The only YouTube video is already on the site. No new post.
+- Design step 5 (polish pass) not started; nothing small needed fixing.
+
 ## 2026-11-20 (scheduled run)
 
 - Health check: build passes. Two Substack links (the profile and its subscribe page) returned 404 today; they were fine yesterday, so I've left them and will check again tomorrow.
