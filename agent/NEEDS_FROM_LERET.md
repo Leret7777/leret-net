@@ -13,3 +13,7 @@ keeps running either way.
   `agent/SOURCES.md`.
 - **Substack feed is blocked (403/404).** I can't read it, so no Substack
   posts yet. You could paste pieces into `inbox/` instead.
+- **Is your Substack public?** Its address (leret1.substack.com) has
+  returned "not found" on and off over the past week, including today.
+  Please check it opens for you; if the address has changed, update it
+  in `agent/SOURCES.md`.
